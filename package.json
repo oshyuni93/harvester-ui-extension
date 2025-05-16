@@ -6,14 +6,14 @@
     "node": ">=20.0.0"
   },
   "dependencies": {
-    "@babel/plugin-transform-class-static-block": "7.26.0",
     "@rancher/shell": "3.0.2-rc.6",
     "cache-loader": "^4.1.0",
     "color": "4.2.3",
     "ip": "2.0.1",
     "node-polyfill-webpack-plugin": "^3.0.0",
     "vue-draggable-next": "^2.2.1",
-    "yaml": "^2.5.1"
+    "yaml": "^2.5.1",
+    "@babel/plugin-transform-class-static-block": "7.26.0"
   },
   "resolutions": {
     "@types/node": "~20.10.0",
@@ -41,12 +41,9 @@
     "build-pkg": "./node_modules/@rancher/shell/scripts/build-pkg.sh",
     "serve-pkgs": "./node_modules/@rancher/shell/scripts/serve-pkgs",
     "publish-pkgs": "./node_modules/@rancher/shell/scripts/extension/publish",
-    "parse-tag-name": "./node_modules/@rancher/shell/scripts/extension/parse-tag-name",
-    "postinstall": "patch-package"
+    "parse-tag-name": "./node_modules/@rancher/shell/scripts/extension/parse-tag-name"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.32.1",
-    "@typescript-eslint/parser": "^8.32.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.1.0",
     "patch-package": "^8.0.0",

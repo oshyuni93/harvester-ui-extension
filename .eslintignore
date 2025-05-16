@@ -12,5 +12,6 @@ dist
 dist-pkg
 .DS_Store
 pkg/harvester/index.ts
+pkg/ko-locale/index.ts
 pkg/harvester/store/*
 scripts/pkgfile.js
