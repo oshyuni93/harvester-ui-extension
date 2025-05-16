@@ -1,0 +1,81 @@
+diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
+index 75671c5..a0056fa 100644
+--- a/node_modules/@rancher/shell/pages/auth/login.vue
++++ b/node_modules/@rancher/shell/pages/auth/login.vue
+@@ -504,6 +504,7 @@ export default {
+             </a>
+           </div>
+         </template>
++        <!--
+         <div
+           v-if="showLocaleSelector && hasMultipleLocales && !isHarvester"
+           class="locale-selector"
+@@ -513,6 +514,17 @@ export default {
+             mode="login"
+           />
+         </div>
++        -->
++        <div
++          v-if="showLocaleSelector && hasMultipleLocales"
++          class="locale-selector"
++        >
++          <LocaleSelector
++            :style="localeSelectorStyle"
++            mode="login"
++          />
++        </div>
++
+       </div>
+       <BrandImage
+         class="col span-6 landscape"
+diff --git a/node_modules/@rancher/shell/pages/prefs.vue b/node_modules/@rancher/shell/pages/prefs.vue
+index 5c199e0..184023c 100644
+--- a/node_modules/@rancher/shell/pages/prefs.vue
++++ b/node_modules/@rancher/shell/pages/prefs.vue
+@@ -187,6 +187,7 @@ export default {
+     </h1>
+ 
+     <!-- Language -->
++    <!--
+     <div
+       v-if="hasMultipleLocales && !isHarvester"
+       class="mt-10 mb-10"
+@@ -204,6 +205,24 @@ export default {
+         </div>
+       </div>
+     </div>
++    -->
++    <div
++      v-if="hasMultipleLocales"
++      class="mt-10 mb-10"
++    >
++      <h4
++        id="prefs-language"
++        v-t="'prefs.language'"
++      />
++      <div class="row">
++        <div class="col span-4">
++          <LocaleSelector
++            data-testid="prefs__languageSelector"
++            aria-labelledby="prefs-language"
++          />
++        </div>
++      </div>
++    </div>
+     <!-- Theme -->
+     <div class="mt-10 mb-10">
+       <h4 v-t="'prefs.theme.label'" />
+diff --git a/node_modules/@rancher/shell/store/prefs.js b/node_modules/@rancher/shell/store/prefs.js
+index 2bf4b9d..bbe6dfe 100644
+--- a/node_modules/@rancher/shell/store/prefs.js
++++ b/node_modules/@rancher/shell/store/prefs.js
+@@ -64,7 +64,8 @@ export const THEME = create('theme', 'auto', {
+   mangleWrite: (x) => `ui-${ x }`,
+ });
+ export const PREFERS_SCHEME = create('pcs', '', { asCookie, asUserPreference: false });
+-export const LOCALE = create('locale', 'en-us', { asCookie });
++//export const LOCALE = create('locale', 'en-us', { asCookie });
++export const LOCALE = create('locale', 'ko-kr', { asCookie });
+ export const KEYMAP = create('keymap', 'sublime', { options: ['sublime', 'emacs', 'vim'] });
+ export const ROWS_PER_PAGE = create('per-page', 100, { options: [10, 25, 50, 100], parseJSON });
+ export const LOGS_WRAP = create('logs-wrap', true, { parseJSON });

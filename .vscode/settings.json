@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    ".ackrc": true,
+    ".editorconfig": true,
+    ".eslintcache": true,
+    ".nyc_output": true,
+    "yarn-error.log": true
+  }
+}
