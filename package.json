@@ -45,6 +45,8 @@
     "postinstall": "patch-package"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^8.32.1",
+    "@typescript-eslint/parser": "^8.32.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^7.1.0",
     "patch-package": "^8.0.0",
