@@ -210,7 +210,7 @@ nav:
     workload: 워크로드
     monitoring: 모니터링
     advanced: 고급
-    drivers: 드라이버버    
+    drivers: 드라이버    
     RKE1Configuration: RKE1 구성
     admission: 승인
     apps: 앱
@@ -3901,13 +3901,13 @@ cruResource:
   showYaml: YAML로 보기
 drivers:
   kontainer:
-    title: Cluster Drivers
+    title: 클러스터 드라이버
   node:
-    title: Node Drivers
+    title: 노드 드라이버
   add:
-    title: Add Driver
+    title: 드라이버 추가
     name:
-      label: Driver name
+      label: 드라이버명
     downloadUrl:
       label: 다운로드 URL
       placeholder: https://test.com/driver
@@ -3915,7 +3915,7 @@ drivers:
     customUiUrl:
       label: 사용자정의 UI URL
       placeholder: https://test.com/ui
-      tooltip: 이 드라이버에 대한 사용자 정의 노드 추가 화면을 로드하기 위한 URL입니다. See https://github.com/rancher/ui-driver-skel for more info.
+      tooltip: 이 드라이버에 대한 사용자 정의 노드 추가 화면을 로드하기 위한 URL입니다. 자세한 내용은 https://github.com/rancher/ui-driver-skel 을 참조하세요.
     checksum:
       label: 체크섬
       tooltip: 다운로드한 드라이버가 예상 체크섬과 일치하는지 확인하는 체크섬입니다.
