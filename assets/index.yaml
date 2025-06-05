@@ -15,9 +15,9 @@ entries:
     apiVersion: v2
     appVersion: 1.5.0
     created: "2025-06-04T12:19:43.798243415Z"
-    description: Rancher UI Extension for Harvester
+    description: Rancher UI Extension for InfinityStack
     digest: ac22091de119852850633e331e4dd33d9c644ec3a4e90217ddd219f1de022027
-    icon: https://raw.githubusercontent.com/harvester/harvester-ui-extension/main/pkg/harvester/icon.svg
+    icon: https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/main/pkg/harvester/icon.svg
     name: harvester
     type: application
     urls:
