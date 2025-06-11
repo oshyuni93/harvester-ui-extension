@@ -114,3 +114,138 @@ index 42b37c1..d95ab95 100644
 +  </g>
 +</svg>
 \ No newline at end of file
+diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
+index 90641fb..ecfbf7f 100644
+--- a/node_modules/@rancher/shell/config/private-label.js
++++ b/node_modules/@rancher/shell/config/private-label.js
+@@ -6,7 +6,8 @@ export const STANDARD = 1;
+ export const CUSTOM = 2;
+ export const DOCS_BASE = `https://ranchermanager.docs.rancher.com/v${ CURRENT_RANCHER_VERSION }`;
+ 
+-const STANDARD_VENDOR = 'Rancher';
++//const STANDARD_VENDOR = 'Rancher';
++const STANDARD_VENDOR = 'InfinityStack';
+ const STANDARD_PRODUCT = 'Explorer';
+ const CUSTOM_VENDOR = {
+   suse: 'Rancher Prime',
+@@ -77,10 +78,12 @@ export function getProduct() {
+ export function setTitle() {
+   const v = getVendor();
+ 
+-  if (v === 'Harvester') {
++  //if (v === 'Harvester') {
++  if (v === 'InfinityStack') {
+     const ico = require(`~shell/assets/images/pl/harvester.png`);
+ 
+-    document.title = 'Harvester';
++    //document.title = 'Harvester';
++    document.title = 'InfinityStack';
+     const link = document.createElement('link');
+ 
+     link.hid = 'icon';
+diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
+index 75671c5..c52d4ed 100644
+--- a/node_modules/@rancher/shell/pages/auth/login.vue
++++ b/node_modules/@rancher/shell/pages/auth/login.vue
+@@ -504,6 +504,7 @@ export default {
+             </a>
+           </div>
+         </template>
++        <!--
+         <div
+           v-if="showLocaleSelector && hasMultipleLocales && !isHarvester"
+           class="locale-selector"
+@@ -513,6 +514,16 @@ export default {
+             mode="login"
+           />
+         </div>
++        -->
++        <div
++          v-if="showLocaleSelector && hasMultipleLocales"
++          class="locale-selector"
++        >
++          <LocaleSelector
++            :style="localeSelectorStyle"
++            mode="login"
++          />
++        </div>
+       </div>
+       <BrandImage
+         class="col span-6 landscape"
+diff --git a/node_modules/@rancher/shell/pages/prefs.vue b/node_modules/@rancher/shell/pages/prefs.vue
+index 5c199e0..111e963 100644
+--- a/node_modules/@rancher/shell/pages/prefs.vue
++++ b/node_modules/@rancher/shell/pages/prefs.vue
+@@ -40,7 +40,7 @@ export default {
+     scalingDownPrompt: mapPref(SCALE_POOL_PROMPT),
+ 
+     ...mapGetters(['isSingleProduct']),
+-    ...mapGetters({ hasMultipleLocales: 'i18n/hasMultipleLocales' }),
++    //...mapGetters({ hasMultipleLocales: 'i18n/hasMultipleLocales' }),
+ 
+     isHarvester() {
+       return this.isSingleProduct?.productName === 'harvester';
+@@ -187,6 +187,7 @@ export default {
+     </h1>
+ 
+     <!-- Language -->
++    <!--
+     <div
+       v-if="hasMultipleLocales && !isHarvester"
+       class="mt-10 mb-10"
+@@ -204,6 +205,19 @@ export default {
+         </div>
+       </div>
+     </div>
++    -->
++    <div class="mt-10 mb-10">
++      <h4 id="prefs-language" v-t="'prefs.language'"/>
++      <div class="row">
++        <div class="col span-4">
++          <LocaleSelector
++            data-testid="prefs__languageSelector"
++            aria-labelledby="prefs-language"
++          />
++        </div>
++      </div>
++    </div>
++
+     <!-- Theme -->
+     <div class="mt-10 mb-10">
+       <h4 v-t="'prefs.theme.label'" />
+diff --git a/node_modules/@rancher/shell/public/index.html b/node_modules/@rancher/shell/public/index.html
+index f486cb6..1e30621 100644
+--- a/node_modules/@rancher/shell/public/index.html
++++ b/node_modules/@rancher/shell/public/index.html
+@@ -6,7 +6,8 @@
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+-    <title>Rancher</title>
++    <!--<title>Rancher</title>-->
++    <title>InfinityStack</title>
+ </head>
+ 
+ <body>
+diff --git a/node_modules/@rancher/shell/static/favicon.ico b/node_modules/@rancher/shell/static/favicon.ico
+old mode 100755
+new mode 100644
+index 09b2909..b4c50db
+Binary files a/node_modules/@rancher/shell/static/favicon.ico and b/node_modules/@rancher/shell/static/favicon.ico differ
+diff --git a/node_modules/@rancher/shell/static/favicon.png b/node_modules/@rancher/shell/static/favicon.png
+index c200f59..e45f919 100755
+Binary files a/node_modules/@rancher/shell/static/favicon.png and b/node_modules/@rancher/shell/static/favicon.png differ
+diff --git a/node_modules/@rancher/shell/store/prefs.js b/node_modules/@rancher/shell/store/prefs.js
+index 2bf4b9d..bbe6dfe 100644
+--- a/node_modules/@rancher/shell/store/prefs.js
++++ b/node_modules/@rancher/shell/store/prefs.js
+@@ -64,7 +64,8 @@ export const THEME = create('theme', 'auto', {
+   mangleWrite: (x) => `ui-${ x }`,
+ });
+ export const PREFERS_SCHEME = create('pcs', '', { asCookie, asUserPreference: false });
+-export const LOCALE = create('locale', 'en-us', { asCookie });
++//export const LOCALE = create('locale', 'en-us', { asCookie });
++export const LOCALE = create('locale', 'ko-kr', { asCookie });
+ export const KEYMAP = create('keymap', 'sublime', { options: ['sublime', 'emacs', 'vim'] });
+ export const ROWS_PER_PAGE = create('per-page', 100, { options: [10, 25, 50, 100], parseJSON });
+ export const LOGS_WRAP = create('logs-wrap', true, { parseJSON });
