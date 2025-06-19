@@ -173,18 +173,9 @@ index 75671c5..c52d4ed 100644
        <BrandImage
          class="col span-6 landscape"
 diff --git a/node_modules/@rancher/shell/pages/prefs.vue b/node_modules/@rancher/shell/pages/prefs.vue
-index 5c199e0..111e963 100644
+index 5c199e0..62caa0a 100644
 --- a/node_modules/@rancher/shell/pages/prefs.vue
 +++ b/node_modules/@rancher/shell/pages/prefs.vue
-@@ -40,7 +40,7 @@ export default {
-     scalingDownPrompt: mapPref(SCALE_POOL_PROMPT),
- 
-     ...mapGetters(['isSingleProduct']),
--    ...mapGetters({ hasMultipleLocales: 'i18n/hasMultipleLocales' }),
-+    //...mapGetters({ hasMultipleLocales: 'i18n/hasMultipleLocales' }),
- 
-     isHarvester() {
-       return this.isSingleProduct?.productName === 'harvester';
 @@ -187,6 +187,7 @@ export default {
      </h1>
  
