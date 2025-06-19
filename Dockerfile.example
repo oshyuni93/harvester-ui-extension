@@ -6,6 +6,7 @@ COPY . .
 
 RUN yarn --pure-lockfile install --ignore-engines
 
+ENV RANCHER_ENV="harvester"
 ENV ROUTER_BASE="/dashboard/" \
     RESOURCE_BASE="/dashboard/"
 RUN yarn build
