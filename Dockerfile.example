@@ -12,7 +12,7 @@ RUN yarn build
 
 FROM rancher/harvester:v1.5.0
 WORKDIR /var/lib/harvester
-ENV RANCHER_ENV="harvester"
+
 RUN rm -rf /usr/share/harvester/harvester/fonts \
     /usr/share/harvester/harvester/img \
     /usr/share/harvester/harvester/js \
