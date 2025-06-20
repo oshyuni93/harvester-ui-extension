@@ -8,7 +8,7 @@ COPY . .
 RUN ls -al patches/
 RUN scripts/build-embedded
 
-RUN npx patch-package && md5sum node_modules/@rancher/shell/static/favicon.ico
+RUN md5sum node_modules/@rancher/shell/static/favicon.ico
 
 FROM rancher/harvester:v1.5.0
 WORKDIR /var/lib/harvester

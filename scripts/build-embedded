@@ -16,8 +16,7 @@ yarn --pure-lockfile install
 echo "Cleaning old build cache..."
 yarn run clean
 
-echo "Package Patching..."
-npx patch-package
+echo "Package Patching md5sum..."
 md5sum node_modules/@rancher/shell/static/favicon.ico
 
 source scripts/version
