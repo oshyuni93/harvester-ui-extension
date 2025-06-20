@@ -4,8 +4,8 @@ WORKDIR /src
 
 COPY . .
 
-# build-embedded 스크립트 실행 (latest-embedded 및 latest.tar.gz 생성)
-RUN scripts/build-embedded
+# build-embedded 스크립트 실행 전, 기존 빌드 캐시를 삭제합니다.
+RUN yarn run clean && scripts/build-embedded
 
 FROM rancher/harvester:v1.5.0
 WORKDIR /var/lib/harvester
