@@ -18,7 +18,6 @@ yarn run clean
 
 echo "Package Patching..."
 npx patch-package
-md5sum node_modules/@rancher/shell/static/favicon.ico
 
 source scripts/version
 # Override VERSION to v1.5.0
