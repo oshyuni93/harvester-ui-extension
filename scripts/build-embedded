@@ -13,8 +13,8 @@ cd $(dirname $0)/..
 echo "Bootstrapping..."
 yarn --pure-lockfile install
 
-echo "Cleaning old build cache..."
-yarn run clean
+# echo "Cleaning old build cache..."
+#yarn run clean
 
 echo "Package Patching md5sum..."
 md5sum node_modules/@rancher/shell/static/favicon.ico
