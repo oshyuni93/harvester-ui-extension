@@ -16,9 +16,6 @@ yarn --pure-lockfile install
 echo "Cleaning old build cache..."
 yarn run clean
 
-echo "Applying patch-package..."
-npx patch-package
-
 source scripts/version
 # Override VERSION to v1.5.0
 VERSION="v1.5.0"

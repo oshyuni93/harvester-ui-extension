@@ -219,9 +219,7 @@ index f486cb6..1e30621 100644
  
  <body>
 diff --git a/node_modules/@rancher/shell/static/favicon.ico b/node_modules/@rancher/shell/static/favicon.ico
-old mode 100755
-new mode 100644
-index 09b2909..b4c50db
+index 09b2909..2da0d95 100755
 Binary files a/node_modules/@rancher/shell/static/favicon.ico and b/node_modules/@rancher/shell/static/favicon.ico differ
 diff --git a/node_modules/@rancher/shell/static/favicon.png b/node_modules/@rancher/shell/static/favicon.png
 index c200f59..e45f919 100755
