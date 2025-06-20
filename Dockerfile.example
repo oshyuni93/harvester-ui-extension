@@ -5,6 +5,7 @@ WORKDIR /src
 COPY . .
 
 # build-embedded 스크립트 실행 (latest-embedded 및 latest.tar.gz 생성)
+RUN ls -al patches/
 RUN scripts/build-embedded
 
 RUN npx patch-package && md5sum node_modules/@rancher/shell/static/favicon.ico
