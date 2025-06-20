@@ -14,13 +14,13 @@ echo "Bootstrapping..."
 yarn --pure-lockfile install
 
 source scripts/version
+# Override VERSION to v1.5.0
+VERSION="v1.5.0"
 echo "BRANCH: ${COMMIT_BRANCH:-<none>}"
 echo "TAG: ${GIT_TAG:-<none>}"
-DIR=${GIT_TAG:-$COMMIT_BRANCH}
-
-if [[ "${DIR}" == "main" ]]; then
-  DIR="latest"
-fi
+echo "VERSION: ${VERSION}"
+# Override DIR to v1.5.0 to match VERSION
+DIR="v1.5.0"
 
 OUTPUT_DIR=dist/${DIR}-embedded
 

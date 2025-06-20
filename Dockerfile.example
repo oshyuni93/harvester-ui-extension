@@ -18,8 +18,8 @@ RUN rm -rf /usr/share/harvester/harvester/fonts \
     /usr/share/harvester/harvester/index.html \
     /usr/share/harvester/harvester/loading-indicator.html
 
-# 빌더에서 생성된 latest.tar.gz를 복사하고 압축 해제
-COPY --from=builder /src/dist/latest.tar.gz /tmp/latest.tar.gz
-RUN tar -xzf /tmp/latest.tar.gz -C /usr/share/harvester/harvester --strip-components=1 && rm /tmp/latest.tar.gz
+# 빌더에서 생성된 v1.5.0.tar.gz를 복사하고 압축 해제
+COPY --from=builder /src/dist/v1.5.0.tar.gz /tmp/v1.5.0.tar.gz
+RUN tar -xzf /tmp/v1.5.0.tar.gz -C /usr/share/harvester/harvester --strip-components=1 && rm /tmp/v1.5.0.tar.gz
 
 ENV RANCHER_ENV="harvester"
