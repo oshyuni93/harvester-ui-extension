@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@rancher/shell": "3.0.2-rc.6",
+    "@rancher/icons": "2.0.29",
     "cache-loader": "^4.1.0",
     "color": "4.2.3",
     "ip": "2.0.1",
