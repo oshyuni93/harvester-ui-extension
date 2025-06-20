@@ -29,4 +29,7 @@ RUN rm -rf /usr/share/harvester/harvester/fonts \
     md5sum /usr/share/harvester/harvester/favicon.ico && \
     rm /tmp/v1.5.0.tar.gz
 
+COPY custom-static/favicon.ico /usr/share/harvester/harvester/favicon.ico
+COPY custom-static/favicon.png /usr/share/harvester/harvester/favicon.png
+
 ENV RANCHER_ENV="harvester"
