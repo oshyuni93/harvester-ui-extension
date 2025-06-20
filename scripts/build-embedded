@@ -13,6 +13,9 @@ cd $(dirname $0)/..
 echo "Bootstrapping..."
 yarn --pure-lockfile install
 
+echo "Cleaning old build cache..."
+yarn run clean
+
 source scripts/version
 # Override VERSION to v1.5.0
 VERSION="v1.5.0"
