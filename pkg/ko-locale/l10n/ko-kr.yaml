@@ -506,6 +506,7 @@ harvester:
     accessCredentials: 액세스 자격 증명
     pciDevices: PCI 장치
     vGpuDevices: vGPU 장치
+    addOns: 애드-온
     usbDevices: USB 장치
     vmScheduling: 가상 머신 스케줄링
     quotas: 할당량
@@ -9362,7 +9363,7 @@ advancedSettings:
     'harv-ui-plugin-index': 'InfinityStack 플러그인 UI의 JS 인덱스 위치입니다.'
     'harv-cluster-registration-url': 멀티 클러스터 관리를 위한 등록 URL입니다.
     'harv-http-proxy': 'InfinityStack 외부 서비스에 접근하기 위한 HTTP 프록시입니다.'
-    'harv-additional-ca': 'TLS 검증을 위한 사용자 정의 CA 루트 인증서.'
+    'harv-additional-ca': TLS 검증을 위한 사용자 정의 CA 루트 인증서.
     'harv-overcommit-config': '리소스 오버커밋 구성.'
     'harv-support-bundle-timeout': '분 단위의 지원 번들 시간 초과 구성, 시간 초과를 비활성화하려면 0을 사용하세요.'
     'harv-support-bundle-expiration': '지원 번들의 만료 시간을 분 단위로 설정.'
@@ -9379,7 +9380,7 @@ advancedSettings:
     'harv-auto-rotate-rke2-certs': 인증서 순환 메커니즘은 Rancher를 기반으로 합니다. InfinityStack는 인증서 생성을 자동으로 업데이트하여 순환을 트리거합니다.
     'harv-kubeconfig-default-token-ttl-minutes': 'InfinityStack 관리 kubeconfig 파일에 적용되는 TTL(분)입니다. 기본값은 0이며, 만료되지 않음을 의미합니다.'
     'harv-longhorn-v2-data-engine-enabled': 'Longhorn V2 데이터 엔진을 활성화합니다. 기본값은 false입니다. <ul><li>이 설정을 변경하면 모든 노드에서 RKE2가 다시 시작됩니다. 실행 중인 VM 워크로드에는 영향을 미치지 않습니다.</li><li>이 설정을 활성화할 때 "hugepages 용량 부족 - 2Mi" 오류가 표시되면 오류가 사라질 때까지 잠시 기다리세요. 오류가 지속되면 영향을 받는 노드를 재부팅하세요.</li></ul>'
-    'harv-additional-guest-memory-overhead-ratio': 'TKubevirt가 VM 오버헤드 메모리를 조정하는 비율입니다. 값은 0, 빈 값 또는 1.0에서 10.0 사이의 부동 소수점 수일 수 있으며, 기본값은 1.5입니다.'
+    'harv-additional-guest-memory-overhead-ratio': 'Kubevirt가 VM 오버헤드 메모리를 조정하는 비율입니다. 값은 0, 빈 값 또는 1.0에서 10.0 사이의 부동 소수점 수일 수 있으며, 기본값은 1.5입니다.'
   warnings:
     'agent-tls-mode': 'Changing this setting will cause all agents to be redeployed.'
 

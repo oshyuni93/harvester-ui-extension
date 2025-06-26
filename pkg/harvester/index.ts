@@ -22,6 +22,8 @@ export default function (plugin: IPlugin) {
   // Built-in icon
   plugin.metadata.icon = require('./icon.svg');
 
+  plugin.addLocale('ko-kr', '한국어');
+
   plugin.addProduct(require('./config/harvester-cluster'));
 
   plugin.addDashboardStore(harvesterCommonStore.config.namespace, harvesterCommonStore.specifics, harvesterCommonStore.config);

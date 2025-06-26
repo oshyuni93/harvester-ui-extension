@@ -711,7 +711,8 @@ export function init($plugin, store) {
   });
 
   virtualType({
-    label:      'PCI Devices',
+    //label:    'PCI Devices',
+    labelKey:   'harvester.tab.pciDevices',
     group:      'advanced',
     weight:     14,
     name:       HCI.PCI_DEVICE,
@@ -857,7 +858,8 @@ export function init($plugin, store) {
   });
 
   virtualType({
-    label:      'Add-ons',
+    //label:      'Add-ons',
+    labelKey:   'harvester.tab.addOns',
     group:      'advanced',
     name:       HCI.ADD_ONS,
     ifHaveType: HCI.ADD_ONS,

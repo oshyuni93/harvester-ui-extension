@@ -228,6 +228,20 @@ old mode 100755
 new mode 100644
 index c200f59..e45f919
 Binary files a/node_modules/@rancher/shell/static/favicon.png and b/node_modules/@rancher/shell/static/favicon.png differ
+diff --git a/node_modules/@rancher/shell/store/i18n.js b/node_modules/@rancher/shell/store/i18n.js
+index bedcd61..7010437 100644
+--- a/node_modules/@rancher/shell/store/i18n.js
++++ b/node_modules/@rancher/shell/store/i18n.js
+@@ -6,7 +6,8 @@ import { getProduct, getVendor, DOCS_BASE } from '@shell/config/private-label';
+ import { loadTranslation } from '@shell/utils/dynamic-importer';
+ 
+ const NONE = 'none';
+-const DEFAULT_LOCALE = 'en-us';
++//const DEFAULT_LOCALE = 'en-us';
++const DEFAULT_LOCALE = 'ko-kr';
+ 
+ // Formatters can't be serialized into state
+ const intlCache = {};
 diff --git a/node_modules/@rancher/shell/store/prefs.js b/node_modules/@rancher/shell/store/prefs.js
 index 2bf4b9d..bbe6dfe 100644
 --- a/node_modules/@rancher/shell/store/prefs.js
