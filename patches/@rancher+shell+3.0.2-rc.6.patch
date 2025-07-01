@@ -115,7 +115,7 @@ index 42b37c1..d95ab95 100644
 +</svg>
 \ No newline at end of file
 diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
-index 90641fb..0f91a46 100644
+index 90641fb..3d9957c 100644
 --- a/node_modules/@rancher/shell/config/private-label.js
 +++ b/node_modules/@rancher/shell/config/private-label.js
 @@ -6,7 +6,8 @@ export const STANDARD = 1;
@@ -128,11 +128,23 @@ index 90641fb..0f91a46 100644
  const STANDARD_PRODUCT = 'Explorer';
  const CUSTOM_VENDOR = {
    suse: 'Rancher Prime',
-@@ -78,9 +79,11 @@ export function setTitle() {
+@@ -58,6 +59,9 @@ export function matches(pl) {
+ }
+ 
+ export function getVendor() {
++  if ( vendor === 'Harvester')
++    return STANDARD_VENDOR;
++  
+   if ( vendor === SETTING.PL_RANCHER_VALUE ) {
+     // Custom vendor override based on brand
+     if (brand && CUSTOM_VENDOR[brand]) {
+@@ -77,10 +81,12 @@ export function getProduct() {
+ export function setTitle() {
    const v = getVendor();
  
-   if (v === 'Harvester') {
-+  //if (v === 'Infinitystack') {
+-  if (v === 'Harvester') {
++  //if (v === 'Harvester') {
++  if (v === 'Infinitystack' || v === 'Harvester') {
      const ico = require(`~shell/assets/images/pl/harvester.png`);
  
 -    document.title = 'Harvester';

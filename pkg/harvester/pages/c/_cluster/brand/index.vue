@@ -31,7 +31,16 @@ export default {
       uiFaviconSetting:   fetchOrCreateSetting(this.$store, SETTING.FAVICON, ''),
     });
 
+    // Harvester인 경우 uiPLSetting.value를 Infinitystack으로 변경
+    if (hash.uiPLSetting && hash.uiPLSetting.value === 'Harvester') {
+      hash.uiPLSetting.value = 'Infinitystack';
+    }
+    if (!hash.uiFaviconSetting.value) {
+      hash.uiFaviconSetting.value = '/favicon.ico';
+    }
+
     Object.assign(this, hash);
+    
     if (hash.uiLogoDarkSetting.value) {
       try {
         this.uiLogoDark = hash.uiLogoDarkSetting.value;
