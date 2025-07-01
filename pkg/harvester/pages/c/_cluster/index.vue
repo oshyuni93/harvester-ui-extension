@@ -8,7 +8,8 @@ export default {
       name:   `${ PRODUCT_NAME }-c-cluster-resource`,
       params: {
         ...this.$router.currentRoute.params,
-        product:  PRODUCT_NAME,
+        //product:  PRODUCT_NAME,
+        product:  `Infinitystack`,
         resource: HCI.DASHBOARD
       }
     });
@@ -16,8 +17,14 @@ export default {
 };
 </script>
 
+
 <template>
+  <!--
   <div>
     This is harvester Dashboard.
+  </div>
+  -->
+  <div>
+    This is Infinitystack Dashboard.
   </div>
 </template>

@@ -1,17 +1,17 @@
 {
-  "name": "harvester",
-  "description": "Rancher UI Extension for Harvester",
+  "name": "Infinitystack",
+  "description": "Rancher UI Extension for Infinitystack",
   "version": "1.5.0",
   "private": false,
   "rancher": {
     "annotations": {
-      "catalog.cattle.io/display-name": "Harvester",
+      "catalog.cattle.io/display-name": "Infinitystack",
       "catalog.cattle.io/kube-version": ">= 1.16.0-0",
       "catalog.cattle.io/rancher-version": ">= 2.11.0-0",
       "catalog.cattle.io/ui-extensions-version": ">= 3.0.0 < 4.0.0"
     }
   },
-  "icon": "https://raw.githubusercontent.com/harvester/harvester-ui-extension/main/pkg/harvester/icon.svg",
+  "icon": "https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/main/pkg/harvester/icon.svg",
   "scripts": {
     "dev": "./node_modules/.bin/nuxt dev",
     "nuxt": "./node_modules/.bin/nuxt"

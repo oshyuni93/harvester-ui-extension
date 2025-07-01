@@ -115,7 +115,7 @@ index 42b37c1..d95ab95 100644
 +</svg>
 \ No newline at end of file
 diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
-index 90641fb..ecfbf7f 100644
+index 90641fb..0f91a46 100644
 --- a/node_modules/@rancher/shell/config/private-label.js
 +++ b/node_modules/@rancher/shell/config/private-label.js
 @@ -6,7 +6,8 @@ export const STANDARD = 1;
@@ -124,22 +124,20 @@ index 90641fb..ecfbf7f 100644
  
 -const STANDARD_VENDOR = 'Rancher';
 +//const STANDARD_VENDOR = 'Rancher';
-+const STANDARD_VENDOR = 'InfinityStack';
++const STANDARD_VENDOR = 'Infinitystack';
  const STANDARD_PRODUCT = 'Explorer';
  const CUSTOM_VENDOR = {
    suse: 'Rancher Prime',
-@@ -77,10 +78,12 @@ export function getProduct() {
- export function setTitle() {
+@@ -78,9 +79,11 @@ export function setTitle() {
    const v = getVendor();
  
--  if (v === 'Harvester') {
-+  //if (v === 'Harvester') {
-+  if (v === 'InfinityStack') {
+   if (v === 'Harvester') {
++  //if (v === 'Infinitystack') {
      const ico = require(`~shell/assets/images/pl/harvester.png`);
  
 -    document.title = 'Harvester';
 +    //document.title = 'Harvester';
-+    document.title = 'InfinityStack';
++    document.title = 'Infinitystack';
      const link = document.createElement('link');
  
      link.hid = 'icon';
@@ -205,7 +203,7 @@ index 5c199e0..62caa0a 100644
      <div class="mt-10 mb-10">
        <h4 v-t="'prefs.theme.label'" />
 diff --git a/node_modules/@rancher/shell/public/index.html b/node_modules/@rancher/shell/public/index.html
-index f486cb6..1e30621 100644
+index f486cb6..c562462 100644
 --- a/node_modules/@rancher/shell/public/index.html
 +++ b/node_modules/@rancher/shell/public/index.html
 @@ -6,7 +6,8 @@
@@ -214,7 +212,7 @@ index f486cb6..1e30621 100644
      <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
 -    <title>Rancher</title>
 +    <!--<title>Rancher</title>-->
-+    <title>InfinityStack</title>
++    <title>Infinitystack</title>
  </head>
  
  <body>
