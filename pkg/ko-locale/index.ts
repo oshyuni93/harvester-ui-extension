@@ -10,5 +10,5 @@ export default function(plugin: IPlugin) {
   plugin.metadata = require('./package.json');
 
   // Add the new locale
-  plugin.addLocale('ko-kr', '한국어');
+  //plugin.addLocale('ko-kr', '한국어');
 }

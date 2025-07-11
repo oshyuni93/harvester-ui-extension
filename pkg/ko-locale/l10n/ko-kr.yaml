@@ -26,7 +26,7 @@ generic:
   back: 뒤로
   cancel: 취소
   confirm: 확인
-  colorPicker: Color picker
+  colorPicker: 색상 선택기
   clear: 지우기
   clearAll: 전체 지우기
   close: 닫기
@@ -142,8 +142,8 @@ generic:
 
 locale:
   en-us: English
-  zh-hans: 简体中文
   ko-kr: 한국어
+  zh-hans: 简体中文
   none: (None)
 
 unsupported:
@@ -210,7 +210,7 @@ nav:
     workload: 워크로드
     monitoring: 모니터링
     advanced: 고급
-    drivers: 드라이버버    
+    drivers: 드라이버
     RKE1Configuration: RKE1 구성
     admission: 승인
     apps: 앱
@@ -233,7 +233,7 @@ nav:
     backupAndSnapshot: 백업 및 스냅샷
     Monitoring: 모니터링
     Logging: 로깅
-#    'Monitoring and Logging': 모니터링 및 로깅
+    'Monitoring and Logging': 모니터링 및 로깅
     'Monitoring & Logging': 모니터링 및 로깅
 
   ns:
@@ -256,7 +256,7 @@ nav:
     placeholder: 클러스터 검색
     noResults: 일치하는 클러스터가 없습니다
     clusters: 클러스터
-    ariaLabel: Filter clusters on main menu
+    ariaLabel: 메인 메뉴에서 클러스터 필터링
   resourceSearch:
     label: 리소스 검색
     toolTip: 리소스 검색 {key}
@@ -264,7 +264,7 @@ nav:
   header:
     setLoginPage: 로그인 페이지로 설정
     restoreCards: 숨겨진 카드 복원
-    showHideBanner: Show/Hide Banner    
+    showHideBanner: 배너 표시/숨기기
   userMenu:
     preferences: 환경 설정
     accountAndKeys: 계정 및 API 키
@@ -664,10 +664,10 @@ harvester:
       consoleUrl: 콘솔 URL
       more: 추가 정보
       uuid: UUID
-      containerRuntime: Container Runtime
-      kernel: Kernel
-      management: Management Node
-      compute: Compute Node
+      containerRuntime: 컨테이너 런타임
+      kernel: 커널널
+      management: 관리 노드
+      compute: 컴퓨트 노드
       storage: 스토리지
       nic: 물리 NIC
       notRecommended: '권장되지 않음'

@@ -42,7 +42,18 @@ export default {
     };
   },
 
-  computed: { ...mapGetters({ t: 'i18n/t' }) },
+  computed: { 
+    ...mapGetters({ currentLocale: 'i18n/current' }),
+    t() {
+      // Force t function to be reactive to locale changes
+      // Pass current locale explicitly to bypass cache issues
+      const tFunc = this.$store.getters['i18n/t'];
+      return (key, args, language) => {
+        // Always use current locale to ensure fresh translations
+        return tFunc(key, args, this.currentLocale());
+      };
+    }
+  },
 
   watch: {
     settings: {
@@ -50,6 +61,10 @@ export default {
       handler() {
         this['categorySettings'] = this.filterCategorySettings();
       }
+    },
+    currentLocale() {
+      // Force re-render when locale changes
+      this.$forceUpdate();
     }
   },
 
