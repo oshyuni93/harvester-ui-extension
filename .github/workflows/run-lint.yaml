@@ -1,0 +1,23 @@
+name: Tests
+
+on:
+  workflow_call:  # This tells GH that the workflow is reusable 
+  push:
+    branches:
+      - main
+      - 'release-*'
+  pull_request:
+    branches:
+      - main
+      - 'release-*'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Run tests
+        uses: ./.github/actions/lint
