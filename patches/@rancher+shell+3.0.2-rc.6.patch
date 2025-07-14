@@ -1,0 +1,62 @@
+diff --git a/node_modules/@rancher/shell/assets/brand/harvester/favicon.png b/node_modules/@rancher/shell/assets/brand/harvester/favicon.png
+index d2b5eb3..e45f919 100644
+Binary files a/node_modules/@rancher/shell/assets/brand/harvester/favicon.png and b/node_modules/@rancher/shell/assets/brand/harvester/favicon.png differ
+diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
+index 90641fb..23685a1 100644
+--- a/node_modules/@rancher/shell/config/private-label.js
++++ b/node_modules/@rancher/shell/config/private-label.js
+@@ -6,7 +6,8 @@ export const STANDARD = 1;
+ export const CUSTOM = 2;
+ export const DOCS_BASE = `https://ranchermanager.docs.rancher.com/v${ CURRENT_RANCHER_VERSION }`;
+ 
+-const STANDARD_VENDOR = 'Rancher';
++//const STANDARD_VENDOR = 'Rancher';
++const STANDARD_VENDOR = 'InfinityStack';
+ const STANDARD_PRODUCT = 'Explorer';
+ const CUSTOM_VENDOR = {
+   suse: 'Rancher Prime',
+@@ -58,6 +59,9 @@ export function matches(pl) {
+ }
+ 
+ export function getVendor() {
++  if ( vendor === 'Harvester')
++    return STANDARD_VENDOR;
++  
+   if ( vendor === SETTING.PL_RANCHER_VALUE ) {
+     // Custom vendor override based on brand
+     if (brand && CUSTOM_VENDOR[brand]) {
+@@ -77,10 +81,12 @@ export function getProduct() {
+ export function setTitle() {
+   const v = getVendor();
+ 
+-  if (v === 'Harvester') {
++  //if (v === 'Harvester') {
++  if (v === 'Infinitystack' || v === 'Harvester') {
+     const ico = require(`~shell/assets/images/pl/harvester.png`);
+ 
+-    document.title = 'Harvester';
++    //document.title = 'Harvester';
++    document.title = 'Infinitystack';
+     const link = document.createElement('link');
+ 
+     link.hid = 'icon';
+diff --git a/node_modules/@rancher/shell/public/index.html b/node_modules/@rancher/shell/public/index.html
+index f486cb6..c562462 100644
+--- a/node_modules/@rancher/shell/public/index.html
++++ b/node_modules/@rancher/shell/public/index.html
+@@ -6,7 +6,8 @@
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+-    <title>Rancher</title>
++    <!--<title>Rancher</title>-->
++    <title>Infinitystack</title>
+ </head>
+ 
+ <body>
+diff --git a/node_modules/@rancher/shell/static/favicon.ico b/node_modules/@rancher/shell/static/favicon.ico
+index 09b2909..2da0d95 100755
+Binary files a/node_modules/@rancher/shell/static/favicon.ico and b/node_modules/@rancher/shell/static/favicon.ico differ
+diff --git a/node_modules/@rancher/shell/static/favicon.png b/node_modules/@rancher/shell/static/favicon.png
+index c200f59..e45f919 100755
+Binary files a/node_modules/@rancher/shell/static/favicon.png and b/node_modules/@rancher/shell/static/favicon.png differ
