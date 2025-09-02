@@ -1,0 +1,44 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "baseBranches": [
+    "master",
+    "main",
+    "/^release-harvester-v\\d+\\.\\d+$/"
+  ],
+  "automergeMajor": false,
+  "semanticCommits": "enabled",
+  "semanticCommitType": "chore",
+  "semanticCommitScope": "deps",
+  "prHourlyLimit": 12,
+  "timezone": "Asia/Taipei",
+  "schedule": ["after 10am on sunday"],
+  "postUpdateOptions": ["yarnDedupeFewer"],
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchPackagePatterns": ["vue", "vue-router", "vuex"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false
+    },
+    {
+      "matchPackageNames": ["@rancher/shell"],
+      "enabled": false
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "groupName": "minor dependencies",
+      "labels": ["minor-update"],
+      "reviewers": ["a110605", "houhoucoop"]
+    },
+    {
+      "matchUpdateTypes": ["patch", "digest"],
+      "automerge": true,
+      "groupName": "patch digest dependencies",
+      "labels": ["patch-update", "automerge"]
+    }
+  ]
+}
