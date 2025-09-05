@@ -1,6 +1,6 @@
 {
-  "name": "Infinitystack",
-  "description": "Rancher UI Extension for Infinitystack",
+  "name": "Harvester",
+  "description": "Barastack UI Extension for Infinitystack",
   "version": "1.6.0",
   "private": false,
   "rancher": {
