@@ -4,9 +4,9 @@ plugin:
   enabled: true
   versionOverride: ""
   endpoint: >-
-    https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/gh-pages/extensions/Infinitystack/1.6.0
+    https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/gh-pages/extensions/harvester/1.6.0
   compressedEndpoint: >-
-    https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/gh-pages/extensions/Infinitystack/1.6.0.tgz
+    https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/gh-pages/extensions/harvester/1.6.0.tgz
   noCache: false
   noAuth: false
   metadata:

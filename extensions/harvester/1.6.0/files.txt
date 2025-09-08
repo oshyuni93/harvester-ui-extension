@@ -110,7 +110,7 @@ plugin/img/harvester.20240f8a.png
 plugin/img/harvester.c8452691.svg
 plugin/img/huaweicce-black.d378b855.svg
 plugin/img/huaweicce.22b4ecea.svg
-plugin/img/icon.42954c0f.svg
+plugin/img/icon.7d324bba.svg
 plugin/img/import.ac396542.svg
 plugin/img/jaeger.1c7d1266.svg
 plugin/img/k3s-black.b4765216.svg

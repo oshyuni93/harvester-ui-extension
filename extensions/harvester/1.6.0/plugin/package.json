@@ -1,6 +1,6 @@
 {
-  "name": "Infinitystack",
-  "description": "Rancher UI Extension for Infinitystack",
+  "name": "harvester",
+  "description": "Barastack UI Extension for Infinitystack",
   "version": "1.6.0",
   "private": false,
   "rancher": true,
@@ -16,5 +16,5 @@
   "files": [
     "**/*"
   ],
-  "main": "Infinitystack-1.6.0.umd.min.js"
+  "main": "harvester-1.6.0.umd.min.js"
 }
