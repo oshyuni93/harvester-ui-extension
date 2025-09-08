@@ -1,10 +1,10 @@
 {
-  "name": "harvester",
-  "description": "Rancher UI Extension for Harvester",
+  "name": "Infinitystack",
+  "description": "Rancher UI Extension for Infinitystack",
   "version": "1.6.0",
   "private": false,
   "rancher": true,
-  "icon": "https://raw.githubusercontent.com/harvester/harvester-ui-extension/main/pkg/harvester/icon.svg",
+  "icon": "https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/main/pkg/harvester/icon.svg",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -16,5 +16,5 @@
   "files": [
     "**/*"
   ],
-  "main": "harvester-1.6.0.umd.min.js"
+  "main": "Infinitystack-1.6.0.umd.min.js"
 }
