@@ -8,7 +8,7 @@ export default {
       name:   `${ PRODUCT_NAME }-c-cluster-resource`,
       params: {
         ...this.$router.currentRoute.params,
-        //product:  PRODUCT_NAME,
+        // product:  PRODUCT_NAME,
         product:  `Infinitystack`,
         resource: HCI.DASHBOARD
       }
