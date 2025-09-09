@@ -48,7 +48,7 @@ entries:
     version: 1.6.0
   - annotations:
       catalog.cattle.io/certified: rancher
-      catalog.cattle.io/display-name: Harvester
+      catalog.cattle.io/display-name: Infinitystack
       catalog.cattle.io/kube-version: '>= 1.16.0-0'
       catalog.cattle.io/namespace: cattle-ui-plugin-system
       catalog.cattle.io/os: linux
@@ -59,10 +59,10 @@ entries:
       catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
     apiVersion: v2
     appVersion: 1.5.1
-    created: "2025-06-27T09:48:21.367483564Z"
-    description: Rancher UI Extension for Harvester
-    digest: babe61b6d79da2e3aff8cb728b0ba199b452aede7415e4c0f0f7fa64db2753cd
-    icon: https://raw.githubusercontent.com/harvester/harvester-ui-extension/main/pkg/harvester/icon.svg
+    created: "2025-09-09T01:27:09.286994953Z"
+    description: Barastack UI Extension for Infinitystack
+    digest: 5e3575b5aecdd3a6cda003c7daa1dcfee78796975b0c6ae3c2eb685392cc6653
+    icon: https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/main/pkg/harvester/icon.svg
     name: harvester
     type: application
     urls:
@@ -244,4 +244,4 @@ entries:
     urls:
     - assets/harvester/harvester-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-09T00:53:17.592653701Z"
+generated: "2025-09-09T01:27:09.285919944Z"

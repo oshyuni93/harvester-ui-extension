@@ -11,8 +11,8 @@ annotations:
   catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
 apiVersion: v2
 appVersion: 1.5.1
-description: Rancher UI Extension for Infinitystack
-name: Infinitystack
+description: Barastack UI Extension for Infinitystack
+name: harvester
 type: application
 version: 1.5.1
 icon: >-
