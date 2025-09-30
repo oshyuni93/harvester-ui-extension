@@ -11,7 +11,7 @@ FROM rancher/harvester:v1.5.1
 WORKDIR /var/lib/harvester
 
 # 빌더에서 생성된 v1.5.1.tar.gz를 복사하고 압축 해제
-COPY --from=builder /src/dist/v1.5.1.tar.gz /tmp/v1.5.1.tar.gz
+COPY --from=builder /src/dist/v1.5-head.tar.gz /tmp/v1.5.1.tar.gz
 
 # 기존 UI 파일을 삭제하고, 새로 빌드된 UI 파일의 압축을 해제합니다.
 RUN rm -rf /usr/share/harvester/harvester/fonts \
