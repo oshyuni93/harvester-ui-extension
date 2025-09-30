@@ -1335,10 +1335,10 @@ harvester:
     harvesterMonitoring:
       label: Infinitystack 모니터링
       section:
-        prometheus: Prometheus
-        prometheusNodeExporter: Prometheus Node Exporter
-        grafana: Grafana
-        alertmanager: Alertmanager
+        prometheus: 프로메테우스
+        prometheusNodeExporter: 프로메테우스 Node Exporter
+        grafana: 그라파나
+        alertmanager: Alert관리자
       tips:
         scrape: 연속 스크래핑 사이의 간격
         evaluation: 연속 평가 간 간격
@@ -2166,7 +2166,7 @@ authConfig:
         body: "<p><b>추가 조치가 필요할 수 있습니다</b>. Azure AD 앱이 Microsoft Graph에 Directory.Read.All <b>Application</b> 권한이 추가되어 있는지 확인하세요.<br> Azure AD 인증을 Rancher에서 구성하는 동안 엔드포인트를 사용자 정의한 경우 자동으로 업데이트되지 않을 것입니다.</p>"
   oidc:
     oidc: OIDC 계정 구성
-    genericoidc: Configure an OIDC account
+    genericoidc: OIDC 계정 구성
     keycloakoidc: Keycloak OIDC 계정 구성
     rancherUrl: Rancher URL
     clientId: 클라이언트 ID
@@ -4648,7 +4648,7 @@ istio:
   v1Warning: 이 버전을 설치하기 전에 현재 이스티오 버전을 <code>istio-system</code> 네임스페이스에서 제거하세요.
 
 jwt:
-  title: JWT 인증증
+  title: JWT 인증
   actions:
     activate: 활성화
     deactivate: 비활성화
@@ -4672,7 +4672,7 @@ labels:
     description: 식별 속성을 지정하는 객체에 부착된 키/값 쌍입니다.
     fleetClusterTooltip: 레이블 변경은 관리 클러스터에서 수행되어 플릿 클러스터로 동기화됩니다.
     show: 시스템 레이블 표시
-    hide: 시스템 레이블 숨기기
+    hide: 시스템 레이블 숨김
   annotations:
     title: 주석
 labelSelect:
@@ -5013,8 +5013,8 @@ login:
   howdy: 안녕하세요!
   welcome: "Infinitystack에 오신 것을 환영합니다."
   loggedOut: 로그아웃되었습니다.
-  loggedOutFromSso: You've been logged out of Rancher, however you may still be logged in to your single sign-on identity provider.
-  loggedOutFromSlo: You've been logged out of Rancher and from your single sign-on identity provider.
+  loggedOutFromSso: Barastack에서 로그아웃되었지만 Single Sign-On ID 공급자에는 여전히 로그인된 상태가 유지될 수 있습니다.
+  loggedOutFromSlo: Barastack과 단일 로그인 ID 공급자에서 로그아웃되었습니다.
   loginAgain: 계속하려면 다시 로그인하세요.
   serverError:
     authFailedCreds: "로그인 실패: 자격 증명을 확인하거나 계정이 로그인 권한이 없을 수 있습니다."
@@ -5023,9 +5023,9 @@ login:
     invalidSamlAttrs: "잘못된 SAML 속성"
     noResponse: "응답을 받지 못했습니다"
   error: 로그인 중 오류가 발생했습니다. 다시 시도하세요.
-  invalidResponseError: Invalid response received to login request. Please try again.
+  invalidResponseError: 로그인 요청에 대한 잘못된 응답을 받았습니다. 다시 시도해 주세요.
   clientError: 잘못된 사용자 이름 또는 비밀번호입니다. 다시 시도하세요.
-  userUnauthorized: You are not authorized to use this system.
+  userUnauthorized: 이 시스템을 사용할 권한이 없습니다.
   specificError: "로그인 중 오류가 발생했습니다: {msg}"
   useLocal: 로컬 사용자 사용
   loginWithProvider: "{provider}로 로그인"
@@ -5051,7 +5051,7 @@ managementNode:
 
 members:
   clusterMembers: 클러스터 멤버
-  memberRoles: Member Roles
+  memberRoles: 멤버 역할
   clusterAndProject: 클러스터 및 프로젝트 멤버
   createActionLabel: 추가
   clusterMembership: 클러스터 멤버십
@@ -5427,8 +5427,8 @@ namespace:
   createNamespace: 새로운 네임스페이스 생성
   selectOrCreate: 네임스페이스 선택 또는 생성
   snapshots:
-    label: Snapshots
-    totalSnapshotSize: Total Snapshot Size  
+    label: 스냅샷
+    totalSnapshotSize: 총 스냅샷 크기 
   resourceStates:
     success: "활성"
     info: "전환 중"
