@@ -4,9 +4,10 @@ name: Dispatch Harvester-ui-extension image
 
 on:
   push:
-    branches: [main]
+    branches: [v1.5-head]
+    tags: [v1.5.1]
   pull_request:
-    branches: [main]
+    branches: [v1.5-head]
     
 env:
   #REGISTRY: harbor.spaasta.com
