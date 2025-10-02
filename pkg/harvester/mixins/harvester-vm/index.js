@@ -24,7 +24,7 @@ import {
 import { HCI_SETTING } from '../../config/settings';
 import { HCI } from '../../types';
 import { parseVolumeClaimTemplates } from '../../utils/vm';
-import impl, { QGA_JSON, USB_TABLET } from './impl';
+import impl, { QGA_JSON, USB_TABLET, getInterfaceNamesFromSpec, buildNetworkConfig } from './impl';
 import { GIBIBYTE } from '../../utils/unit';
 import { VOLUME_MODE } from '@pkg/harvester/config/types';
 
@@ -1125,6 +1125,12 @@ export default {
       } else {
         runcmd = _QGA_JSON.runcmd;
       }
+
+      // === 네트워크 섹션 동적 추가 ===
+      const interfaceNames = getInterfaceNamesFromSpec(this.spec);
+      const networkConfig = buildNetworkConfig(interfaceNames);
+
+      userDataDoc.setIn(['network'], networkConfig);
 
       if (packages.length > 0) {
         userDataDoc.setIn(['packages'], packages);
