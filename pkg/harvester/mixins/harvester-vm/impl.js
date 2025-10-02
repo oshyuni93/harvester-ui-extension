@@ -38,18 +38,21 @@ export const SSH_EXISTING_TYPE = {
 // 네트워크 인터페이스 이름 추출 함수
 export function getInterfaceNamesFromSpec(spec) {
   const interfaces = spec?.template?.spec?.domain?.devices?.interfaces || [];
-  return interfaces.map(i => i.name);
+
+  return interfaces.map((i) => i.name);
 }
 
 // cloud-init network 섹션 생성 함수
 export function buildNetworkConfig(interfaceNames = ['eth0']) {
   const ethernets = {};
-  interfaceNames.forEach(name => {
+
+  interfaceNames.forEach((name) => {
     ethernets[name] = { dhcp4: true, dhcp6: false };
   });
+
   return {
     version: 2,
-    ethernets
+    ethernets,
   };
 }
 
