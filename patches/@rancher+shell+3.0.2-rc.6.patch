@@ -14677,6 +14677,42 @@ index 0000000..b669e46
 +  tabs:
 +    config: 설정
 \ No newline at end of file
+diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
+index 90641fb..074e23e 100644
+--- a/node_modules/@rancher/shell/config/private-label.js
++++ b/node_modules/@rancher/shell/config/private-label.js
+@@ -6,7 +6,7 @@ export const STANDARD = 1;
+ export const CUSTOM = 2;
+ export const DOCS_BASE = `https://ranchermanager.docs.rancher.com/v${ CURRENT_RANCHER_VERSION }`;
+ 
+-const STANDARD_VENDOR = 'Rancher';
++const STANDARD_VENDOR = 'Infinitystack';
+ const STANDARD_PRODUCT = 'Explorer';
+ const CUSTOM_VENDOR = {
+   suse: 'Rancher Prime',
+@@ -58,6 +58,9 @@ export function matches(pl) {
+ }
+ 
+ export function getVendor() {
++  if ( vendor === 'Harvester')
++    return STANDARD_VENDOR;
++
+   if ( vendor === SETTING.PL_RANCHER_VALUE ) {
+     // Custom vendor override based on brand
+     if (brand && CUSTOM_VENDOR[brand]) {
+@@ -77,10 +80,10 @@ export function getProduct() {
+ export function setTitle() {
+   const v = getVendor();
+ 
+-  if (v === 'Harvester') {
++  if (v === 'Infinitystack' || v === 'Harvester') {
+     const ico = require(`~shell/assets/images/pl/harvester.png`);
+ 
+-    document.title = 'Harvester';
++    document.title = 'Infinitystack';
+     const link = document.createElement('link');
+ 
+     link.hid = 'icon';
 diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
 index 75671c5..c52d4ed 100644
 --- a/node_modules/@rancher/shell/pages/auth/login.vue
@@ -14737,6 +14773,19 @@ index 5c199e0..3779d29 100644
      <!-- Theme -->
      <div class="mt-10 mb-10">
        <h4 v-t="'prefs.theme.label'" />
+diff --git a/node_modules/@rancher/shell/public/index.html b/node_modules/@rancher/shell/public/index.html
+index f486cb6..1888065 100644
+--- a/node_modules/@rancher/shell/public/index.html
++++ b/node_modules/@rancher/shell/public/index.html
+@@ -6,7 +6,7 @@
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+-    <title>Rancher</title>
++    <title>Infinitystack</title>
+ </head>
+ 
+ <body>
 diff --git a/node_modules/@rancher/shell/store/i18n.js b/node_modules/@rancher/shell/store/i18n.js
 index bedcd61..eed8b3b 100644
 --- a/node_modules/@rancher/shell/store/i18n.js
