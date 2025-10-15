@@ -5099,19 +5099,19 @@ monitoring:
     tip: '모니터링 차트에 의해 배포된 클러스터 역할에 레이블을 추가하여 <a target="_blank" rel="noopener nofollow noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles"> 기본 k8s admin, edit 및 view 클러스터 역할과 집계.</a>'
   alerting: 
     config:
-      label: 경고 매니저 구성
+      label: Alert관리자 구성
     enable:
-      label: 경고 매니저 배포
+      label: Alert관리자 배포
     secrets:
       additional:
         info: 시크릿은 <pre class='inline-block m-0'>/etc/alertmanager/secrets/</pre>에 마운트되어야 합니다.
         label: 추가 시크릿
       existing: 기존 구성 시크릿 선택
       info: |
-        <span class="text-bold">기본 구성 생성</span>: 경고 매니저 구성을 포함하는 시크릿이 이 차트를 배포 할 때 <pre class='inline-block m-0'>cattle-monitoring-system</pre> 네임 스페이스에 <pre class='inline-block m-0'>alertmanager-rancher-monitoring-alertmanager</pre> 이름으로 생성됩니다. 이 시크릿은 기본적으로이 차트를 제거하거나 업그레이드 할 때 수정되지 않습니다. <br />
-        차트를 배포 한 후 UI를 통해이 시크릿을 편집하여 경고 매니저에서 알림을 보내기 위해 사용되는 사용자 지정 알림 구성을 추가해야합니다. <br /> <br />
+        <span class="text-bold">기본 구성 생성</span>: Alert관리자 구성을 포함하는 시크릿이 이 차트를 배포 할 때 <pre class='inline-block m-0'>cattle-monitoring-system</pre> 네임 스페이스에 <pre class='inline-block m-0'>alertmanager-rancher-monitoring-alertmanager</pre> 이름으로 생성됩니다. 이 시크릿은 기본적으로이 차트를 제거하거나 업그레이드 할 때 수정되지 않습니다. <br />
+        차트를 배포 한 후 UI를 통해이 시크릿을 편집하여 Alert관리자에서 알림을 보내기 위해 사용되는 사용자 지정 알림 구성을 추가해야합니다. <br /> <br />
         <span class="text-bold">기존 구성 시크릿 선택</span>: 반드시 <pre class='inline-block m-0'>cattle-monitoring-system</pre> 네임 스페이스에 존재하는 시크릿을 지정해야합니다. 네임 스페이스가 존재하지 않으면 기존 시크릿을 선택할 수 없습니다.
-      label: 경고 매니저 시크릿
+      label: Alert관리자 시크릿
       new: 기본 구성 생성
       radio:
         label: 시크릿 구성
@@ -5121,7 +5121,7 @@ monitoring:
       keyLabel: 파일 이름
       label: 템플릿 파일
       valueLabel: YAML 템플릿
-    title: 경고 매니저 구성
+    title: Alert관리자 구성
   clusterType:
     label: 클러스터 유형
     placeholder: 클러스터 유형 선택
@@ -5166,7 +5166,7 @@ monitoring:
     linkedList:
       alertManager:
         description: 활성 경고
-        label: 경고 매니저
+        label: Alert관리자
       grafana:
         description: 메트릭 대시 보드
         label: 그라파나
@@ -5251,19 +5251,19 @@ monitoring:
   monitors: 모니터
   projectMonitors: 프로젝트 모니터링
   alertmanagerConfig:
-    description: 프로젝트 경고 및 클러스터 경고에 대한 경로 및 수신자는 경고 매니저 구성 리소스 내에서 구성됩니다.
+    description: 프로젝트 경고 및 클러스터 경고에 대한 경로 및 수신자는 Alert관리자 구성 리소스 내에서 구성됩니다.
     empty: 접근 가능한 모든 네임 스페이스에 대해 경고가 구성되지 않았습니다.
     getStarted: 경고를 구성하려면 만들기를 클릭하여 시작하십시오.
-    receiverTooltip: 이 경로는 선택한 수신자로 경고를 전달하며 동일한 경고 매니저 구성 내에서 정의되어야합니다.
-    deprecationWarning: 경로 및 수신자 리소스는 사용되지 않습니다. 앞으로는 경로와 수신자를 이 페이지의 별도의 쿠버네티스 리소스로 관리하지 않아야합니다. 경고 매니저 구성 리소스의 YAML 필드로 구성해야합니다.
+    receiverTooltip: 이 경로는 선택한 수신자로 경고를 전달하며 동일한 Alert관리자 구성 내에서 정의되어야합니다.
+    deprecationWarning: 경로 및 수신자 리소스는 사용되지 않습니다. 앞으로는 경로와 수신자를 이 페이지의 별도의 쿠버네티스 리소스로 관리하지 않아야합니다. Alert관리자 구성 리소스의 YAML 필드로 구성해야합니다.
     routeInfo: 이 양식은 트래픽을 수신자로 보내는 하나의 경로를 구성하는 데 도움이됩니다. YAML에서 자식 경로를 구성하여 경고를 더 많은 수신자 (s)로 전송 할 수 있습니다.
     receiverFormNames:
-      create: 경고 매니저 구성에서 수신자 만들기
-      edit: 경고 매니저 구성에서 수신자 편집
-      editYaml: 경고 매니저 구성 편집
-      detail: 경고 매니저 구성에서 수신자
-    disabledReceiverButton: 경고 매니저 구성이 작성 된 후에 수신자 양식을 사용할 수 있습니다.
-    error: 경고 매니저 구성 저장 중에 오류가 발생했습니다.
+      create: Alert관리자 구성에서 수신자 만들기
+      edit: Alert관리자 구성에서 수신자 편집
+      editYaml: Alert관리자 구성 편집
+      detail: Alert관리자 구성에서 수신자
+    disabledReceiverButton: Alert관리자 구성이 작성 된 후에 수신자 양식을 사용할 수 있습니다.
+    error: Alert관리자 구성 저장 중에 오류가 발생했습니다.
     email:
       username: 인증 사용자 이름
       password: 인증 비밀번호가 있는 시크릿
@@ -5296,7 +5296,7 @@ monitoringReceiver:
   custom:
     label: 사용자 정의
     title: 사용자 정의 구성
-    info: 여기에 제공된 YAML은 여러분의 수신자에 직접 추가될 것입니다. 이는 경고 매니저 구성 시크릿 내에 있을 것입니다.
+    info: 여기에 제공된 YAML은 여러분의 수신자에 직접 추가될 것입니다. 이는 Alert관리자 구성 시크릿 내에 있을 것입니다.
   email:
     label: 이메일
     title: 이메일 구성
@@ -5356,16 +5356,16 @@ alertmanagerConfigReceiver:
   addButton: 수신자 추가
   receivers: 수신자
   namespaceWarning: 시크릿을 가져올 네임 스페이스를 찾을 수 없어 시크릿 선택기를 렌더링할 수 없습니다.
-  receiverTypes: "다음 수신자 유형은 양식에서 편집 할 수 있습니다: 이메일, 슬랙, 페이저듀티, 옵스지니 및 웹훅. 기타 수신자 유형의 경우 경고 매니저 구성 YAML에서 편집하십시오."
+  receiverTypes: "다음 수신자 유형은 양식에서 편집 할 수 있습니다: 이메일, 슬랙, 페이저듀티, 옵스지니 및 웹훅. 기타 수신자 유형의 경우 Alert관리자 구성 YAML에서 편집하십시오."
   slack:
     webhookUrl: 웹훅 URL
-    apiUrlTooltip: 슬랙 웹훅 URL을 포함하는 시크릿의 키입니다. 시크릿은 경고 매니저 구성 객체와 동일한 네임 스페이스에 있어야하며 프로메테우스 오퍼레이터에서 액세스 할 수 있어야합니다.
+    apiUrlTooltip: 슬랙 웹훅 URL을 포함하는 시크릿의 키입니다. 시크릿은 Alert관리자 구성 객체와 동일한 네임 스페이스에 있어야하며 프로메테우스 오퍼레이터에서 액세스 할 수 있어야합니다.
 monitoringRoute:
   groups:
     label: 그룹별
     addGroupByLabel: 경고를 그룹화 할 레이블
     groupByTooltip: 각 레이블을 key:value 형식의 문자열로 추가하십시오. 특수 레이블 ...은 모든 가능한 레이블로 집계됩니다. 제공된 경우 ...는 목록에서 유일한 요소 여야합니다.
-  info: 이것은 경고 매니저가 다른 경로와 일치하지 않는 모든 경고의 기본 대상으로 사용하는 최상위 경로입니다. 이 경로는 존재해야하며 삭제 할 수 없습니다.
+  info: 이것은 Alert관리자가 다른 경로와 일치하지 않는 모든 경고의 기본 대상으로 사용하는 최상위 경로입니다. 이 경로는 존재해야하며 삭제 할 수 없습니다.
   interval:
     label: 그룹 간격
   matching:
@@ -6379,7 +6379,7 @@ prometheusRule:
       summary:
         input: 요약 주석 값
         label: 요약
-    bannerText: "경고가 발생하면 주석 및 레이블이 구성된 경고 매니저로 전달되어 통지를 구성하는 데 사용됩니다."
+    bannerText: "경고가 발생하면 주석 및 레이블이 구성된 Alert관리자로 전달되어 통지를 구성하는 데 사용됩니다."
     for:
       label: 기다리는 시간
       placeholder: "60"
@@ -8487,9 +8487,9 @@ typeDescription:
   resources.cattle.io.resourceset: 리소스 세트는 백업에 저장할 CRD 및 리소스를 정의합니다.
   monitoring.coreos.com.servicemonitor: 서비스 모니터는 프로메테우스가 메트릭을 수집할 서비스 및 엔드포인트를 정의합니다. 이것은 메트릭 수집을 정의하는 가장 일반적인 방법입니다.
   monitoring.coreos.com.podmonitor: 파드 모니터는 프로메테우스가 메트릭을 수집할 파드의 그룹을 정의합니다. 일반적으로 서비스 모니터를 사용하지만 파드 모니터를 사용하면 서비스 모니터가 작동하지 않는 상황도 처리할 수 있습니다.
-  monitoring.coreos.com.prometheusrule: 프로메테우스 규칙 리소스는 레코딩 및/또는 경고 규칙을 정의합니다. 레코딩 규칙은 값을 미리 계산하고 결과를 저장할 수 있습니다. 알림 규칙을 사용하면 경고 매니저에 알림을 보낼 조건을 정의할 수 있습니다.
-  monitoring.coreos.com.prometheus: 프로메테우스 서버는 선택된 서비스 모니터, 파드 모니터 및 프로메테우스 규칙에 의해 결정된 스크레이프 구성 및 규칙을 가진 프로메테우스 배포입니다. 그리고 해당 알림은 사용 가능한 모든 경고 매니저로 전송됩니다.
-  monitoring.coreos.com.alertmanager: 경고 매니저는 구성이 동일한 네임스페이스 내의 시크릿으로 지정된 배포입니다. 이는 어떤 알림이 어떤 수신자로 전송되어야 하는지 결정합니다.
+  monitoring.coreos.com.prometheusrule: 프로메테우스 규칙 리소스는 레코딩 및/또는 경고 규칙을 정의합니다. 레코딩 규칙은 값을 미리 계산하고 결과를 저장할 수 있습니다. 알림 규칙을 사용하면 Alert관리자에 알림을 보낼 조건을 정의할 수 있습니다.
+  monitoring.coreos.com.prometheus: 프로메테우스 서버는 선택된 서비스 모니터, 파드 모니터 및 프로메테우스 규칙에 의해 결정된 스크레이프 구성 및 규칙을 가진 프로메테우스 배포입니다. 그리고 해당 알림은 사용 가능한 모든 Alert관리자로 전송됩니다.
+  monitoring.coreos.com.alertmanager: Alert관리자는 구성이 동일한 네임스페이스 내의 시크릿으로 지정된 배포입니다. 이는 어떤 알림이 어떤 수신자로 전송되어야 하는지 결정합니다.
   node: 기본 쿠버네티스 노드 리소스는 배포를 호스팅하는 가상 또는 물리적 머신을 나타냅니다. 머신 라이프사이클을 관리하려면 Cluster Management로 이동하십시오.
   catalog.cattle.io.clusterrepo: "차트 저장소는 헬름 저장소 또는 {vendor} git 기반 응용 프로그램 카탈로그입니다. 클러스터의 사용 가능한 차트 목록을 제공합니다."
   catalog.cattle.io.clusterrepo.local: " 차트 저장소는 헬름 저장소 또는 {vendor} git 기반 응용 프로그램 카탈로그입니다. 클러스터 템플릿은 헬름 차트를 통해 배포됩니다."
@@ -8814,13 +8814,13 @@ typeLabel:
     }
   monitoring.coreos.com.alertmanager: |-
     {count, plural,
-      one { 경고 매니저 }
-      other { 경고 매니저 }
+      one { Alert관리자 }
+      other { Alert관리자 }
     }
   monitoring.coreos.com.alertmanagerconfig: |-
     {count, plural,
-      one { 경고 매니저 구성 }
-      other { 경고 매니저 구성 }
+      one { Alert관리자 구성 }
+      other { Alert관리자 구성 }
     }
   monitoring.coreos.com.podmonitor: |-
     {count, plural,
