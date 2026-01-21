@@ -151,7 +151,6 @@ unsupported:
   description: Infinitystack UI는 Infinitystack 클러스터 버전 1.3.0 이상만 지원합니다.
   learnMore: <a target="_blank" href="https://harvesterhci.io/" rel="noopener noreferrer nofollow">Infinitystack 웹사이트</a>에서 Infinitystack에 대해 자세히 알아보거나 <a target="_blank" href="https://docs.harvesterhci.io/" rel="noopener noreferrer nofollow">Infinitystack 문서</a>를 읽어보세요.
 
-
 nav:
   ariaLabel:
     clusterIconKeyCombo: 클러스터 키보드 단축키 조합 아이콘
@@ -286,6 +285,30 @@ nav:
     reload: 새로 고침
     separator: 또는
 
+dialog:
+  confirmExecution:
+    title: 확실합니까?
+    andOthers: |-
+      {count, plural,
+      =0 {}
+      =1 { and <b>one other </b>}
+      other { and <b>{count} other </b>}
+      }
+    protip: "팁: 이 확인을 건너뛰려면 작업을 클릭하는 동안 {alternateLabel} 키를 누르고 계십시오."
+    stop:
+      message: "{type} {names}을(를) 중지하시겠습니까?"
+    pause:
+      message: "{type} {names}을(를) 일시 중지하시겠습니까?"
+    restart:
+      message: "{type} {names}를 다시 시작하시겠습니까?"
+    softreboot:
+      message: "{type} {names}를 소프트 리부트하시겠습니까?"
+  promptRemove:
+    title: "{type} 삭제"
+    warningMessage: "선택한 {type}을 삭제하면 {thisOrThese} {type}에 대한 모든 리소스가 영구적으로 제거됩니다. 이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?"
+    confirmName: "{type}을 삭제하려면 <b>{nameToMatch}</b>를 입력:"
+    protip: "팁: 삭제 버튼을 클릭할 때 {alternateLabel} 키를 누른 상태로 클릭하면 확인 단계를 건너뛸 수 있습니다."
+    
 harvester:
   branding:
     logos:
@@ -334,6 +357,9 @@ harvester:
         failed: '가상 머신 복제에 실패했습니다!'
         support:
           longhorn: 가상 머신은 복제 작업을 <a href="https://docs.harvesterhci.io/v1.4/advanced/longhorn-v2/#limitations" target="_blank">지원</a>하지 않는 Longhorn v2 볼륨을 사용합니다.
+    osImage:
+      title: 이미지 삭제
+      message: 이미지 {name}을 정말로 삭제하시겠습니까?
     downloadImage:
       title: 이미지 다운로드
       banner: '이미지 크기({ size })에 따라 이 작업은 다소 시간이 걸릴 수 있습니다. 잠시만 기다려 주세요.'
@@ -365,6 +391,33 @@ harvester:
       description: 설명
       requiredDesc: 설명은 필수입니다!
       titleDescription: 문제 해결 및 지원에 도움이 되도록 Infinitystack에서 시스템 관련 로그를 수집합니다.
+      namespaces:
+        label: 네임스페이스
+        tooltip: 지원 번들에 포함할 추가 네임스페이스를 선택하세요.<br/>자세한 내용은 support-bundle-namespaces 문서를 참조하세요.
+        selectAll: '전체 선택'
+        unselectAll: '전체 선택 취소'
+      timeout:
+        label: 시간 초과
+        tooltip: 지원 번들 생성 프로세스가 완료될 때까지 몇 분이 소요됩니다.<br/>자세한 내용은 support-bundle-timeout 문서를 참조하세요.
+      expiration:
+        label: 만료
+        tooltip: 패키지에 포함되어 있지만 다운로드되지 않은 지원 번들을 삭제하기 몇 분 전입니다.<br/>자세한 내용은 support-bundle-expiration 문서를 참조하세요.
+      nodeTimeout:
+        label: 노드 수집 시간 초과
+        tooltip: 노드에서 로그/구성 정보를 수집하는 데 허용되는 시간(분)입니다.<br/>자세한 내용은 support-bundle-node-collection-timeout 문서를 참조하세요.
+    hotplugVolume:
+      success: '볼륨 { diskName }이 가상 머신 { vm }에 마운트되었습니다.'
+      title: 볼륨 추가
+    hotplugNic:
+      success: '설정이 저장되었지만, 네트워크 인터페이스 {interfaceName}은 가상 머신 마이그레이션이 완료된 후에 연결됩니다.'
+      title: 네트워크 인터페이스 추가
+      vmNetwork: 가상 머신 네트워크
+      macAddress: MAC 주소
+      macAddressTooltip: MAC 주소 입력란을 비워두면 자동으로 생성됩니다.
+    cpuMemoryHotplug:
+      success: 'CPU와 메모리가 가상 머신 { vm }에 업데이트되었습니다.'
+      title: CPU 및 메모리 편집
+      maxResourcesMessage: 'CPU는 최대 {maxCpu}C까지, 메모리는 최대 {maxMemory}까지 늘릴 수 있습니다.'
     hotplug:
       success: '볼륨 { diskName }이 가상 머신 { vm }에 마운트되었습니다.'
       title: 불륨 추가
@@ -431,6 +484,7 @@ harvester:
     suspendSchedule: 유예
     restoreExistingVM: 기존 교체
     migrate: 마이그레이션
+    cpuAndMemoryHotplug: CPU 및 메모리 편집
     abortMigration: 마이그레이션 중단
     createTemplate: 템플릿 생성
     enableMaintenance: 유지 관리 모드 활성화
@@ -439,6 +493,8 @@ harvester:
     disableCPUManager: CPU 관리자 비활성화
     cordon: 차단
     uncordon: 차단 해제
+    addHotplugVolume: 볼륨 추가
+    addHotplugNic: 핫플러그 네트워크 인터페이스
     addHotplug: 볼륨 추가
     exportImage: 이미지 내보내기
     viewlogs: 로그 보기
@@ -449,6 +505,7 @@ harvester:
     shutdown: 종료
     powerOn: 전원 켜기
     reboot: 재부팅
+    reconnect: 재연결
     forceStop: 강제 정지
   formatters:
     hardwareResourceGauge:
@@ -482,6 +539,7 @@ harvester:
     cronExpression: 표현 복제
     retain: 유지
     scheduleType: 유형
+    configuredProfiles: 구성된 프로필
     maxFailure: 최대 실패
     sourceVm: 소스 가상 머신
     vmSchedule: 가상 머신 일정
@@ -506,12 +564,13 @@ harvester:
     accessCredentials: 액세스 자격 증명
     pciDevices: PCI 장치
     vGpuDevices: vGPU 장치
-    addOns: 애드-온
     usbDevices: USB 장치
     vmScheduling: 가상 머신 스케줄링
     quotas: 할당량
     snapshots: 스냅샷
     instanceLabel: 인스턴스 라벨
+    annotations: 주석
+    addOns: 애드-온
   fields:
     version: 버전
     name: 이름
@@ -612,6 +671,9 @@ harvester:
       ruleFileTip: '선택하신 파일의 확장자는 저희가 지원하지 않습니다. .img, .iso, .qcow, .qcow2, .raw로 끝나는 이미지 파일만 허용됩니다.'
     hash:
       sha512: '잘못된 SHA512 체크섬입니다.'
+    subnet:
+      excludeIps: '제외할 IP 주소는 비워둘 수 없습니다. 제외할 IP 주소를 삭제하거나 입력해 주세요.'
+      aclEmptyError: 서브넷 액세스 제어 목록 규칙의 필드는 비워둘 수 없습니다.
 
   dashboard:
     label: 대시보드
@@ -649,6 +711,7 @@ harvester:
       storage: 스토리지
       labels: 라벨
       ksmtuned: KSM미세조정
+      hugepages: 휴지 페이지
       seeder: 대역 외 액세스
     detail:
       kvm:
@@ -721,6 +784,20 @@ harvester:
         fullScans: 전체 스캔
         stableNodeChains: 안정적인 노드 체인
         stableNodeDups: 안정적인 노드 중복
+    hugepages:
+      meminfo: 메모정보
+      transparent:
+        title: 투명한 휴지페이지 <a href="{url}" target="_blank"><i class="icon icon-info" /></a>
+        enabled: 활성화됨
+        shmemEnabled: 공유 메모리 활성화됨
+        defrag: 조각 모음
+      status:
+        anon: 익명 휴지페이지 (바이트)
+        size: 휴지페이지 기본 크기(바이트)
+        total: 전체 휴지페이지
+        free: 여유 휴지페이지
+        rsvd: 예약된 휴지페이지
+        surp: 잉여 휴지페이지
     disk:
       add: 디스크 추가
       path:
@@ -785,6 +862,20 @@ harvester:
   virtualMachine:
     label: 가상 머신
     osType: 운영체제 유형
+    hotplug:
+      title: CPU 및 메모리 핫플러그를 활성화합니다.
+      tooltip: 기본 최대 CPU 및 최대 메모리 사용량은 CPU 및 메모리 사용량에 따라 {hotPlugTimes}배입니다.
+      restartVMMessage: 가상 머신 구성 변경 사항을 적용하려면 재시작 작업이 필요합니다.
+    hotUnplug:
+      actionLabel: 분리
+      detachVolume:
+        title: '볼륨 {name}을 분리하시겠습니까?'
+        actionLabel: 볼륨 분리
+        success: '볼륨 { name }이 성공적으로 분리되었습니다.'
+      detachNIC:
+        title: '네트워크 인터페이스 {name}을 분리하시겠습니까?'
+        actionLabel: 네트워크 인터페이스 분리
+        success: '설정이 저장되었지만, 네트워크 인터페이스 {name}은 가상 머신 마이그레이션이 완료된 후에만 연결이 해제됩니다.'
     instance:
       singleInstance:
       multipleInstance:
@@ -885,6 +976,7 @@ harvester:
       setFirst: 루트 볼륨으로 설정
       saveVolume: 볼륨 업데이트
       encryption: 암호화
+      vmImageVolumeTip: 디스크 크기({diskSize})는 선택한 이미지 가상 크기({imageVirtualSize})보다 커야 합니다.
       lockTooltip:
         all: 모든 볼륨은 암호화됩니다.
         partial: 일부 볼륨은 암호화되어 있습니다.
@@ -934,6 +1026,9 @@ harvester:
       invalidUser: 잘못된 사용자 이름입니다.
     input:
       name: 이름
+      cpu: CPU
+      maxCpu: 최대 CPU
+      maxMemory: 최대 메모리
       memory: 메모리
       image: 이미지
       sshKey: SSH키
@@ -994,6 +1089,7 @@ harvester:
         dedicatedResources: 전담 리소스
         down: 가상 머신이 실행되지 않음
         affinityRules: 선호도 규칙
+        phase: 단계
         sourceNode: 소스 노드
         targetNode: 대상 노드
         started: 시작됨
@@ -1031,6 +1127,8 @@ harvester:
       banner: 이러한 레이블은 가상 머신 인스턴스와 자동으로 동기화됩니다.
     labels:
       banner: 이러한 주요 값은 가상 머신에 레이블로 추가됩니다.
+    annotations:
+      banner: 이러한 주요 값들은 가상 머신에 주석으로 추가됩니다.
 
   volume:
     label: 볼륨
@@ -1039,7 +1137,9 @@ harvester:
       snapshots: 스냅샷
       datasource: 데이터 소스
       details: 상세
+      conditions: 조건
     size: 크기
+    volumeMode: 볼륨 모드
     source: 소스
     kind: 종류
     sourceOptions:
@@ -1090,8 +1190,12 @@ harvester:
          =1 {이미지 1개가 업로드 중입니다. 페이지를 새로 고치거나 닫지 마세요.}
          다른 {{count}개의 이미지가 업로드 중입니다. 페이지를 새로 고치거나 닫지 마세요.}
         }
+      osUpgrade:
+        uploading: "{name}이 업로드 중입니다. 페이지를 새로 고치거나 닫지 마세요."
     checksum: 체크섬
     checksumTip: 지정된 경우 SHA512 체크섬을 사용하여 이미지를 검증합니다.
+    tooltip:
+      imported: vm-import-controller에 의해 자동으로 생성됨
 
   vmTemplate:
     label: 템플릿
@@ -1120,12 +1224,16 @@ harvester:
     upgradeImage: 업그레이드 이미지 다운로드
     osUpgrade: 운영체제 업그레이드
     uploadNew: 새 이미지 업로드
+    deleteHeader: 삭제할 이미지를 선택해 주세요.
+    deleteExisting: 기존 이미지 삭제
     selectExisting: 기존 이미지 선택
     createRepository: 업그레이드 저장소 생성
     succeeded: 성공
     releaseTip: 업그레이드 설명서를 주의 깊게 읽어주세요. 자세한 내용은 <a href="{url}" target="_blank">Infinitystack 릴리스 노트</a>에서 확인하실 수 있습니다.
     checkReady: 저는 이 Infinitystack 버전과 관련된 업그레이드 지침을 읽고 이해했습니다.
     pending: 보류 중
+    upload:
+      duplicatedFile: 업로드하려는 파일이 이미 존재합니다.
     repoInfo:
       upgradeStatus: 업그레이드 상태
       os: 운영체제
@@ -1222,6 +1330,88 @@ harvester:
         starting: 복원 시작 중
         progress: 복원 진행 중
         complete: 복원 완료
+  
+  subnet:
+    cidrBlock:
+      tooltip: 서브넷 범위는 CIDR 표기법으로 표시됩니다. 동일한 VPC 내에서 서로 다른 서브넷의 CIDR 블록은 겹칠 수 없습니다.
+      label: CIDR 블록
+      placeholder: "예: 172.20.0.0/16"
+    protocol:
+      label: 프로토콜
+    provider:
+      tooltip: 이 서브넷에 대한 네트워크 공급자입니다. OverlayNetwork 유형의 가상 머신 네트워크 중 하나여야 합니다.
+      label: 공급자
+    vpc:
+      label: 가상 프라이빗 클라우드
+    gateway:
+      label: 게이트웨이 IP
+      placeholder: "예: 172.20.0.1"
+    dhcp:
+      label: 동적 호스트 구성 프로토콜(DHCP)
+      v4Options: DHCPV4Options
+      v6Options: DHCPV6Options
+      placeholder: key1=값1, key2=값2
+      dhcpOptionBanner: DHCP 옵션은 쉼표로 구분된 키/값 문자열입니다. 자세한 내용은 <a href="https://kubeovn.github.io/docs/v1.13.x/en/kubevirt/dhcp/" target="_blank">KubOVN 문서</a>를 참조하십시오.
+      tooltip: 이 서브넷에 대해 DHCP 서버를 활성화하십시오. 활성화되면 가상 머신이 이 서브넷에서 자동으로 IP 주소를 할당받을 수 있습니다.
+    private:
+      label: 프라이빗 서브넷
+      tooltip: 이 서브넷에 대한 네트워크 격리를 활성화합니다. 활성화하면 동일한 VPC 내에 다른 서브넷이 있더라도 VM은 이 서브넷 내에서만 통신할 수 있습니다.
+    allowSubnet:
+      label: 서브넷 허용
+      tooltip: 이 서브넷과 통신할 수 있는 특정 서브넷을 지정할 수 있습니다.
+      addSubnet: 허용 서브넷 추가
+      placeholder: "예: 172.16.0.0/16"
+    excludeIPs:
+      tooltip: 자동 할당에서 제외할 IP 주소 목록입니다. 게이트웨이 IP 주소는 항상 제외되며, 자동으로 목록에 추가됩니다.
+      placeholder: 단일 IP 또는 192.168.0.100..192.168.0.200
+
+    acl:
+      label: 액세스 제어 목록
+      tooltip: 이 서브넷에 적용할 ACL입니다. 동일 네임스페이스에 있는 ACL 중 하나여야 합니다.
+      action:
+        label: 작업
+        placeholder: 작업을 선택하세요.
+      direction:
+        label: 방향
+        placeholder: 방향을 선택해주세요
+      addRule: 규칙 추가
+      priority:
+        label: 우선순위
+        placeholder: 우선순위를 선택해 주세요
+      match:
+        label: 일치
+        placeholder: "예: ip4.dst == 10.10.0.2"
+      banner: ACL 일치에서 지원되는 필드는 <a href="https://kubeovn.github.io/docs/v1.14.x/en/guide/subnet/#subnet-acl" target="_blank">KubeOvn 서브넷 ACL 문서</a>를 참조하십시오.
+
+  vpc:
+    noAddonEnabled:
+      prefix: kubeovn-operator 추가 기능이 활성화되어 있지 않습니다. 클릭하세요.
+      middle: 여기
+      suffix: 추가 기능이 VPC 및 서브넷을 성공적으로 생성할 수 있도록 합니다.
+    label: 가상 프라이빗 클라우드
+    noChild: 이 가상 사설 클라우드에는 서브넷이 정의되어 있지 않습니다.
+    createSubnet: 서브넷 생성
+    staticRoutes:
+      label: 정적 라우트
+      cidr:
+        label: CIDR
+        placeholder: "예: 172.16.0.0/16"
+      nextHopIP:
+        tooltip: 피어링 VPC 반대편의 localConnectIP입니다.
+        label: 다음 홉 IP
+        placeholder: "예: 169.254.0.2"
+    vpcPeerings:
+      label: VPC 피어링
+      localConnectIP:
+        tooltip: VPC 피어링 엔드포인트의 지정된 IP 주소를 CIDR 표기법으로 나타냅니다. VPC와 다른 VPC의 IP 주소는 모두 동일한 서브넷 범위에 속해야 하며, 기존 서브넷의 cidrBlock과 충돌해서는 안 됩니다.
+        label: 로컬 연결 IP
+        placeholder: "예: 169.254.0.1/16"
+      remoteVpc:
+        label: 원격 VPC
+      infoBanner: 정적 경로 대상 CIDR은 원격 VPC 피어의 모든 서브넷 CIDR을 포함해야 합니다. 자세한 내용은 <a href="{url}" target="_blank">VPC 피어링 구성 예제</a>를 참조하십시오.
+  networkPolicy:
+    label: 네트워크 정책
+    banner: 오버레이 네트워크에 연결된 VM에는 네트워크 정책을 사용해야 합니다. 네트워크 정책 작동 방식에 대해서는 <a href="{url}" target="_blank">하베스터 문서</a>를 참조하십시오.
 
   network:
     label: 가상 머신 네트워크
@@ -1244,10 +1434,10 @@ harvester:
         label: DHCP 서버 IP
       gateway:
         label: 게이트웨이
-        placeholder: e.g. 172.16.0.1
+        placeholder: "예: 172.16.0.1"
       cidr:
         label: CIDR
-        placeholder: e.g. 172.16.0.1/24
+        placeholder: "예: 172.16.0.1/24"
   sshKey:
     label: SSH 키
     keypair: SSH 키
@@ -1280,20 +1470,23 @@ harvester:
       ca: CA
     storageNetwork:
       range:
-        placeholder: e.g. 172.16.0.0/24
+        placeholder: "예: 172.16.0.0/24"
         label: IP 범위
         invalid: '"범위"가 잘못되었습니다.'
       clusterNetwork: 클러스터 네트워크
       vlan: VLAN ID
       exclude:
         label: 제외
-        placeholder: e.g. 172.16.0.1/32
+        placeholder: "예: 172.16.0.1/32"
         invalid: '"제외 목록"이 잘못되었습니다.'
         addIp: 제외 IP 추가
       warning: '경고: <br/> 스토리지 네트워크를 변경하려면 이 설정을 적용하기 전에 모든 가상 머신을 종료해야 합니다. <br/> 사용자는 클러스터 네트워크가 구성되었고 VLAN 구성이 모든 노드를 포괄하는지 확인해야 하며 모든 노드에서 네트워크 연결이 작동하고 예상대로 작동하는지 확인해야 합니다.'
       tip: 'IPv4 CIDR 형식으로 IP 범위를 지정하세요. <code>필요한 IP 수 = 노드 수 * 4 + 디스크 수 * 2 + 다운로드/업로드할 이미지 수</code>. 저장소 네트워크 설정에 대한 자세한 내용은 <a href="{url}" target="_blank">설명서</a>를 참조하세요.
     vmForceDeletionPolicy:
       period: 기간
+    vmMigrationNetwork:
+      parseError: "기존 구성을 구문 분석하는 데 실패했습니다."
+      fetchError: "필요한 네트워크 리소스를 로드하는 데 실패했습니다: {error}. 페이지를 새로고침하거나 나중에 다시 시도해 주세요."
     ratio : 비율
     autoRotateRKE2Certs:
       expiringInHours: 만료 날짜
@@ -1307,6 +1500,11 @@ harvester:
       provisioner: 제공자
       volumeSnapshotClassName: 볼륨 스냅샷 클래스 이름
       backupVolumeSnapshotClassName: 백업 볼륨 스냅샷 클래스 이름
+    csiOnlineExpandValidation:
+      provisioner: 제공자
+      value: 값
+      invalidJsonFormat: "구성 값이 유효한 JSON 형식이 아닙니다: {error}"
+      failedToLoadDrivers: "CSI 드라이버를 로드하는 데 실패했습니다. 오류: {error}"
     containerdRegistry:
       mirrors:
         mirrors: 미러
@@ -1329,9 +1527,19 @@ harvester:
 
     upgrade:
       selectExitImage: 업그레이드할 OS 이미지를 선택하세요.
+      unknownImageName: 이미지 이름을 찾을 수 없습니다.
       imageUrl: 유효한 이미지 URL을 입력하세요.
       chooseFile: 이미지를 업로드하려면 선택하세요.
       checksum: 체크섬
+      networkError: 이미지를 업로드할 수 없습니다. 네트워크 문제를 해결한 후 다시 시도해 주세요.
+      cancelUpload: 이미지 업로드를 취소했습니다.
+      uploadSuccess:  "{name}님이 성공적으로 업로드했습니다. 클러스터 업그레이드 프로세스를 시작하려면 '업그레이드' 버튼을 누르십시오."
+      deleteImage: 삭제할 이미지를 선택해 주세요.
+      deleteSuccess: "{name}이 성공적으로 삭제되었습니다."
+      imagePreloadStrategy: 이미지 사전 로드 전략
+      restoreVM: VM 복원
+      strategyType: 전략 유형
+      concurrency: 동시성
     harvesterMonitoring:
       label: Infinitystack 모니터링
       section:
@@ -1349,6 +1557,20 @@ harvester:
     ntpServers:
       isNotIPV4: 입력하신 주소는 IPv4 또는 호스트가 아닙니다. 유효한 IPv4 주소 또는 호스트 주소를 입력하세요.
       isDuplicate: 중복된 NTP 서버 구성이 있습니다.
+    kubevirtMigration:
+      parseError: "구성 구문 분석에 실패했습니다: {error}"
+      parallelMigrationsPerCluster: "클러스터별 병렬 마이그레이션"
+      parallelOutboundMigrationsPerNode: "노드별 병렬 아웃바운드 마이그레이션"
+      bandwidthPerMigration: "마이그레이션당 대역폭"
+      bandwidthPerMigrationTooltip: '0은 KubeVirt의 기본값으로, 무제한 대역폭을 나타냅니다.'
+      completionTimeoutPerGiB: "GiB당 완료 시간 초과"
+      progressTimeout: "진행 시간 초과"
+      allowAutoConverge: "자동 수렴 허용"
+      allowPostCopy: "게시물 복사 허용"
+      unsafeMigrationOverride: "안전하지 않은 마이그레이션 재정의"
+      allowWorkloadDisruption: "업무량 중단 허용"
+      disableTLS: "TLS 비활성화"
+      matchSELinuxLevelOnMigration: "마이그레이션 시 SELinux 레벨 일치"
   cloudTemplate:
     label: 클라우드 구성 템플릿
     templateType: 템플릿 유형
@@ -1493,6 +1715,32 @@ harvester:
     allowedTopologies:
       title: 허용된 토폴로지
       tooltip: 허용된 토폴로지는 아래 표현식을 모두 충족하는 호스트에서 가상 머신을 예약하는 데 도움이 됩니다.
+    internal:
+      label: 내부 저장소 클래스
+      cannotDeleteTooltip: 내부 스토리지 클래스 볼륨은 삭제할 수 없습니다.
+      cannotDeleteOrDefaultTooltip: 내부 저장소 클래스는 삭제하거나 기본값으로 설정할 수 없습니다.
+    cdiSettings:
+      label: CDI 설정
+      volumeModeAccessModes:
+        label: 볼륨 모드 / 액세스 모드
+        tooltip: 기본 볼륨 모드 및 액세스 모드를 지정합니다.
+        add: 추가
+        volumeMode: 볼륨 모드
+        accessModes:
+          label: 액세스 모드
+      volumeSnapshotClass:
+        label: 볼륨 스냅샷 클래스
+        tooltip: 이 StorageClass에 속한 PVC의 스냅샷을 생성할 때 사용할 볼륨 스냅샷 클래스 이름을 설정합니다.
+      cloneStrategy:
+        label: 클론 전략
+        tooltip: 이 StorageClass로 생성된 볼륨에 사용할 복제 전략을 정의합니다.
+        copy: 복사
+        snapshot: 스냅샷
+        csiClone: CSI 클론
+      fileSystemOverhead:
+        label: 파일 시스템 오버헤드
+        tooltip: PVC 크기 계산 시 고려할 파일 시스템 오버헤드 비율을 지정합니다.
+        placeholder: "예: 0.05 (소수점 셋째 자리까지, 0과 1 사이)"
 
   vlanConfig:
     title: 네트워크 구성
@@ -1537,6 +1785,14 @@ harvester:
   vlanStatus:
     vlanConfig:
       label: 네트워크 구성
+      l2VlanMode:
+        access: Access
+        trunk: Trunk
+        label: VLAN 모드
+      vlanTrunk:
+        minId: 최소 VLAN ID
+        maxId: 최대 VLAN ID
+        add: VLAN Trunk 추가
 
   clusterNetwork:
     title: 클러스터 네트워크 구성
@@ -1564,6 +1820,7 @@ harvester:
       'harvester-seeder': harvester-seeder는 IPMI와 Redfish를 사용하여 하드웨어 정보를 검색하고 대역 외 작업을 수행하는 애드온입니다.
       'harvester-system/harvester-seeder': harvester-seeder는 IPMI와 Redfish를 사용하여 하드웨어 정보를 검색하고 대역 외 작업을 수행하는 애드온입니다.
       'harvester-csi-driver-lvm': harvester-csi-driver-lvm은 사용자가 로컬 장치로 LVM을 통해 PVC를 생성할 수 있도록 해주는 애드온입니다.
+      'descheduler': '가상 머신 자동 균형 조정 기능은 관리자가 정의한 정책에 따라 최적의 위치에 있지 않은 Pod를 제거하여 워크로드 스케줄링을 최적화합니다.'
     vmImport:
       titles:
         basic: 기본
@@ -1709,6 +1966,26 @@ harvester:
       prefix: nvidia-driver-toolkit 추가 기능이 활성화되지 않았습니다. 클릭하세요.
       middle: 여기
       suffix: SR-IOV GPU 장치를 관리할 수 있도록 합니다.
+
+  migconfiguration:
+    label: vGPU MIG 구성
+    infoBanner: MIG 설정을 구성하려면 먼저 비활성화한 다음 설정을 편집한 후 다시 활성화하십시오.
+    profileSpec: 프로필 사양
+    profileStatus: 프로필 상태
+    tableHeaders:
+      profileName: 프로필 이름
+      total: 전체
+      vGPUID: vGPU ID
+      available: 사용 가능
+      requested: 요청됨
+    requested: 요청됨
+    available: 사용 가능
+    total: 전체
+    vGPUID: vGPU ID
+    goSriovGPU:
+      prefix: 지원되는 GPU 장치를 활성화해 주세요.
+      middle: SR-IOV GPU 장치
+      suffix: vGPU MIG 구성을 관리하는 페이지입니다.
 
   vgpu:
     label: vGPU 장치
@@ -2387,21 +2664,6 @@ asyncButton:
     action: 저장 및 재시작
     success: 재시작됨
     waiting: 재시작중
-
-dialog:
-  confirmExecution:
-    title: 확실합니까?
-    andOthers: |-
-      {count, plural,
-      =0 {}
-      =1 { and <b>one other </b>}
-      other { and <b>{count} other </b>}
-      }
-    protip: "팁: 이 확인을 건너뛰려면 작업을 클릭하는 동안 {alternateLabel} 키를 누르고 계십시오."
-    stop:
-      message: "{type} {names}을(를) 중지하시겠습니까?"
-    pause:
-      message: "{type} {names}을(를) 일시 중지하시겠습니까?"
 
 backupRestoreOperator:
   backup:
