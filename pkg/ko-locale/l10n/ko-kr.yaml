@@ -15,6 +15,10 @@ generic:
   userMenu: 사용자 메뉴
   actionMenu: 작업 메뉴
   namespaceFilter: 네임스페이스 필터 메뉴
+  imageAlt: 일반 랜처 이미지 대체
+  banners:
+    altCloseBanner: 배너 아이콘 닫기
+    bannerIcon: 배너 아이콘
   filterNamespaces: 네임스페이스 필터링
   clearSearch: 검색 지우기
   clearFilters: 필터 지우기
@@ -44,6 +48,7 @@ generic:
   disabled: 비활성화됨
   done: 완료
   enabled: 활성화됨
+  error: 오류
   here: 여기
   id: ID
   ignored: 무시됨
@@ -72,6 +77,11 @@ generic:
       warning: 경고
       error: 오류
   ok: 확인
+  other: |-
+    {count, plural,
+    one  {다른}
+    other {다른}
+    }
   overview: 개요
   plusMore: "+ {n}개 더"
   readFromFile: 파일에서 읽기
@@ -80,6 +90,7 @@ generic:
   reload: 새로 고침
   register: 등록
   remove: 제거
+  delete: 삭제
   addCatalog: 카탈로그 추가
   resource: |-
     {count, plural,
@@ -122,8 +133,14 @@ generic:
   enable: 활성화
   disable: 비활성화
   experimental: 실험적
-
   deprecated: 사용 중지됨
+  upgradeable: 업그레이드 가능
+  installed: 설치됨
+  featured: 특징
+  shortFeatured: 특징
+  category: 범주
+  tags: 태그
+  tag: 태그
   placeholder: "예: {text}"
   moreInfo: 자세한 정보
   selectors:
@@ -137,10 +154,32 @@ generic:
         }
   basic: 기본
   ariaLabel:
+    keyValue: 키-값 입력
     key: 키 {index}
     value: 값 {index}
+    remove: 행 {index}을 제거합니다.
+    addKeyValue: 새로운 키-값 행을 추가합니다.
+    readKeyValue: 파일에서 키-값 쌍을 읽어옵니다.
+    genericAddRow: 새 행 추가
+    arrayList: 배열 목록 입력
+    genericRow: 행 {index}
+  showLess: 간략히 보기
+  showMore: 더 보기
+  externalIps: 외부 IP
+  internalIps: 내부 IP
+  opensInNewTab: 새 탭에서 열립니다
+
+tabs:
+  addItem: 새 탭 항목을 추가하세요
+  removeItem: 선택한 탭 항목 제거
+
+graph:
+  noPermissions: 그래프 보기 권한이 없습니다.
+  loading: 차트 데이터 로드 중...
+  rendering: 차트 렌더링 중...
 
 locale:
+  menu: 언어 선택 메뉴
   en-us: English
   ko-kr: 한국어
   zh-hans: 简体中文
@@ -157,6 +196,7 @@ nav:
     localClusterIcon: 로컬 클러스터 아이콘
     clusterProvIcon: 클러스터 {cluster} 공급자 아이콘
     topLevelMenu: 메인 메뉴
+    sideNav: 보조 메뉴
     homePage: 홈페이지 탐색 메뉴
     cluster: 클러스터 메뉴 항목
     harvesterCluster: Infinitystack 클러스터 메뉴 항목
@@ -171,11 +211,12 @@ nav:
   alt:
     mainMenuIcon: 메인 메뉴 아이콘
     mainMenuRancherLogo: 메인 메뉴 Rancher 로고
+    userAvatar: 사용자 아바타 이미지
   expandCollapseAppBar: 애플리케이션 표시줄 확장/축소
   harvesterDashboard: Infinitystack 대시보드
   backToRancher: 클러스터 매니저
-  clusterTools: 클러스터 도구
   tools: 툴
+  clusterTools: 클러스터 도구
   kubeconfig:
     download: KubeConfig 다운로드
     copy: 클립보드에 KubeConfig 복사
@@ -210,6 +251,7 @@ nav:
     monitoring: 모니터링
     advanced: 고급
     drivers: 드라이버
+    providers: 공급자
     RKE1Configuration: RKE1 구성
     admission: 승인
     apps: 앱
@@ -227,7 +269,8 @@ nav:
     RBAC: RBAC
     Scheduling: 스케줄링
     Storage: 스토리지
-    Project: 프로젝트    
+    Project: 프로젝트  
+    resources: 자원  
     networks: 네트워크
     backupAndSnapshot: 백업 및 스냅샷
     Monitoring: 모니터링
@@ -258,8 +301,10 @@ nav:
     ariaLabel: 메인 메뉴에서 클러스터 필터링
   resourceSearch:
     label: 리소스 검색
+    prompt: Kubernetes 리소스/사용자 지정 리소스 유형을 검색하세요.
     toolTip: 리소스 검색 {key}
     placeholder: 리소스를 검색하려면 입력하세요...
+    filteringDescription: 이 입력값을 사용하면 아래 목록의 결과가 즉시 필터링됩니다.
   header:
     setLoginPage: 로그인 페이지로 설정
     restoreCards: 숨겨진 카드 복원
@@ -274,7 +319,11 @@ nav:
   actionMenu:
     label: 페이지 작업 메뉴
     button:
-      label: 페이지 작업 메뉴 열기   
+      label: 페이지 작업 메뉴 열기
+  notifications:
+    label: 알림 센터
+    button:
+      label: 알림 센터 열기
   failWhale:
     authMiddleware: 인증 미들웨어
     clusterNotFound: 클러스터 { clusterId }를 찾을 수 없음
@@ -534,8 +583,8 @@ harvester:
     value: 값
     actions: 수행
     readyToUse: 사용 준비 완료
-    backupTarget: 백업 대상
-    targetVm: 대상 가상 머신
+    backupTarget: 백업 타겟
+    targetVm: 타겟 가상 머신
     cronExpression: 표현 복제
     retain: 유지
     scheduleType: 유형
@@ -687,7 +736,7 @@ harvester:
       events:
         label: 이벤트
       vmMetrics:
-        label: 가상 머신 메트릭
+        label: 가상 머신 측정항목
 
     version: 버전
   host:
@@ -952,7 +1001,7 @@ harvester:
       efiPersistentState: EFI 지속 상태
       secureBoot: 보안 부팅 
     usbTip: VNC에서 일관된 마우스 커서 위치를 얻는 데 도움이 되는 절대 포인터 장치를 제공합니다.
-    sshTitle: 공개 SSH 키 추가
+    sshTitle: 퍼블릭 SSH 키 추가
     imageTip: 가상 머신이 생성되어야 하는 .iso, .img, .qcow2 또는 .raw에 대한 외부 URL입니다.
     efiEnabled: EFI 모드로 부팅
     secureBoot: 보안 부팅
@@ -1033,7 +1082,7 @@ harvester:
       image: 이미지
       sshKey: SSH키
       sshKeyValue: SSH-키
-      MachineType: 기계 유형
+      MachineType: 머신 유형
       username: 사용자 이름
       password: 비밀번호
       reservedMemory: 예약된 메모리
@@ -1057,7 +1106,7 @@ harvester:
         monitor: 데이터 모니터링
         keypairs: SSH 키
         cloudConfig: 클라우드 구성
-        metrics: 가상 머신 메트릭
+        metrics: 가상 머신 측정항목
       details:
         title:
           vmDetails: 가상 머신 세부정보
@@ -1091,7 +1140,7 @@ harvester:
         affinityRules: 선호도 규칙
         phase: 단계
         sourceNode: 소스 노드
-        targetNode: 대상 노드
+        targetNode: 타겟 노드
         started: 시작됨
         ended: 종료됨
       notAvailable: 사용할 수 없음
@@ -1316,7 +1365,7 @@ harvester:
       replaceExisting: 기존 교체
       virtualMachineName: 가상 머신 이름
       keepMacAddress: MAC 주소 유지
-    matchTarget: 현재 백업 대상이 기존 백업 대상과 일치하지 않습니다.
+    matchTarget: 현재 백업 타겟이 기존 백업 타겟과 일치하지 않습니다.
     progress:
       details: 볼륨 세부정보
       tooltip:
@@ -1546,7 +1595,7 @@ harvester:
         prometheus: 프로메테우스
         prometheusNodeExporter: 프로메테우스 Node Exporter
         grafana: 그라파나
-        alertmanager: Alert관리자
+        alertmanager: Alert매니저
       tips:
         scrape: 연속 스크래핑 사이의 간격
         evaluation: 연속 평가 간 간격
@@ -1619,14 +1668,14 @@ harvester:
     configuration:
       label: 구성
     alertmanagerConfig:
-      label: Alert관리자 구성
+      label: Alert매니저 구성
       diabledMonitoringTips:
         prefix: '활성화'
         middle: '모니터링'
         suffix: '먼저 추가 기능을 추가하세요.'
       diabledAlertingTips:
         prefix: '활성화'
-        middle: 'Alert관리자'
+        middle: 'Alert매니저'
         suffix: '구성이 적용되려면 다음을 수행해야 합니다.'
       disabledAddon:
         prefix: '모니터링 추가 기능이 비활성화되어 있습니다. 클릭하세요.'
@@ -2028,8 +2077,8 @@ harvester:
 
   harvesterVlanConfigMigrateDialog:
     targetClusterNetwork:
-      label: 대상 클러스터 네트워크
-      placeholder: 대상 클러스터 네트워크 선택
+      label: 타겟 클러스터 네트워크
+      placeholder: 타겟 클러스터 네트워크 선택
 
   seeder:
     banner:
@@ -2074,6 +2123,7 @@ product:
   apps: 앱
   auth: 사용자 및 인증
   backup: Rancher 백업
+  compliance: 규정 준수
   cis: CIS 벤치마크
   ecm: 클러스터 매니저
   explorer: 클러스터 탐색기
@@ -2127,6 +2177,16 @@ suffix:
 ##############################
 windowmanager:
   closeTab: 탭 닫기 {tabId}
+
+layouts:
+  home: 홈 레이아웃
+  plain: 일반 레이아웃
+  default: 기본 레이아웃
+  blank: 공백 레이아웃
+  unauthenticated: 인증되지 않은 레이아웃
+  logout: 로그아웃 레이아웃
+  verify: 검증 레이아웃
+
 about:
   title: 정보
   versions:
@@ -2185,11 +2245,15 @@ accountAndKeys:
     title: API 키
     notAllowed: API 키를 관리할 권한이 없습니다.
     apiEndpoint: "API 엔드포인트:"
+    copyApiEnpoint: API 엔드포인트를 클립보드에 복사
     add:
       description:
         label: 설명
         placeholder: 이 API 키를 식별하는 데 도움이 되도록 선택적으로 설명을 입력하세요.
       label: API 키 생성
+      ariaLabel:
+        expiration: 만료 기간 - 숫자 입력
+        expirationUnits: 만료 단위 - 시간 단위
       expiry:
         label: 자동 만료
         options:
@@ -2228,6 +2292,12 @@ addProjectMemberDialog:
   title: 프로젝트 멤버 추가
 
 authConfig:
+  slo:
+    sloTitle: 로그아웃 동작
+    sloOptions:
+      onlyRancher: Rancher에서 로그아웃하고 {name}은 로그아웃하지 마세요.
+      logoutAll: Rancher 및 {name}에서 로그아웃하세요({name}에 등록된 다른 모든 애플리케이션 포함).
+      choose: 사용자가 추가 로그아웃 단계에서 위 옵션 중 하나를 선택할 수 있도록 합니다.
   accessMode:
     label: "{vendor}에 로그인 및 사용 권한이 있는 사용자를 구성합니다."
     required: 인증된 사용자 및 그룹만 액세스 제한
@@ -2235,7 +2305,52 @@ authConfig:
     unrestricted: 어떤 유효한 사용자라도 허용
   allowedPrincipalIds:
     title: 인증된 사용자 및 그룹
-  associatedWarning: "참고: {vendor} 사용자로 인증하는 경우, 현재 로그인한 {vendor} 사용자의 대체 로그인 방법으로 연결됩니다. <code>{username}</code>;이 {vendor} 사용자의 전역 권한, 프로젝트 및 클러스터 역할 바인딩도 {provider} 사용자에게 적용됩니다."
+  associatedWarning: '외부 공급자를 활성화하는 데 사용되는 {provider} 계정에는 관리자 권한이 부여됩니다. 테스트 계정이나 관리자가 아닌 계정을 사용하는 경우에도 해당 계정에는 관리자 수준의 권한이 부여됩니다. 자세한 내용은 <a href="{docsBase}/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/authentication-config#external-authentication-configuration-and-principal-users" target="_blank" rel="noopener noreferrer nofollow">외부 인증 구성 및 주요 사용자</a>를 참조하세요.'
+  githubapp:
+    clientId:
+      label: 클라이언트 ID
+    clientSecret:
+      label: 클라이언트 시크릿
+    githubAppId:
+      label: Github 앱 ID
+    installationId:
+      label: 설치 ID
+    privateKey:
+      label: 프라이빗 키
+    warning: GitHub 앱 인증 공급자는 <a href="https://docs.github.com/en/get-started/learning-about-github/types-of-github-accounts" target="_blank" rel="noopener noreferrer nofollow">GitHub 조직 계정</a>에서만 작동합니다. 사용자 계정은 지원하지 않습니다.
+    form:
+      prefix:
+        1: <li>새 창에서 <a href="{baseUrl}/settings/organizations" target="_blank" rel="noopener noreferrer nofollow">GitHub 조직 설정</a>을 엽니다.</li>
+        2: <li>조직 오른쪽에 있는 "설정"을 클릭합니다.</li>
+        3: <li>왼쪽 사이드바에서 "개발자 설정" -> "GitHub 앱"을 클릭하세요.</li>
+        4: <li>"새 GitHub 앱"을 클릭하세요</li>
+      instruction: '이 값을 사용하여 양식을 작성하세요:'
+      app:
+        label: GitHub 앱 이름 
+        value: "자유롭게 입력, 예: 내 {vendor}"
+      callback:
+        label: 콜백 URL
+        value: '{serverUrl}/verify-auth'
+      description:
+        label: 애플리케이션 설명
+        value: "선택 사항, 비워둘 수 있음"
+      homepage:
+        label: 홈페이지 URL
+      create: "'GitHub 앱 만들기'를 클릭하세요."
+      suffix:
+        1: <li>클라이언트 시크릿 아래에서 "새 클라이언트 시크릿 생성"을 클릭합니다.</li>
+        2: <li>프라이빗 키 항목에서 "프라이빗 키 생성"을 클릭하세요.</li>
+        3: <li>새로 생성한 OAuth 앱의 "앱 ID", "클라이언트 ID", "클라이언트 시크릿" 및 "프라이빗 키"를 아래 필드에 복사하여 붙여넣으세요.</li>
+    host:
+      label: GitHub Enterprise 호스트
+      placeholder: "예: github.mycompany.example"
+    target:
+      label: 어떤 버전의 GitHub를 사용하시겠습니까?
+      private: GitHub Enterprise 프라이빗 설치
+      public: 퍼블릭 GitHub.com
+    table:
+      server: 서버
+      clientId: 클라이언트 ID
   github:
     clientId:
       label: 클라이언트 ID
@@ -2265,8 +2380,8 @@ authConfig:
       placeholder: "예: github.mycompany.example"
     target:
       label: GitHub의 어떤 버전을 사용하시겠습니까?
-      private: GitHub Enterprise의 개인 설치
-      public: 공개 GitHub.com
+      private: GitHub Enterprise의 프라이빗 설치
+      public: 퍼블릭 GitHub.com
     table:
       server: 서버
       clientId: 클라이언트 ID
@@ -2289,6 +2404,9 @@ authConfig:
           4: 'Google API의 범위에서 "이메일", "프로필", "OpenID"를 활성화합니다.'
           5: '"저장"을 클릭합니다.'
         topPrivateDomain: "다음의 최상위 비공개 도메인:"
+        ariaLabel:
+          hostname: 호스트 이름을 클립보드에 복사
+          serverUrl: 서버 URL을 클립보드에 복사
       2:
         title: '"자격 증명" 탭으로 이동하여 OAuth 클라이언트 ID를 생성합니다.'
         body:
@@ -2297,9 +2415,11 @@ authConfig:
           3: "인증된 리디렉션 URI:"
           4: '"만들기"를 클릭하고 "JSON 다운로드" 버튼을 클릭합니다.'
           5: "다운로드한 JSON 파일을 OAuth 자격 증명 상자에 업로드합니다."
+        ariaLabel:
+          serverUrlVerify: 서버 인증 확인 URL을 클립보드에 복사하세요.
       3:
         title: "서비스 계정 자격 증명 생성"
-        introduction: '<a href="{docsBase}/admin-settings/authentication/google/#3-creating-service-account-credentials" target="_blank" rel="noopener noreferrer nofollow">가이드</a>를 따릅니다:'
+        introduction: '<a href="{docsBase}/how-to-guides/new-user-guides/authentication-permissions-and-global-configuration/authentication-config/configure-google-oauth#3-creating-service-account-credentials" target="_blank" rel="noopener noreferrer nofollow">가이드</a>를 따릅니다:'
         body:
           1: 서비스 계정 생성
           2: 서비스 계정을 위한 키 생성
@@ -2383,8 +2503,8 @@ authConfig:
     displayName: 표시 이름 필드
     groups: 그룹 필드
     key:
-      label: 개인 키
-      placeholder: -----BEGIN RSA PRIVATE KEY-----로 시작하는 개인 키를 붙여넣으세요.
+      label: 프라이빗 키
+      placeholder: -----BEGIN RSA PRIVATE KEY-----로 시작하는 프라이빗 키를 붙여넣으세요.
     keycloak: Keycloak 계정 구성
     metadata:
       label: 메타데이터 XML
@@ -2433,6 +2553,7 @@ authConfig:
     reply:
       info: "Azure AD에서는 Rancher 서버에 대한 화이트리스트 URL이 설정되어야 합니다. 이 설정을 시작하기 전에 아래 URL이 Azure 포털의 회신 URL 섹션에 설정되어 있는지 확인하세요. 화이트리스트 URL이 전파되기까지 최대 5분이 소요될 수 있습니다."
       label: 회신 URL
+      ariaLabel: 답글 URL을 클립보드에 복사
     updateEndpoint:
       button: 엔드포인트 업데이트
       banner:
@@ -2442,9 +2563,13 @@ authConfig:
         title: 확실합니까? 이 업데이트는 되돌릴 수 없습니다.
         body: "<p><b>추가 조치가 필요할 수 있습니다</b>. Azure AD 앱이 Microsoft Graph에 Directory.Read.All <b>Application</b> 권한이 추가되어 있는지 확인하세요.<br> Azure AD 인증을 Rancher에서 구성하는 동안 엔드포인트를 사용자 정의한 경우 자동으로 업데이트되지 않을 것입니다.</p>"
   oidc:
+    endSessionEndpoint: 
+      title: 세션 앤드포인트 종료
+      tooltip: 사용자가 세션에서 로그아웃할 때 사용하는 공급자별 URL
     oidc: OIDC 계정 구성
     genericoidc: OIDC 계정 구성
     keycloakoidc: Keycloak OIDC 계정 구성
+    cognito: Amazon Cognito 계정 구성하기
     rancherUrl: Rancher URL
     clientId: 클라이언트 ID
     clientSecret: 클라이언트 시크릿
@@ -2463,6 +2588,19 @@ authConfig:
     tokenEndpoint: 토큰 엔드포인트
     userInfoEndpoint: 사용자 정보 엔드포인트
     acrValue: 권한 부여 컨텍스트 참조
+    customClaims:
+      label: 커스텀 클레임
+      enable:
+        label: 커스텀 클레임 추가
+        tooltip: 공급자가 토큰에 표준 클레임 이름을 사용하지 않는 경우 OIDC 클레임을 수동으로 매핑하십시오.
+      nameClaim: 
+        label: 커스텀 이름 클레임
+      groupsClaim: 
+        label: 커스텀 그룹 클레임
+      emailClaim: 
+        label: 커스텀 Email 클레임
+    cognitoIssuer: 발급자 URL
+    cognitoHelp: "Cognito에서 <b>기존 웹 애플리케이션</b> 유형의 애플리케이션 클라이언트를 생성하고 반환 URL을 아래에 표시된 URL로 설정해야 합니다."
     scope:
       label: 범위
       placeholder: openid
@@ -2471,8 +2609,8 @@ authConfig:
       label: 인증서
       placeholder: -----BEGIN CERTIFICATE-----로 시작하는 인증서를 붙여넣으세요.
     key:
-      label: 개인 키
-      placeholder: -----BEGIN RSA PRIVATE KEY-----로 시작하는 개인 키를 붙여넣으세요.
+      label: 프라이빗 키
+      placeholder: -----BEGIN RSA PRIVATE KEY-----로 시작하는 프라이빗 키를 붙여넣으세요.
     groupSearch:
       label: 그룹 검색 활성화
       tooltip: 적절한 권한이 있는 사용자가 OIDC 공급자 영역 내의 모든 그룹을 검색하고 볼 수 있도록 합니다. 이 기능은 현재 소속되지 않은 그룹에 글로벌 역할을 할당해야 하는 관리자에게 유용할 수 있습니다.
@@ -2505,6 +2643,16 @@ assignTo:
   workspace: 워크스페이스
 
 asyncButton:
+  alt:
+    iconAlt: 비동기 버튼 아이콘
+  registerApplication:
+    action: 애플리케이션 추가
+    success: 추가됨
+    waiting: 추가 중&hellip;
+  saveApplication:
+    action: 애플리케이션 저장 
+    success: 저장됨
+    waiting: 저장 중&hellip;
   apply:
     action: 적용
     success: 적용됨
@@ -2557,6 +2705,10 @@ asyncButton:
     action: 다운로드
     success: 저장 중
     waiting: 다운로드 중&hellip;
+  downgrade:
+    action: 다운그레이드
+    success: 다운그레이드됨
+    waiting: 다운그레이드 중&hellip;
   drain:
     action: 드레인
     success: 드레인됨
@@ -2565,6 +2717,10 @@ asyncButton:
     action: 저장
     success: 저장됨
     waiting: 저장 중&hellip;
+  editVersion:
+    action: 변경사항 저장
+    success: 저장됨
+    waiting: 변경사항 저장 중&hellip;
   editAndContinue:
     action: 저장하고 계속
     success: 저장됨
@@ -2583,6 +2739,10 @@ asyncButton:
     waiting: 가져오는 중&hellip;
   install:
     action: 설치
+    success: 설치됨
+    waiting: 설치 중&hellip;
+  installVersion:
+    action: 이 버전을 설치
     success: 설치됨
     waiting: 설치 중&hellip;
   load:
@@ -2624,6 +2784,10 @@ asyncButton:
     action: 오케스트레이션 재개
     success: 오케스트레이션 재개됨
     waiting: 오케스트레이션 재개 중
+  redeploy:
+    action: 재배포
+    success: 재배포됨
+    waiting: 워크로드 재배포 중
   rollback:
     action: 롤백
     success: 롤백됨
@@ -2733,7 +2897,7 @@ backupRestoreOperator:
       prompt: 엔드포인트 CA는 Base64로 인코딩되어야 합니다.
     folder: 폴더
     insecureTLSSkipVerify: TLS 검증 건너뛰기
-    region: 지역
+    region: 리전
     storageLocation: 저장 위치
     titles:
       backupLocation: 백업 소스
@@ -2749,7 +2913,7 @@ backupRestoreOperator:
     configureS3: S3 호환 객체 저장소 사용
     useBackup: 백업 CR에서 지정한 s3 위치 사용
     useDefault: 설치 중에 구성한 기본 저장 위치 사용
-  targetBackup: 대상 백업
+  targetBackup: 타겟 백업
 
 catalog:
   app:
@@ -2781,7 +2945,9 @@ catalog:
         label: 차트 버전
         showMore: 더보기
         showLess: 감추기
-      home: 홈
+        missingVersionDate: 이 차트 버전에는 날짜 정보가 없습니다.
+      home: 홈페이지
+      repository: 저장소 페이지
       maintainers: 유지 보수자
       related: 관련 항목
       chartUrls: 차트
@@ -2792,8 +2958,14 @@ catalog:
     deprecatedWarning: '{chartName}은 더 이상 사용되지 않습니다. 이 헬름 차트는 향후 삭제될 수 있으므로 설치할 때 주의하세요.'
     experimentalWarning: '{chartName}은(는) 실험용으로 표시되었습니다. 이 헬름 차트를 설치할 때 예상대로 작동하지 않을 수 있으므로 주의하시기 바랍니다.'
     deprecatedAndExperimentalWarning: '{chartName}은 더 이상 사용되지 않고 실험용으로 표시되었습니다. 이 헬름 차트는 향후 삭제되어 예상대로 작동하지 않을 수 있으므로 설치할 때는 주의하시기 바랍니다.'
+    chartButton:
+      action:
+        install: 이 버전을 설치
+        edit: 현재 버전 편집
+        upgrade: 이 버전으로 업그레이드
+        downgrade: 이 버전으로 다운그레이드
   charts:
-    browseBtn: Browse
+    browseBtn: 찾아보기
     featuredBtn: 추천
     featuredAriaLabel: 추천 회전형 차트 및 그리드 차트 표시
     browseAriaLabel: 그리드 차트만 표시
@@ -2811,7 +2983,10 @@ catalog:
     versionWindowsIncompatible: Linux 전용 버전
     header: 차트
     featuredCharts: 추천 차트
-    noCharts: "사용 가능한 차트가 없습니다. 리포지토리를 추가했나요?"
+    noCharts:
+      title: 표시할 차트가 없습니다
+      message: '<b>팁:</b> 마지막으로 적용한 필터를 실행 취소하거나 <resetAllFilters>모든 필터를 지우세요</resetAllFilters> 그리고 올바른 <repositoriesUrl>저장소</repositoriesUrl>가 있는지 확인하세요.'
+      docsMessage: 'Helm 차트 및 앱에 대해 더 자세히 알아보고 싶으신가요? <docsUrl>문서</docsUrl>를 참조하세요.'
     noWindows: 리포지토리에 Windows 노드를 사용하여 클러스터에 배포할 수 있는 차트가 없습니다.
     noWindowsAndLinux: 리포지토리에 Windows 및 Linux 워커 노드를 사용하여 클러스터에 배포할 수 있는 차트가 없습니다.
     operatingSystems:
@@ -2820,12 +2995,82 @@ catalog:
       windows: Windows
     search: 필터
     deprecatedChartsFilter:
-      label: Show deprecated apps    
+      label: 더 이상 사용되지 않는 앱을 ​​표시
+    addNewRepo:
+      label: 새로 추가
+      ariaLabel: 새 저장소 추가
+    appChartCard:
+      subHeaderItem:
+        missingVersionDate: 이 차트의 최종 업데이트 날짜를 확인할 수 없습니다.
+      footerItem:
+        ariaLabel: 필터 적용
+    statusFilterCautions:
+      installation: 설치 상태를 100% 정확하게 확인할 수 없습니다.
+      upgradeable: 업그레이드 가능 여부는 100% 정확하게 판단할 수 없습니다.
+    totalChartsMessage: |-
+        {count , plural,
+          =1 { 총 {count}개의 차트 }
+          other { 총 {count}개의 차트 }
+        }
+    totalMatchedChartsMessage: |-
+        {count , plural,
+          =1 { {count}개의 차트가 귀하의 기준과 일치합니다. }
+          other { 검색 조건과 일치하는 차트가 {count}개입니다. }
+        }
+    resetFilters:
+      title: 모든 필터 지우기
+    sort:
+      prefix: 정렬 기준
+      recommended: 권장
+      lastUpdatedDesc: 마지막 업데이트
+      alphaAscending: 차트 이름, A → Z
+      alphaDescending: 차트 이름, Z → A
+    refreshButton:
+      label: 모든 저장소를 새로 고침
+    findSimilar:
+      message: "이 {유형}을 기준으로 유사한 차트를 찾아보세요"
+      types:
+        keyword: 키워드
+        repo: 저장소
+        category: 분류
+        tag: 태그
   install:
     action:
       goToUpgrade: 편집/업그레이드
     appReadmeMissing: 이 차트에는 추가 차트 정보가 없습니다.
     appReadmeTitle: 차트 정보 (Helm README)
+    button:
+      alreadyInstalled: '{chart} 버전 {version}이 이미 설치되어 있습니다.'
+      viewDetails: 차트 세부정보 보기
+      customizeInstall: 설치 옵션 사용자 정의
+      viewLogs: 설치 로그 보기
+      waitForLogs: 설치가 시작되었습니다. 로그를 기다리는 중입니다...
+      canNotCreateRepos: 저장소를 추가하고 Helm 차트를 설치할 권한이 없는 것 같습니다.
+      canNotInstallApps: "{repo} 저장소가 추가되었지만, 해당 저장소에서 차트를 설치할 권한이 없습니다."
+      stages:
+        addRepo:
+          action: "{repo} 저장소를 추가하세요"
+          waiting: "{repo} 저장소를 추가하는 중..."
+          success: 저장소가 추가되었습니다
+          error: "{repo} 저장소를 추가하는 중 오류가 발생했습니다."
+        loadCharts:
+          action:  "{repo} 저장소 차트를 가져옵니다."
+          waiting: "{repo} 저장소 차트를 가져오는 중..."
+          success: '{차트} 발견됨'
+          error: '{차트} 차트를 찾을 수 없습니다. 다시 시도하시겠습니까?'
+        installChart:
+          action: "{chart}를 설치하세요"
+          waiting: "{chart}를 설치하는 중..."
+          success: "{chart} 설치가 시작되었습니다"
+          error: "{chart} 설치 중 오류 발생"
+        waitForLogs:
+          action: 설치 로그 보기
+          waiting: 설치 로그를 기다리는 중...
+          error: 설치 로그를 불러올 수 없습니다.
+      errors:
+        fetchChart: 저장소에서 차트를 가져오는 중 오류가 발생했습니다.
+        alreadyInstalled: 차트가 이미 설치되어 있습니다.
+        timeoutWaiting: 로그를 기다리는 동안 시간 초과가 발생했습니다.
     chart: 차트
     warning:
       managed:
@@ -2896,7 +3141,8 @@ catalog:
           이 과정은 {vendor}에서 앱을 관리하는 데 사용되는 몇 가지 기본 정보를 설정하는 데 도움이 됩니다. {action, select,
           install { create }
           upgrade { upgrade }
-          update { update }}할 {existing, select,
+          downgrade { upgrade }
+          editVersion { update }}할 {existing, select,
           true { app }
           false { chart }
           }입니다. {namespace} 필드에 새로운 네임스페이스의 이름을 입력하고 선택하여 앱을 설치합니다.
@@ -2955,7 +3201,8 @@ catalog:
     target:
       git: 헬름 차트 또는 클러스터 템플릿 정의를 포함하는 Git 저장소
       http: 헬름에서 생성한 인덱스의 http(s) URL
-      label: 대상
+      oci: OCI 저장소
+      label: 타겟
     url:
       label: 인덱스 URL
       placeholder: "예: https://charts.rancher.io"
@@ -2988,6 +3235,7 @@ catalog:
       install: 설치
       upgrade: 업그레이드/편집
       edit: 편집
+      downgrade: 다운그레이드
       remove: 제거
       manage: 관리
   os:
@@ -3024,7 +3272,7 @@ chartHeading:
   overview: 개요
   poweredBy: "Powered by:"
 
-cis:
+compliance:
   addTest: 테스트 ID 추가
   alertNeeded: |-
     CIS 차트 values.yaml에서 알림 기능을 활성화해야 합니다.
@@ -3081,7 +3329,10 @@ cis:
   testID: 테스트 ID
   testsSkipped: 건너뛴 테스트
   testsToSkip: 건너뛸 테스트
-  alerting: Alerting
+  alerting: 경고알림
+  detail:
+    subRow:
+      noNodes: 추가 정보 없음
 cluster:
   addonChart:
     rancher-vsphere-cpi:
@@ -3151,6 +3402,7 @@ cluster:
       nodeLabel:
         title: 노드 레이블
         label: 레이블 추가
+      ipv6: "이 클러스터는 IPv6 네트워킹을 사용하는 것 같습니다. <code>노드 개인 IP</code>를 클러스터의 IPv6 주소로 설정해야 합니다."
     registrationCommand:
       label: 등록 명령어
       linuxDetail: 등록하려는 기존 리눅스 시스템 각각에 대해 이 명령을 실행합니다.
@@ -3178,7 +3430,7 @@ cluster:
         label: 액세스 키
         placeholder: 여러분의 AWS 액세스 키
       defaultRegion:
-        help: 클러스터를 생성할 때 사용할 기본 지역입니다. 또한이 자격 증명이 작동하는지 확인하는 데에 사용됩니다.
+        help: 클러스터를 생성할 때 사용할 기본 리전입니다. 또한이 자격 증명이 작동하는지 확인하는 데에 사용됩니다.
         label: 기본 지역
       secretKey:
         label: 시크릿 키
@@ -3221,8 +3473,8 @@ cluster:
         label: 액세스 키
         placeholder: 여러분의 API 액세스 키
       defaultRegion:
-        label: 기본 지역
-        placeholder: "선택 사항: 사용할 기본 지역"
+        label: 기본 리전
+        placeholder: "선택 사항: 사용할 기본 리전"
       defaultBucket:
         label: 기본 버킷
         placeholder: "선택 사항: 사용할 기본 버킷"
@@ -3254,17 +3506,29 @@ cluster:
     gcp:
       authEncodedJson:
         label: 서비스 계정
-        placeholder: 서비스 계정 개인 키 JSON 파일
-        help: |-
-          <p><a href="https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts" target="_blank" rel="noopener noreferrer nofollow">서비스 계정</a>을 JSON 개인 키와 함께 생성하고 여기에 JSON을 제공하세요.
-          이러한 IAM 역할이 필요합니다:</p>
-          <ul>
-          <li><b>컴퓨팅 엔진:</b> 컴퓨팅 뷰어 (roles/compute.viewer)</li>
-          <li><b>프로젝트:</b> 뷰어 (roles/viewer)</li>
-          <li><b>쿠버네티스 엔진:</b> 쿠버네티스 엔진 관리자 (roles/container.admin)</li>
-          <li><b>서비스 계정:</b> 서비스 계정 사용자 (roles/iam.serviceAccountUser)</li>
-          </ul>
-          역할에 대한 자세한 정보는 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/iam-integration" target="_blank" rel="noopener noreferrer nofollow">여기</a>에서 확인할 수 있습니다.
+        placeholder: 서비스 계정 프라이빗 키 JSON 파일
+        gke: GKE
+        gce: GCE
+        help:
+          shared: <p>JSON 개인 키를 사용하여 <a href="https://console.cloud.google.com/projectselector/iam-admin/serviceaccounts" target="_blank" rel="noopener noreferrer nofollow">서비스 계정</a>을 생성하고 여기에 JSON을 제공하세요.</p>
+          gke: |-
+            <p>GKE를 사용하려면 다음 IAM 역할이 필요합니다:</p>
+            <ul>
+            <li><b>컴퓨트 엔진:</b> 컴퓨트 뷰어(roles/compute.viewer)</li>
+            <li><b>프로젝트:</b> 뷰어 (roles/viewer)</li>
+            <li><b>쿠버네티스 엔진:</b> 쿠버네티스 엔진 관리자 (roles/container.admin)</li>
+            <li><b>서비스 계정:</b> 서비스 계정 사용자(roles/iam.serviceAccountUser)</li>
+            </ul>
+            역할에 대한 자세한 정보는 <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/iam-integration" target="_blank" rel="noopener noreferrer nofollow">여기</a>에서 확인할 수 있습니다.
+          gce: |-
+            <p>GCE를 사용하려면 다음 IAM 역할이 필요합니다:</p>
+            <ul>
+            <li><b>컴퓨트 엔진:</b> 컴퓨트 뷰어(roles/compute.viewer)</li>
+            <li><b>프로젝트:</b> 뷰어 (roles/viewer)</li>
+            <li><b>쿠버네티스 엔진:</b> 쿠버네티스 엔진 관리자 (roles/container.admin)</li>
+            <li><b>서비스 계정:</b> 서비스 계정 사용자(roles/iam.serviceAccountUser)</li>
+            </ul>
+            역할에 대한 자세한 정보는 <a href="https://cloud.google.com/compute/docs/access/iam" target="_blank" rel="noopener noreferrer nofollow">여기</a>에서 확인할 수 있습니다.
     harvester:
       namespace: 네임스페이스
       cpu: CPUs
@@ -3301,7 +3565,14 @@ cluster:
         label: Kubeconfig 콘텐츠
       placeholder: "네임스페이스/이름"
       cluster: 가져온 Infinitystack 클러스터
+      enableTpm: TPM 활성화
+      enableCpuPinning: CPU 고정 활성화
+      cpuPinningTooltip: CPU 고정을 활성화하면 infinitystack 가상 머신의 성능이 향상되고 지연 시간이 줄어듭니다.
+      cpuManagerWarning: VM에 대한 CPU 고정을 활성화하려면 infinitystack 호스트 페이지에서 하나 이상의 노드에 대해 CPU 관리자를 활성화해야 합니다.
+      secureBoot: 보안 Boot
+      enableEfi: EFI 모드로 부팅
       installGuestAgent: 게스트 에이전트 설치
+      tokenExpirationWarning: '경고: Infinitystack 클라우드 자격 증명은 만료 시간이 있는 기본 인증 토큰을 사용합니다. 관리 작업에 미칠 수 있는 영향에 대해서는 다음 <a href="https://harvesterhci.io/kb/renew_harvester_cloud_credentials" target="_blank" rel="noopener nofollow">기술 자료 문서</a>를 참조하십시오.'
   description:
     label: 클러스터 설명
     placeholder: 이 클러스터를 더 잘 설명하는 임의의 텍스트
@@ -3338,6 +3609,9 @@ cluster:
       sshUser:
         placeholder: "예: ubuntu"
         toolTip: 선택한 OS 이미지로 로그인할 SSH 사용자
+    kubeconfigSecret:
+        nameRequired: 클러스터 이름은 필수 입력 사항입니다.
+        error: 'Infinitystack kubeconfig 시크릿 생성 오류: {err}'
   haveOneOwner: 적어도 하나의 소유자 역할을 가진 멤버가 있어야 합니다.
   import:
     warningBanner: "데이터 손상을 일으킬 수 있으므로 이미 다른 Rancher 인스턴스에 연결된 클러스터를 가져오지 마세요."
@@ -3393,7 +3667,7 @@ cluster:
         } / {memory, number} GiB Memory / {storageSize, plural,
           =0 {EBS-Only}
           other {{storageSize, number} {storageUnit} {storageType}}
-        }
+        } - {architecture}
     azure:
       acceleratedNetworking:
         label: 네트워킹 가속화
@@ -3457,9 +3731,9 @@ cluster:
         tooltip: 가속화 네트워킹이 활성화된 경우 사용할 수 있는 크기가 모두 아닙니다.
         supportsAcceleratedNetworking: 가속화 네트워킹을 지원하는 크기
         doesNotSupportAcceleratedNetworking: 가속화 네트워킹을 지원하지 않는 크기
-        availabilityWarning: 선택한 VM 크기가 선택한 지역에서 사용할 수 없습니다.
-        regionDoesNotSupportAzs: 선택한 지역에서는 가용 영역을 지원하지 않습니다. 대신 가용성 집합을 사용하거나 다른 지역을 선택하세요.
-        regionSupportsAzsButNotThisSize: 선택한 지역에서는 선택한 VM 크기에 대한 가용 영역을 지원하지 않습니다. 대신 다른 지역이나 VM 크기를 선택하세요.
+        availabilityWarning: 선택한 VM 크기가 선택한 리전에서 사용할 수 없습니다.
+        regionDoesNotSupportAzs: 선택한 리전에서는 가용 영역을 지원하지 않습니다. 대신 가용성 집합을 사용하거나 다른 리전을 선택하세요.
+        regionSupportsAzsButNotThisSize: 선택한 리전에서는 선택한 VM 크기에 대한 가용 영역을 지원하지 않습니다. 대신 다른 리전이나 VM 크기를 선택하세요.
         selectedSizeAcceleratedNetworkingWarning: 선택한 VM 크기는 가속화 네트워킹을 지원하지 않습니다. 다른 VM 크기를 선택하거나 가속화 네트워킹을 비활성화하세요.
       sshUser:
         label: SSH 사용자 이름
@@ -3574,9 +3848,9 @@ cluster:
           label: 운영 체제 ISO URL
           placeholder: "기본: 최신 rancheros-vmware 이미지"
         cloudInit:
-          label: 클라우드 이닛
+          label: 클라우드 Init
           placeholder: "예: http://my_host/cloud-config.yml"
-          note: 게스트 인포에 설정할 클라우드 이닛 파일 또는 URL
+          note: 게스트 인포에 설정할 클라우드 Init 파일 또는 URL
         cloudConfigYaml: 클라우드 구성 YAML
         os: 운영 체제
       tags:
@@ -3588,7 +3862,7 @@ cluster:
         description: 사용자 지정 속성을 사용하면 vSphere 인벤토리의 개체에 메타데이터를 첨부하여 해당 개체를 쉽게 정렬하고 검색할 수 있습니다.
         add: 사용자 지정 속성 추가
     amazonEc2:
-      region: 지역
+      region: 리전
       zone: 영역
       instanceType: 인스턴스 유형
       rootSize:
@@ -3631,6 +3905,21 @@ cluster:
       httpEndpoint: EC2 메타데이터에 액세스 허용
       httpTokens: 메타데이터에 토큰 사용
       tagTitle: EC2 태그
+      enableIpv6:
+        label: IPv6 활성화
+        description: "이 옵션을 선택하면 <a aria-label='클러스터 구성의 네트워킹 섹션으로 스크롤' href=\"#networking\">네트워크 스택 기본 설정 순서</a>가 자동으로 <b>듀얼</b> 스택으로 설정되어 IPv4와 IPv6가 모두 활성화됩니다. IPv6 전용 클러스터의 경우 해당 설정을 <b>IPv6</b>로 수동으로 변경할 수 있습니다."
+      ipv6AddressCount:
+        label: IPv6 주소 개수
+        tooltip: 네트워크 인터페이스에 할당할 IPv6 주소의 개수를 지정합니다.
+        error: IPv6 VPC 또는 서브넷을 사용할 때는 IPv6 주소 개수가 0보다 커야 합니다.
+      enablePrimaryIpv6:
+        label: 정적 기본 IPv6 활성화
+        description: 이를 통해 구성 요소와 워크로드 간의 IPv6 통신이 가능해집니다.
+      ipv6AddressOnly:
+        label: IPv6만 사용
+      httpProtocolIpv6: 
+        label: 인스턴스 메타데이터 서비스에 IPv6를 사용합니다.
+      ipv6ValidationWarning: 하나의 풀에서 IPv6 또는 듀얼 스택 서브넷/VPC를 사용하는 경우, 모든 풀에서 IPv6 또는 듀얼 스택 서브넷/VPC를 사용해야 합니다.
     pnap:
       serverLocation:
         label: 위치
@@ -3652,6 +3941,66 @@ cluster:
         label: 네트워크
       serverOs:
         label: 운영 체제
+    gce:
+      machineImage:
+        label: 머신 이미지
+        option: '{name} - {description}'
+        deprecatedOption: '{name}(deprecated) - {description}'
+        tooltip: 사용 가능한 이미지를 보려면 이미지 계열을 선택하세요.
+      imageProjects:
+        label: 이미지 프로젝트
+      firewall:
+        header: 방화벽 구성
+      showDeprecated:
+        label: 더 이상 사용되지 않는 기능을 표시합니다.
+        tooltip: 더 이상 사용되지 않는 이미지가 포함되어 있습니다.
+      diskType:
+        label: 디스크 타입
+      diskSize:
+        label: 디스트 사이즈
+      network:
+        label: 네트워크
+      subnetwork:
+        label: 서브네트워크
+      machineType:
+        label: 머신 타입
+      family:
+        label: 이미지 계열
+      location:
+        zone:
+          label: Zone
+      preemptible:
+        label: VM 인스턴스를 선점 가능하게 만들기
+        tooltip: 선점형 머신은 상당한 비용 절감 효과를 제공하지만, Google Compute Engine이 우선순위가 더 높은 VM을 위해 컴퓨팅 리소스를 회수해야 할 때 갑자기 중지될 수 있습니다.
+      scopes:
+        add: 범위 추가
+        label: 범위
+      tags:
+        add: 태그 추가
+        label: 태그
+      openPort:
+        add: 포트 추가
+        label: 오픈 포트
+      address:
+        label: 외부 주소
+        placeholder: '10.0.0.0/14'
+        tooltip: GCE VM 인스턴스의 외부 IP 주소입니다.
+      username:
+        label: 사용자 이름
+        placeholder: 도커 사용자
+        tooltip: 이는 노드에 SSH로 접속할 때 사용하는 사용자 이름이며, GCP 계정과 연결된 사용자 이름이 아닙니다.
+      internalFirewall:
+        label: 클러스터 노드 간 통신을 허용합니다.
+        tooltip: Rancher가 노드 간 내부 통신에 필요한 포트를 열 수 있도록 허용합니다.
+        banner: 태그를 사용하면 추가적인 방화벽 규칙을 적용할 수 있습니다.
+      externalFirewall:
+        label: 외부 포트 노출
+        tooltip: Rancher가 외부 액세스에 필요한 포트를 열 수 있도록 합니다.
+        banner: 기본적으로 Kubernetes API 서버는 6443번 포트에서 수신 대기합니다. 인증된 클러스터 엔드포인트 기능이 예상대로 작동하려면 컨트롤 플레인 머신 풀에서 이 포트를 노출해야 합니다.
+      error:
+        diskSizeWithoutMax: 이 이미지와 디스크 유형에 따라 디스크 크기는 {diskSizeMin}보다 커야 합니다.
+        diskSizeWithMax: 이미지 및 디스크 유형에 따라 디스크 크기는 {diskSizeMin}과 {diskSizeMax} 사이여야 합니다.
+        projects: 이미지 프로젝트는 쉼표로 구분된 영숫자 문자열 목록이어야 하며, 하이픈(-)과 마침표(.)를 포함할 수 있습니다.
   addOns:
     dependencyBanner: 추가 기능 구성은 쿠버네티스 버전에 따라 다를 수 있습니다. 쿠버네티스 버전을 변경하면 아래의 값을 재설정할 수 있습니다.
     additionalManifest:
@@ -3693,10 +4042,10 @@ cluster:
       machineGlobal:
         listLabel: 글로벌 인수 추가
       machineSelector:
-        label: 기계 선택기 추가
+        label: 머신 선택기 추가
         listLabel: 인수 추가
         bannerLabel: "참고: 일치하는 마지막 선택기가 승리하며 해당 선택기에서만 사용됩니다. 위의 다른 일치에서 가져온 인수는 결합되거나 병합되지 않습니다."
-        title: "라벨이 일치하는 기계의 경우:"
+        title: "라벨이 일치하는 머신의 경우:"
         subTitle: "쿠블릿 인수 사용:"
         titleAlt: |-
           {count, plural,
@@ -3718,12 +4067,15 @@ cluster:
     deprecatedPsp: 쿠버네티스 v1.21 이후로 파드 보안 정책은 사용되지 않으며 쿠버네티스 v1.25에서 제거되었습니다.
     removedPsp: 파드 보안 정책은 쿠버네티스 v1.25에서 제거되었습니다. 대신 파드 보안 승인을 사용하세요.
     cloudProviderAddConfig: '쿠버네티스 1.27 이상에서는 Amazon Cloud Provider에 추가 구성이 필요합니다. 자세한 내용은 <a href="https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/amazon" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 참조하세요.'
+    cloudProviderUnsupportedAzure: 'Kubernetes 1.30 이상 버전에서는 <b>Azure</b> 클라우드 공급자가 제거되었습니다. 자세한 내용은 <a href="https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 참조하세요.'
+    cloudProviderMigrateAzure: 'Kubernetes 1.30 이상 버전에서는 <b>Azure</b> 클라우드 공급자가 제거되었습니다. Kubernetes를 업그레이드하려면 먼저 클러스터를 외부 공급자로 마이그레이션해야 합니다.<br> 자세한 내용은 <a href="https://ranchermanager.docs.rancher.com/how-to-guides/new-user-guides/kubernetes-clusters-in-rancher-setup/set-up-cloud-providers/azure" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 참조하세요.'
     machinePoolError: |-
       {count, plural,
         =1 { {pool_name}: {fields}에 제공된 값을 예상 값 목록에서 찾을 수 없습니다. 이는 Rancher 외부에서 프로비저닝된 클러스터에서 발생하거나 공급자 옵션이 변경된 경우 발생할 수 있습니다.}
         other { {pool_name}: {fields}에 제공된 값을 예상 값 목록에서 찾을 수 없습니다. 이는 Rancher 외부에서 프로비저닝된 클러스터에서 발생하거나 공급자 옵션이 변경된 경우 발생할 수 있습니다. }
       }
     rke1DeprecationMessage: 'Rancher Kubernetes Engine(RKE/RKE1)은 2025년 7월 31일에 지원이 종료됩니다. Rancher 2.12.0 이상 버전은 다운스트림 RKE1 클러스터의 프로비저닝 또는 관리를 더 이상 지원하지 않습니다. 지속적인 지원 및 보안 업데이트를 위해 RKE1 클러스터를 RKE2로 재플랫폼하는 것이 좋습니다. 전환에 대해 더 자세히 알아보세요 <a href="https://www.suse.com/support/kb/doc/?id=000021518" target="_blank" rel="noopener noreferrer nofollow">here</a>.'
+    rke1Unsupported: RKE1 클러스터는 더 이상 지원되지 않습니다.
     rke1DeprecationShortMessage: Rancher Kubernetes Engine(RKE/RKE1)은 2025년 7월 31일에 지원이 종료됩니다. Rancher 2.12.0 이상에서는 다운스트림 RKE1 클러스터의 프로비저닝이나 관리를 더 이상 지원하지 않습니다.
   rkeTemplateUpgrade: 템플릿 수정 {name} 업그레이드 가능
   cloudCredentials:
@@ -3740,17 +4092,29 @@ cluster:
       mixed: mixed
   availabilityWarnings:
     node: 노드 {name}이(가) 비활성 상태입니다.
-    machine: 기계 {name}이(가) 비활성 상태입니다.
+    machine: 머신 {name}이(가) 비활성 상태입니다.
 
   detail:
     provisioner: 프로비저너
     kubernetesVersion: 쿠버네티스 버전
-    machineProvider: 기계 공급자
-    machinePools: 기계 풀
-    machines: 기계
+    machineProvider: 머신 공급자
+    machinePools: 머신 풀
+    machines: 머신
     rkeTemplate: RKE 템플릿
 
   machinePool:
+    automation:
+      label: 자동화
+    autoscaler:
+      heading: 오토스케일러
+      enable: 오토스케일러를 활성화하고 "머신 수" 값을 재정의하세요.
+      machineCountValueOverride: 오토스케일러에 의해 제어됨
+      baseUnit: 머신
+      min: 최소
+      max: 최대
+      validation:
+        isAutoscalerMaxGreaterThanMin: 최대 머신 수는 최소 머신 수와 같거나 그 이상이어야 합니다.
+      etcdControlPlaneWarning: etcd 또는 Control Plane 역할을 가진 머신 풀에서 자동 스케일러를 사용하는 것은 권장하지 않습니다. 현재 값을 재정의하려면 YAML 파일을 수정할 수 있습니다.
     name:
       label: 풀 이름
       placeholder: 기본적으로 무작위로 생성됩니다
@@ -3785,7 +4149,7 @@ cluster:
             other {}
           }
     quantity:
-      label: 기계 수
+      label: 머신 수
     drain:
       header: 드레인
       label: 삭제 전에 드레인
@@ -3796,9 +4160,9 @@ cluster:
       worker: 워커
     labels:
       label: 쿠버네티스 노드 레이블
-    noAccessBanner: "이 기계 풀 구성을 볼 권한이 없습니다."
-    configNotFound: "이 기계 풀 구성을 찾을 수 없습니다. 원하는 구성으로 새 클러스터를 만들기를 권장합니다."
-    noPoolsDisclaimer: 정의된 기계 풀이 없습니다. 추가하려면 더하기를 클릭하세요.
+    noAccessBanner: "이 머신 풀 구성을 볼 권한이 없습니다."
+    configNotFound: "이 머신 풀 구성을 찾을 수 없습니다. 원하는 구성으로 새 클러스터를 만들기를 권장합니다."
+    noPoolsDisclaimer: 정의된 머신 풀이 없습니다. 추가하려면 더하기를 클릭하세요.
     truncationPool: "이 풀에 대한 호스트 이름 줄임이 수동으로 {limit}로 구성되었습니다."
     truncationCluster: "이 클러스터에 대한 호스트 이름 줄임이 수동으로 {limit}로 구성되었습니다."
 
@@ -3834,7 +4198,7 @@ cluster:
     azure: Azure
     azureaks: Azure AKS
     aks: Azure AKS
-    azurekubernetesservice: Azure AKS
+    azurekubernetesservice:  Azure AKS (Unsupported Kev1)
     baiducloudcontainerengine: Baidu CCE
     baidu: Baidu CCE
     cloudca: Cloud.ca
@@ -3872,7 +4236,7 @@ cluster:
     pinganyunecs: Pinganyun ECS
     pnap: phoenixNAP
     rackspace: RackSpace
-    rancherkubernetesengine: RKE
+    rancherkubernetesengine: RKE1
     rke2: RKE2
     rke: RKE1
     rkeWindows: Windows (RKE1 전용)
@@ -3889,6 +4253,8 @@ cluster:
   providerGroup:
     create-custom1: 기존 노드를 사용하고 RKE를 사용하여 클러스터를 생성합니다.
     create-custom2: 기존 노드를 사용하고 RKE2/K3s를 사용하여 클러스터를 생성합니다.
+    create-hosted: 호스팅된 Kubernetes 제공업체에서 클러스터를 생성합니다.
+    register-hosted: 기존 클러스터를 호스팅된 Kubernetes 제공업체에 등록합니다
     create-kontainer: 호스팅된 쿠버네티스 공급자에서 클러스터를 만듭니다.
     register-kontainer: 호스팅된 쿠버네티스 공급자에서 기존 클러스터를 등록합니다.
     create-rke1: 새로운 노드를 프로비저닝하고 RKE를 사용하여 클러스터를 생성합니다.
@@ -3898,8 +4264,10 @@ cluster:
   rke2:
     banner:
       psaChange: PSACT가 자동으로 Rancher 기본값으로 설정되었습니다.
-      cisOverride: 이 설정을 변경하면 클러스터 보안에 영향을 미칠 수 있으며 기본 CIS 설정을 무시합니다.
-      cisUnsupported: 선택한 쿠버네티스 버전은 더 이상 CIS 프로필 "{cisProfile}"을 지원하지 않습니다. 지원되는 프로필을 선택하세요. 변경된 CIS 프로필의 영향을 평가하려면 <a href="https://docs.rke2.io/security/hardening_guide" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 확인하는 것이 좋습니다.
+      complianceOverride: '이 설정을 변경하면 기본 규정 준수 설정을 재정의하므로 클러스터 보안에 영향을 미칠 수 있습니다.'
+      complianceUnsupported: '선택한 Kubernetes 버전은 더 이상 "{profile}" 규정 준수 프로필을 지원하지 않습니다. 지원되는 프로필을 선택하십시오. 규정 준수 프로필 변경의 영향을 평가하려면 <a href="https://docs.rke2.io/security/hardening_guide" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 검토하는 것이 좋습니다.'
+      cisOverride: '이 설정을 변경하면 클러스터 보안에 영향을 미칠 수 있으며 기본 CIS 설정을 무시합니다.'
+      cisUnsupported: '선택한 쿠버네티스 버전은 더 이상 CIS 프로필 "{cisProfile}"을 지원하지 않습니다. 지원되는 프로필을 선택하세요. 변경된 CIS 프로필의 영향을 평가하려면 <a href="https://docs.rke2.io/security/hardening_guide" target="_blank" rel="noopener noreferrer nofollow">문서</a>를 확인하는 것이 좋습니다.'
     modal:
       pspChange:
         title: 파드 보안 정책 폐기
@@ -3990,6 +4358,7 @@ cluster:
       tlsSan:
         label: TLS 대체 이름
       fqdn:
+        label: FQDN
         toolTip: 클러스터의 정상적인 컨트롤 플레인 노드로 해결되는 FQDN입니다.
       caCerts:
         label: CA 인증서
@@ -4006,11 +4375,32 @@ cluster:
         label: 마지막 유지
         tooltip: 각 백업은 etcd 노드당 스냅샷 1개를 기록합니다. 스냅샷을 3개 지정하고 etcd 노드가 3개이면 전체 백업은 1개만 보관됩니다.
       exportMetric:
-        label: 메트릭
+        label: 측정항목
         false: 클러스터 내에서만 사용 가능
         true: 공용 인터페이스에 노출
       s3backups:
-        label: Save Backups to S3        
+        label: 백업 파일을 S3에 저장
+      s3config:
+        bucket:
+          label: 버킷
+        folder:
+          label: 폴더
+        region:
+          label: 리전
+        endpoint:
+          label: 엔드포인트
+        skipSSLVerify:
+          label: 모든 인증서를 허용합니다(보안 취약).
+        endpointCA:
+          label: 엔드포인트 CA 인증서
+    stackPreference:
+      label: 스택 기본 설정
+      description: "스택 기본 설정은 클러스터에서 사용하는 네트워킹 스택을 결정합니다. 선택된 값은 Calico, etcd, kube-apiserver, kube-scheduler, kube-controller-manager 및 kubelet의 상태 및 준비 상태 프로브에 사용되는 주소를 구성합니다. 또한 <code>authentication-token-webhook-config-file</code>에서 인증된 클러스터 엔드포인트에 대한 서버 URL과 스냅샷 복원 중 etcd의 광고 클라이언트 URL을 정의합니다. <code>dual</code>로 설정하면 클러스터는 <code>localhost</code>를 사용하고, <code>ipv6</code>로 설정하면 <code>[::1]</code>을 사용하며, <code>ipv4</code>로 설정하면 <code>127.0.0.1</code>을 사용합니다."
+      options:
+        ipv4: IPv4
+        ipv6: IPv6
+        dual: 듀얼 스택
+      errorNeedsIpv6: 노드 풀에서 IPv6 네트워킹을 사용하는 경우 스택 기본 설정을 듀얼 스택 또는 IPv6로 설정해야 합니다.
   k3s:
     systemService:
       coredns: "CoreDNS"
@@ -4092,11 +4482,11 @@ clusterIndexPage:
     alerts:
       label: 경고
     clusterMetrics:
-      label: 클러스터 메트릭
+      label: 클러스터 측정항목
     etcdMetrics:
-      label: Etcd 메트릭
+      label: Etcd 측정항목
     k8sMetrics:
-      label: 쿠버네티스 구성 요소 메트릭
+      label: 쿠버네티스 구성 요소 측정항목
     gatekeeper:
       buttonText: 게이트키퍼 구성
       disabled: OPA 게이트키퍼가 구성되지 않았습니다.
@@ -4162,15 +4552,20 @@ cruResource:
   reviewYaml: "YAML로 편집 계속"
   previewYaml: YAML로 보기
   showYaml: YAML로 보기
+providers:
+  hosted: 
+    title: 호스팅 제공업체
+    prime: 프라임 전용
+    warning: 공급자를 비활성화하면 해당 공급자를 사용하는 모든 클러스터를 편집할 수 없게 됩니다
 drivers:
   kontainer:
-    title: Cluster Drivers
+    title: 클러스터 드라이버
   node:
-    title: Node Drivers
+    title: 노드 드라이버
   add:
-    title: Add Driver
+    title: 드라이버 추가
     name:
-      label: Driver name
+      label: 드라이버 이름
     downloadUrl:
       label: 다운로드 URL
       placeholder: https://test.com/driver
@@ -4205,10 +4600,14 @@ drivers:
       }
 
 detailText:
+  copyAriaLabel: '{item} 값을 클립보드에 복사합니다.'
   collapse: 숨기기
   binary: "<이진 데이터: {n, number} 바이트>"
   empty: "<비어 있음>"
   unsupported: "<UI에서 지원되지 않는 값, YAML 참조>"
+  sensitive:
+      hide: 민감한 값 숨기기
+      show: 민감한 값 표시
   plusMore: |-
     {n, plural,
       =1 {+ 1 more char}
@@ -4236,12 +4635,137 @@ drainNode:
     placeholder: "예: 60"
     custom: "다음 후 포기:"
 
+dynamicContent:
+  action:
+    close: 공지사항을 숨기고 읽음으로 표시하세요
+    openPrimary: 공개 발표의 주요 조치
+    openSecondary: 공개 발표의 2차 조치
+  newRelease:
+    title: 새로운 Rancher 업데이트가 출시되었습니다!
+    message: Rancher {버전}이 출시되었습니다!
+    moreInfo: 릴리스 노트
+  multipleNewReleases:
+    title: 새로운 랜처 시리즈가 출시되었습니다!
+    message: 새로운 {version1} 패치 버전이 출시되었으며, 더욱 최신 버전인 {version2}도 이용 가능합니다.
+    moreInfo: "{버전} 릴리스 노트"
+  upcomingEom:
+    title: 유지보수 종료까지 {일, 복수형, =1 {1일} 기타 {{일}일}}
+    message: 이 버전의 Rancher({version})는 {days}일 후에 유지보수가 종료됩니다. 지원되는 버전으로 조속히 업그레이드하는 것을 고려해 보세요.
+  eom:
+    title: 유지보수 종료 시점에 도달했습니다.
+    message: 이 버전의 Rancher({version})는 유지 관리가 종료되었습니다. 지원되는 버전으로 업그레이드하는 것을 고려하십시오.
+  upcomingEol:
+    title: 지원 종료까지 {일, 복수형, =1 {1일} 기타 {{일}일}}
+    message: 이 버전의 Rancher({version})는 {days}일 후에 지원이 종료됩니다. 지원되는 버전으로 조속히 업그레이드하는 것을 고려해 보세요.
+  eol:
+    title: 지원 종료됨
+    message: 이 버전의 Rancher({version})는 지원이 종료되었습니다. 지원되는 버전으로 업그레이드하는 것을 고려하십시오.
+
+
 etcdInfoBanner:
   hasLeader: "Etcd에는 리더가 있습니다:"
   leaderChanges: "리더 변경 횟수:"
   failedProposals: "실패한 제안 횟수:"
 
 fleet:
+  settings:
+    label: 지속적인 전달
+    title: 지속적인 전달 설정
+    info: Rancher는 설정이 변경될 때 Fleet 에이전트와 컨트롤러를 재부팅합니다.
+    apply: 변경사항 적용
+    noPermissions: Fleet 설정을 수정할 권한이 없습니다.
+    parseError: '"{ id }" ConfigMap에서 "{ path }"의 값을 구문 분석할 수 없습니다.'
+    fields:
+      ariaLabel: Fleet {name} 설정
+    agentTLSMode:
+      label: TLS 모드
+      description: "에이전트가 관리 클러스터에 연결할 때 운영 체제의 신뢰 저장소에 있는 CA 번들을 신뢰해야 하는지 여부를 결정합니다."
+      options:
+        system-store:
+          label: 시스템-스토어
+        strict:
+          label: 엄격
+    agentCheckinInterval:
+      label: 체크인 간격
+      description: 에이전트가 하트비트를 보고해야 하는 빈도를 나타내는 문자열입니다.
+    garbageCollectionInterval:
+      label: 가비지 수거 간격
+      description: 에이전트가 이전 Helm 릴리스를 정리하기 전에 대기하는 시간입니다. 값이 없거나 0인 경우 15분의 간격이 적용됩니다.
+    clusterEnqueueDelay:
+      label: 클러스터 대기열 지연
+      description: "리포지토리와 번들 배포 상태를 동기화하는 간격입니다."
+    proxy:
+      label: 프록시
+      description: Fleet http[s] 프록시 서버.
+      placeholder: http://<username>@<password>:<url>:<port>
+    noProxy:
+      label: No 프록시
+      description: 프록시를 사용하지 않을 도메인 또는 IP 주소 목록을 쉼표로 구분하여 입력하십시오.
+    gitClientTimeout:
+      label: Git 클라이언트 타임아웃
+      description: "서버 응답을 기다리는 시간입니다. 이 시간이 지나면 요청이 취소됩니다. 설정된 Git 저장소의 최신 커밋을 가져오는 데 사용됩니다. 값이 없거나 0이면 30초 후에 타임아웃됩니다."
+    nodeSelector:
+      label: 노드 선택기
+      description: "포드 할당을 위한 노드 레이블입니다."
+      add: 선택기 추가
+    tolerations:
+      label: 톨러레이션
+      description: "허용할 노드 테인트 목록 (Kubernetes 1.6 이상 필요)"
+      add: 톨러레이션 추가
+    priorityClassName:
+      label: 우선순위 클래스 이름
+      description: "PriorityClassName이 배포에 할당되었습니다."
+    metrics:
+      label: 측정항목
+      description: '측정항목 활성화'
+    debug:
+      label: 디버그
+      description: '디버그 모드 활성화'
+    controllerAnnotations:
+      label: 컨트롤러
+      description: ""
+      add: 주석 추가
+    gitjobAnnotations:
+      label: Gitjob
+      description: ""
+      add: 주석 추가
+    helmopsAnnotations:
+      label: Helmops
+      description: ""
+      add: 주석 추가
+    controllerReplicas:
+      label: 컨트롤러
+      description: ""
+    gitjobReplicas:
+      label: Gitjob
+      description: ""
+    helmopsReplicas:
+      label: Helmops
+      description: ""
+    agentReplicas:
+      label: 에이전트
+      description: ""
+    general:
+      label: 일반
+      description: '일반 설정.'
+    agent:
+      label: 에이전트
+      description: '에이전트 배포 설정.'
+    replicas:
+      label: 레플리카
+      description: 'Fleet 파드 레플리카의 수.'
+    annotations:
+      label: 엑스트라 주석
+      description: 'Fleet 파드에 엑스트라 주석이 전달되었습니다.'
+    developer:
+      label: 개발자
+      description: 'Fleet에서 디버그 정보를 활성화합니다.'
+  tableHeaders:
+    applicationType: 타입
+    applicationSource: 소스
+    applicationTarget: 타켓
+    applicationClustersReady: 클러스터 준비
+    applicationResourcesSummary: 리소스
   dashboard:
     pageTitle: 지속적인 전달 대시보드
     menuLabel: 대시보드
@@ -4249,16 +4773,40 @@ fleet:
     gitOpsScale: 규모에 맞는 GitOps
     learnMore: 더 알아보기
     learnMoreLink: https://fleet.rancher.io
-    noRepo: "Workspaces에 Git 저장소가 없습니다"
+    noApplications: "워크스페이스에 앱 번들이 없습니다."
+    noRepo: "워크스페이스에 Git 저장소가 없습니다"
     getStarted: 시작하기
     thereIsMore: |-
       {count, plural,
       =1 { 저장소가 없는 또 다른 작업 공간이 있습니다.}
       other { 저장소가 없는 다른 작업 공간이 {count}개 있습니다.}
       }
+    workspace: 워크스페이스
+    expand: 펼치기
+    collapse: 접기
     expandAll: 전체 펼치기
     collapseAll: 전체 접기
+    state: 상태
+    viewMode:
+      table: 테이블 보기
+      cards: 카드 보기
+    cards:
+      filters:
+        gitRepos: Git 저장소 보기
+        helmOps: 헬름 옵스 보기
+      search: 필터
+      resourceSummary:
+        part1: in
+        part2: |-
+          {count, plural,
+          =1 { cluster }
+          other { clusters }
+          }
+      noClusters: 어떤 클러스터도 대상으로 삼지 않습니다.
+    resources: 리소스
+    source: 소스
   cluster:
+    label: 클러스터
     summary: 리소스 요약
     nonReady: 준비되지 않은 번들
     labels: 라벨
@@ -4277,7 +4825,7 @@ fleet:
       other {지속적인 배포(Continuous Delivery)에 사용할 수 없는 Infinitystack 클러스터에 속해 있기 때문에 토큰 #개가 숨겨졌습니다.}
       }
   bundles:
-    resources: Resources
+    resources: 리소스
     harvester: |-
       {count, plural,
       =1 {지속적인 배포(Continuous Delivery)에 사용할 수 없는 Infinitystack 클러스터에 속해 있기 때문에 번들 1개가 숨겨졌습니다.}
@@ -4285,6 +4833,9 @@ fleet:
       }
   fleetSummary:
     noClustersGitRepo: 이 git 저장소는 어떤 클러스터도 대상으로 하지 않습니다
+    noClusters:
+      gitRepo: 이 Git 저장소는 특정 클러스터를 대상으로 하지 않습니다.
+      helmOp: 이 HelmOp은 어떤 클러스터도 대상으로 하지 않습니다.
     state:
       ready: "준비됨"
       info: "전환 중"
@@ -4293,12 +4844,49 @@ fleet:
       unknown: "알 수 없음"
       notReady: 준비되지 않음
       waitApplied: 대기 적용됨
+  clusterTargets:
+    title: 이름으로 선택
+    label: 클러스터
+    advancedConfigs: 고급 대상 구성이 정의되어 있습니다. 자세한 내용은 YAML 파일을 참조하십시오.
+    placeholders:
+      selectMultiple: 여러 클러스터 선택
+    rules:
+      title: 라벨로 선택
+      addSelector: 클러스터 선택기 추가
+      labelKey: 라벨
+      matching:
+        title: 선택된 클러스터
+        placeholder: 이름이나 레이블로 클러스터를 선택하세요
+        empty: 워크스페이스에 클러스터가 없습니다.
+        plusMore: |-
+          {n, plural,
+            =1 {+ 1 개 클러스터 추가r}
+            other {+ {n, number} 개 클러스터 추가}
+          }
+  application:
+    pageTitle: 앱 번들
+    menuLabel: 앱 번들
+    intro:
+      add: 앱 번들 생성
+      empty: 앱 번들이 생성되지 않았습니다.
+    actions:
+      create: 앱 번들 생성
+    groupBy: 유형별 그룹화
+    subTypes:
+      fleet.cattle.io.gitrepo:
+        description: GitRepo는 Fleet에서 모니터링하는 Git 저장소를 설명합니다. 이 리소스에는 저장소 또는 저장소의 일부를 대상 클러스터에 배포하는 데 필요한 정보가 포함되어 있습니다.
+      fleet.cattle.io.helmop:
+        description: HelmOp는 Git 저장소를 설정할 필요 없이 Helm 저장소 또는 OCI 레지스트리를 직접 지정하여 번들을 생성하는 간소화된 방법입니다.
+    warningTooltip:
+      clusterGroup: 이 클러스터 그룹에는 클러스터가 없습니다.
+      cluster: 사용 가능한 클러스터가 없습니다.
+    noPermissions: '{label}을 생성할 권한이 없습니다.
   gitRepo:
     actions:
       forceUpdate:
         label: 강제 업데이트
         promptTitle: 강제 업데이트
-        promptNames: '업데이트를 시도하고 있습니다: '
+        promptNames: "업데이트를 시도하고 있습니다:"
         promptWarning: |-
           {
             count, plural,
@@ -4325,12 +4913,28 @@ fleet:
       label: 인증서
       placeholder: "-----BEGIN CERTIFICATE----로 시작하는 하나 이상의 인증서를 붙여넣기"
     paths:
+      title: 사용자정의 경로
+      description: 루트 디렉토리
+      index: 경로 {index}
+      description1: 기본적으로 루트 폴더가 사용됩니다. Fleet은 fleet.yaml 파일을 찾기 위해 모든 폴더와 하위 폴더를 재귀적으로 스캔합니다.
+      description2: 여러 개의 서로 다른 디렉터리를 지정할 수 있습니다. 또한 하위 경로를 추가하여 서로 다른 YAML 설정 파일 경로를 지정할 수도 있습니다.
+      ariaLabel: Git 저장소의 경로를 입력하세요
       label: 경로
       placeholder: "예: /your/repo/in/directory"
       addLabel: 경로 추가
+      enableBundles: 설정 파일의 하위 경로를 수동으로 지정하십시오. (Fleet은 fleet.yaml 파일을 찾기 위해 하위 폴더를 재귀적으로 스캔하지 않습니다.)
+      subpaths:
+        addLabel: 하위 경로 추가
+        protipValue: 파일 이름이 "fleet.yaml"과 다른 경우에만 필요합니다.
+        props:
+          base: 하위 경로
+          options: Fleet YAML 파일(선택 사항)
+        placeholders:
+          key: e.g. dev
+          value: e.g. kustomize.yaml
       empty: 기본적으로 리포지토리의 루트가 사용됩니다. 여기에 다른 디렉터리를 추가하려면 추가하십시오.
     repo:
-      title: Source
+      title: 소스
       label: 저장소 URL
       placeholder: "예: https://github.com/rancher/fleet-examples.git 또는 git@github.com:rancher/fleet-examples.git"
       addRepo: 저장소 추가
@@ -4340,6 +4944,7 @@ fleet:
       label: "리소스 처리"
       keepResources: 항상 리소스 유지
       keepResourcesBanner: 위에서 활성화한 경우 GitRepo 또는 번들을 삭제할 때 리소스는 유지되며 헬름 릴리스 시크릿은 삭제되지 않습니다.
+      keepResourcesTooltip: 이 옵션을 활성화하면 GitRepo 또는 Bundle을 삭제할 때 리소스는 유지되지만 Helm 릴리스 시크릿은 삭제됩니다.
       correctDrift: 자가 치유 활성화
       correctDriftTooltip: Fleet을 활성화하면 클러스터 리소스가 Git 저장소와 동기화 상태를 유지합니다. 클러스터에서 수행된 모든 리소스 변경 사항은 손실됩니다.
     polling:
@@ -4350,29 +4955,37 @@ fleet:
         tooltip: 폴링 간격은 저장소에 푸시한 후 Fleet이 이에 반응하는 데 걸리는 시간입니다.
         webhookWarning: Rancher에는 Git 업데이트와 GitRepo 리소스를 조정하기 위한 웹훅이 구성되어 있습니다. 폴링 간격은 자동으로 1시간으로 조정됩니다.
         minimumValuewarning: 권장되는 최소 폴링 간격은 15초입니다. 많은 리소스가 포함된 GitRepos의 성능 문제를 방지하려면 이 값을 늘리는 것을 고려해 보세요.
+        minimumValueWarning: 권장 최소 폴링 간격은 15초입니다. 리소스가 많은 GitRepos에서 성능 문제가 발생하는 것을 방지하려면 이 값을 늘리는 것을 고려하십시오.
+    ociStorageSecret:
+      title: OCI 레지스트리
+      label: OCI 스토리지 시크릿
+      tooltip: "없음"을 선택하면 Fleet은 현재 워크스페이스에 "ocistorage"라는 대체 시크릿 키가 있는 경우 이를 사용합니다.<br>선택한 OCI 스토리지 시크릿 키의 변경 사항은 다음 Git 리포지토리 업데이트까지 적용되지 않습니다.
+      options:
+        chooseExisting: "시크릿을 선택:"
+        chooseCustom: "사용자정의 시크릿를 선택:"
     add:
       steps:
         metadata:
           label: 메타데이터
           title: Git 저장소 이름과 레이블/주석을 지정하세요
-          subtext: '메타데이터 세부정보 정의'
+          subtext: 메타데이터 세부정보 정의
           description: Git 저장소 기본 정보
         repo:
           label: 저장소 세부 정보
           title: fleet에 추가할 Git 저장소를 지정하세요 
-          subtext: '저장소 세부정보 정의'
+          subtext: 저장소 세부정보 정의
           description: Fleet은 아래에 구성한 Git 저장소를 지속적으로 모니터링하고 해당 저장소에 포함된 리소스를 구성된 대상과 동기화합니다.
         advanced:
           label: 고급
           title: 인증 자격 증명 및 폴링과 같은 고급 설정을 지정합니다.
-          subtext: '고급 설정 정의'
+          subtext: 고급 설정 정의
           description: Fleet은 인증 설정과 폴링을 사용하여 Fleet에 포함된 리소스를 동기화합니다.
           info: 이 설정은 고급 사용을 위한 것이며 선택 사항입니다. 건너뛰고 생성 과정을 완료할 수 있습니다.
         targetInfo:
-          label: 대상 세부정보
-          title: 이 저장소를 동기화할 대상을 지정하세요.
-          subtext: '대상 세부정보 정의'
-          description: 저장소의 리소스와 동기화 대상으로 어떤 클러스터를 사용할지 구성할 수 있습니다.
+          label: 타겟 세부정보
+          title: 이 저장소를 동기화할 타겟을 지정하세요.
+          subtext: 타겟 세부정보 정의
+          description: 저장소의 리소스와 동기화 타겟으로 어떤 클러스터를 사용할지 구성할 수 있습니다.
     ref:
       label: 감시
       branch: 브랜치
@@ -4385,17 +4998,19 @@ fleet:
       label: 서비스 계정 이름
       placeholder: "선택 사항: 대상 클러스터에서 서비스 계정 사용"
     targetNamespace:
-      label: 대상 네임 스페이스
+      label: 타겟 네임 스페이스
       placeholder: "선택 사항: 모든 리소스가 이 네임 스페이스에 있어야 함"
     target:
-      selectLabel: 대상
+      selectLabel: 타겟
       advanced: 고급
       cluster: 클러스터
       clusterGroup: 클러스터 그룹
-      label: 배포 대상
+      label: 배포 타겟
       labelLocal: 배포하려면
+      additionalOptions: 추가 설정
     targetDisplay:
       advanced: 고급
+      clusters: 클러스터
       cluster: "클러스터"
       clusterGroup: "그룹"
       all: 전체
@@ -4413,6 +5028,156 @@ fleet:
       label: 워크스페이스
       addWorkspace: 워크스페이스 만들기
     helmRepoURLRegex: 헬름 리포 (URL 정규식)
+  helmOp:
+    intro:
+      add: 헬름 오퍼레이터 생성
+      empty: 헬름 오퍼레이터가 추가되지 않았습니다.
+    actions:
+      add: 헬름 오퍼레이터 생성
+      enablePolling:
+        label: 폴링 활성화
+      disablePolling:
+        label: 폴링 비활성화
+      forceUpdate:
+        label: 강제 업데이트
+        promptTitle: 강제 업데이트
+        promptNames: "업데이트를 시도하고 있습니다:"
+        promptWarning: |-
+          {
+            count, plural,
+            =1 {강제 업데이트는 시간이 오래 걸리는 과정일 수 있습니다.}
+            other {강제 업데이트는 시간이 오래 걸리는 과정일 수 있습니다.}
+          }
+      unpause:
+        label: 일시중지 해제
+      pause:
+        label: 일시중지
+    add:
+      steps:
+        metadata:
+          label: 메타데이터
+          title: 헬름 오퍼레이터 이름과 레이블/주석을 지정하세요.
+          subtext: 메타데이터 세부정보 정의
+          description: 헬름 오퍼레이터 기본 정보
+        chart:
+          label: 차트
+          title: 차트
+          subtext: 헬름 차트 소스 세부 정보를 정의합니다.
+          description: 차트
+        values:
+          label: 값
+          title: 값
+          subtext: 차트에 대한 Helm 값을 정의합니다.
+          description: 값
+        targetInfo:
+          label: 타겟 세부정보
+          title: 이 저장소를 동기화할 타겟을 지정하십시오.
+          subtext: 타겟 세부정보 정의
+          description: 저장소의 리소스와 동기화할 타겟으로 사용할 클러스터를 구성할 수 있습니다.
+        advanced:
+          label: 고급
+          title: 인증 자격 증명 및 폴링과 같은 고급 설정을 지정합니다.
+          subtext: 고급 설정 정의
+          description: Fleet은 인증 설정과 폴링을 사용하여 그 안에 포함된 리소스를 동기화합니다.
+          info: 이 설정은 고급 사용자를 위한 선택 사항입니다. 건너뛰고 생성 프로세스를 완료할 수 있습니다.
+    source:
+      title: 소스
+      selectLabel: 타입
+      types:
+        tarball: Tarball
+        repo: 저장소
+        oci: OCI 레지스트리
+      tarball:
+        label: 절대경로 URL
+        placeholder: "예: https://example.com/charts/my-chart-1.2.3.tgz"
+      repo:
+        repo:
+          label: 저장소 URL
+          placeholder: "예: https://foo.bar/baz"
+        chart:
+          label: 차트
+          placeholder: 저장소 내 차트 이름의 경로
+      oci:
+        chart:
+          label: OCI 레지스트리 URL
+          placeholder: "예: oci://foo.bar/baz"
+      version:
+        label: 버전
+        placeholder: 차트 버전
+      release:
+        title: 릴리즈
+        label: 이름
+        placeholder: 헬름 릴리스 이름
+    values:
+      title: 값
+      selectLabel: 값
+      description: 헬름에서 앱을 정의하는 데 사용되는 값을 구성합니다.
+      types:
+        values: 값
+        valuesFiles: 값 파일
+        valuesFrom: 값 From
+      yaml:
+        options:
+          edit: YAML 편집
+          diff: 변경 사항 비교
+      values:
+        selectLabel: YAML
+        loading: 차트에서 로드 중
+      valuesFiles:
+        selectLabel: 파일
+        ariaLabel: 파일 값에 대한 경로를 입력하세요
+        placeholder: ''
+        addLabel: 파일 경로 추가
+        empty: 비어 있음
+      valuesFrom:
+        selectLabel: 값 From
+        options:
+          configMapKeyRef: 컨피그맵 키
+          secretKeyRef: 시크릿 키
+        loading: 컨피그맵 및 시크릿 불러오기
+    serviceAccount:
+      label: 서비스 계정 이름
+      placeholder: "선택 사항: 타겟 클러스터에서 서비스 계정을 사용합니다."
+    targetNamespace:
+      label: 타겟 네임스페이스
+      placeholder: "선택 사항: 모든 리소스가 이 네임스페이스에 있어야 합니다."
+    target:
+      selectLabel: 타겟
+      advanced: 고급
+      cluster: 클러스터
+      clusterGroup: 클러스터 그룹
+      label: 배포 위치
+      labelLocal: 배포 방법
+      additionalOptions: 추가 옵션
+    targetDisplay:
+      advanced: 고급
+      clusters: 클러스터
+      all: 전체
+      none: 없음
+      local: 로컬
+    resources:
+      label: 리소스
+      keepResources: 항상 리소스 유지
+      keepResourcesTooltip: 이 옵션을 활성화하면 헬름 오퍼레이터 또는 번들을 삭제할 때 리소스는 유지되며, 헬름 릴리스 시크릿만 삭제됩니다.
+      correctDrift: 자가 치유 기능 활성화
+      correctDriftTooltip: Fleet 기능을 활성화하면 클러스터 리소스가 헬름 오퍼레이터와 동기화된 상태로 유지됩니다. 클러스터에서 이루어진 모든 리소스 변경 사항은 손실됩니다.
+    polling:
+      label: 폴링
+      enable: 폴링 활성화
+      pollingInterval:
+        label: 폴링 간격
+        tooltip: 폴링 간격은 저장소에 푸시가 이루어진 시점부터 Fleet이 이에 반응하는 시점까지의 시간입니다.
+        minimumValueWarning: 권장 최소 폴링 간격은 15초입니다. 리소스가 많은 헬름 오퍼레이터 환경에서 성능 문제가 발생하지 않도록 하려면 이 값을 늘리는 것을 고려하십시오.
+        versionTooltip: 폴링은 버전이 유효한 의미론적 버전 관리 제약 조건(예: 2.x.x, < 1.0)인 경우에만 활성화할 수 있습니다.
+    tls:
+      insecure: 모든 인증서를 허용합니다(보안 취약).
+    auth:
+      title: 인증
+      label: 인증
+      helm: 헬름 인증
+    caBundle:
+      label: 인증서
+      placeholder: "-----BEGIN CERTIFICATE----로 시작하는 하나 이상의 인증서를 붙여넣으세요."  
   clusterGroup:
     selector:
       label: 클러스터 선택기
@@ -4435,6 +5200,7 @@ fleet:
     errors: 오류
   workspaces:
     tabs:
+      ociRegistry: 기본 OCI 레지스트리
       restrictions: 허용된 대상 네임 스페이스
     timeout: 워크스페이스 생성 제한 시간. 워크스페이스가 만들어졌을 수 있습니다. 다시 만들기 전에 워크스페이스 페이지를 확인하는 것이 좋습니다.
     remove:
@@ -4446,6 +5212,10 @@ fleet:
       =0 { 이곳에 네임스페이스를 추가하면 GitRepoRestriction이 생성됩니다. }
       other { 여기서는 Git Repo Restriction의 <code>allowedTargetNamespaces</code>만 관리됩니다. Git Repo Restriction을 추가로 변경할 수 있습니다.}
       }"
+  configMaps:
+    label: 컨피그맵
+  secrets:
+    label: 시크릿
 footer:
   docs: 문서
   download: CLI 다운로드
@@ -4454,6 +5224,7 @@ footer:
   slack: 슬랙
 
 gatekeeperConstraint:
+  templateRequired: 제약 조건을 생성하기 전에 최소 하나 이상의 템플릿이 있어야 합니다.
   downloadViolations: 위반 내용 다운로드
   match:
     title: 일치
@@ -4519,6 +5290,9 @@ glance:
   clusterInfo: 클러스터 정보
   eventsTable: 전체 이벤트 목록
   secretsTable: 전체 시크릿릿 목록
+  changeEventsListRowCount: 업데이트된 이벤트 테이블 행 수
+  showXEvents: "{count}개의 이벤트를 표시합니다."
+  useUserPreference: "테이블 환경설정 사용({count})"
 clusterBadge:
   badgeAppearance: 클러스터 배지 모양
   clusterComment: "클러스터 주석 - {text}"
@@ -4528,14 +5302,16 @@ clusterBadge:
   customize: 사용용자정의
   editLabel: 클러스터 배지 편집
   modal:
-    title: 사용자 정의 클러스터 뱃지
+    title: 사용자정의 클러스터 뱃지
     checkbox: 이 클러스터에 대한 뱃지 표시
-    description: 사용자 정의 설명
+    comment: 사용자정의 주석
+    description: 사용자정의 설명
     iconText: 아이콘 텍스트
     buttonAction: 적용
     badgeBgColor: 뱃지 배경색
+    badgeBgColorInput: 뱃지 배경색 선택 입력
     badgeTextColor: 뱃지 텍스트 색상
-    badgeAsIcon: 클러스터 아이콘 사용자 정의
+    badgeAsIcon: 사용자정의 뱃지 사용
     maxCharsTooltip: 최대 두 글자
     previewTitle: "클러스터 아이콘 및 이름 표시:"
     previewSide: "SIDE NAVIGATION"
@@ -4572,12 +5348,12 @@ growl:
 hpa:
   detail:
     currentMetrics:
-      header: 현재 메트릭
-      noMetrics: 현재 메트릭 없음
-    metricHeader: "{source} 메트릭"
+      header: 현재 측정항목
+      noMetrics: 현재 측정항목 없음
+    metricHeader: "{source} 측정항목"
   metricIdentifier:
     name:
-      label: 메트릭 이름
+      label: 측정항목 이름
       placeholder: "예: packets-per-second"
     selector:
       label: 선택기 추가
@@ -4599,7 +5375,7 @@ hpa:
       objectName: 객체 이름
       quantity: 수량
       resource: 자원 이름
-      targetName: 대상 이름
+      targetName: 타겟 이름
       value: 값
     source: 소스
   objectReference:
@@ -4634,24 +5410,24 @@ hpa:
       periodSecondsTooltip: 정책이 유지되어야 하는 윈도우 시간입니다.
   tabs:
     labels: 레이블
-    metrics: 메트릭
-    target: 대상
+    metrics: 측정항목
+    target: 타겟
     workload: 워크로드
     behavior: 동작
   types:
     cpu: CPU
     memory: 메모리
   warnings:
-    custom: HPA에서 사용자 지정 메트릭을 사용하려면 프로메테우스 어댑터와 같은 사용자 지정 메트릭 서버를 배포해야 합니다.
-    external: HPA에서 외부 메트릭을 사용하려면 프로메테우스 어댑터와 같은 외부 메트릭 서버를 배포해야 합니다.
-    noMetric: HPA에서 리소스 메트릭을 사용하려면 메트릭 서버를 배포해야 합니다.
-    resource: 선택한 대상 참조에는 규격에 맞는 리소스 요청이 없습니다. 요청이 없으면 HPA 메트릭은 영향을 주지 않습니다.
+    custom: HPA에서 사용자 지정 측정항목을 사용하려면 프로메테우스 어댑터와 같은 사용자 지정 메트릭 서버를 배포해야 합니다.
+    external: HPA에서 외부 측정항목을 사용하려면 프로메테우스 어댑터와 같은 외부 메트릭 서버를 배포해야 합니다.
+    noMetric: HPA에서 리소스 측정항목을 사용하려면 메트릭 서버를 배포해야 합니다.
+    resource: 선택한 타겟 참조에는 규격에 맞는 리소스 요청이 없습니다. 요청이 없으면 HPA 측정항목은 영향을 주지 않습니다.
   workloadTab:
     current: 현재 복제본
     last: 마지막 스케일 시간
     max: 최대 복제본
     min: 최소 복제본
-    targetReference: 대상 참조
+    targetReference: 타겟 참조
 
 import:
   title: YAML 가져오기
@@ -4691,9 +5467,9 @@ ingress:
       notInt: 포트는 정수여야 합니다.
       required: 포트는 필수 항목입니다.
     targetService:
-      label: 대상 서비스
+      label: 타겟 서비스
       doesntExist: 선택한 서비스가 존재하지 않습니다.
-      required: 대상 서비스는 필수 항목입니다.
+      required: 타겟 서비스는 필수 항목입니다.
     warning: "경고: 기본 백엔드는 전체 클러스터에서 전역적으로 사용됩니다."
   ingressClass:
     label: 인그레스 클래스
@@ -4704,7 +5480,7 @@ ingress:
       pathType: 경로 유형
       path: 경로
       port: 포트
-      target: 대상 서비스
+      target: 타겟 서비스
       certificates: 인증서
     hostname: 호스트명
     path:
@@ -4718,7 +5494,7 @@ ingress:
       label: 요청 호스트
       placeholder: "예: example.com"
     target:
-      label: 대상 서비스
+      label: 타겟 서비스
       tooltip: 이 드롭다운에서 서비스가 선택되지 않으면 노출해야 하는 파드를 선택하는 서비스를 먼저 만들어야 합니다.
       doesntExist: 선택한 서비스가 존재하지 않습니다.
     title: 규칙
@@ -4731,21 +5507,24 @@ ingress:
 
 internalExternalIP:
   none: 없음
+  copyInternalIp: 내부 IP 주소를 클립보드에 복사합니다.
+  copyExternalIp: 외부 IP 주소를 클립보드에 복사합니다.
+  clickToShowMoreIps: "{count}개의 다른 {IP}개를 더 보려면 클릭하세요."
 
 istio:
   links:
     kiali:
       label: 키알리
-      description: '서비스 메시 내의 서비스 및 연결 상태 시각화입니다. 키알리에서 데이터를 표시하려면 프로메테우스가 설치되어 있어야 합니다. 모니터링 솔루션이 필요한 경우 <a tabindex="0" href="{link}">{vendor} 모니터링</a>을 설치하세요.'
+      description: "서비스 메시 내의 서비스 및 연결 상태 시각화입니다. 키알리에서 데이터를 표시하려면 프로메테우스가 설치되어 있어야 합니다. 모니터링 솔루션이 필요한 경우 <a tabindex="0" href="{link}">{vendor} 모니터링</a>을 설치하세요."
     jaeger:
       label: 예거
       description: "마이크로서비스 기반 분산 시스템의 모니터링 및 문제 해결."
     disabled: "{app}이(가) 설치되지 않았습니다."
   cni: CNI 활성화
   customOverlayFile:
-    label: 사용자 정의 오버레이 파일
-    tip: '<a target="_blank" rel="noopener noreferrer nofollow" href="https://istio.io/latest/docs/setup/additional-setup/customize-installation/#patching-the-output-manifest">오버레이 파일</a>을 사용하면 기본 {vendor} Istio 설치에 추가 구성을 할 수 있습니다. 이 오버레이 YAML 파일을 통해 모든 구성 요소에 대한 변경 및 추가를 수행하고 이러한 변경 사항을 적용할 수 있습니다.'
-  description: '{vendor} 이스티오 헬름 차트는 응용 프로그램 통합을 시작하는 데 필요한 최소한의 이스티오 구성을 설치합니다. 이스티오에 대한 자세한 정보가 필요한 경우 <a target="_blank" href="https://istio.io/latest/docs/concepts/what-is-istio" rel="noopener noreferrer nofollow">https://istio.io/latest/docs/concepts/what-is-istio/</a>를 방문하세요.'
+    label: 사용자정의 오버레이 파일
+    tip: "<a target="_blank" rel="noopener noreferrer nofollow" href="https://istio.io/latest/docs/setup/additional-setup/customize-installation/#patching-the-output-manifest">오버레이 파일</a>을 사용하면 기본 {vendor} Istio 설치에 추가 구성을 할 수 있습니다. 이 오버레이 YAML 파일을 통해 모든 구성 요소에 대한 변경 및 추가를 수행하고 이러한 변경 사항을 적용할 수 있습니다."
+  description: "{vendor} 이스티오 헬름 차트는 응용 프로그램 통합을 시작하는 데 필요한 최소한의 이스티오 구성을 설치합니다. 이스티오에 대한 자세한 정보가 필요한 경우 <a target="_blank" href="https://istio.io/latest/docs/concepts/what-is-istio" rel="noopener noreferrer nofollow">https://istio.io/latest/docs/concepts/what-is-istio/</a>를 방문하세요."
   destinationRule:
     title:
       new: 대상 규칙 추가
@@ -4879,9 +5658,9 @@ istio:
         placeholder: "예: /etc/certs/myclientcert.pem"
         error: 클라이언트 인증서는 필수 항목입니다.
       privateKey:
-        label: 개인 키
+        label: 프라이빗 키
         placeholder: "예: /etc/certs/client_private_key.pem"
-        error: 개인 키는 필수 항목입니다.
+        error: 프라이빗 키는 필수 항목입니다.
       caCertificates:
         label: CA 인증서
         placeholder: "예: /etc/certs/rootcacerts.pem"
@@ -4899,7 +5678,7 @@ istio:
   pilot: 파일럿 활성화
   policy: 정책 활성화
   pilotRequired: 키알리를 활성화하려면 반드시 파일럿을 활성화해야 합니다.
-  poweredBy: <a target="_blank" rel="noopener noreferrer nofollow" href='https://istio.io/latest/'>Istio</a> 제공
+  poweredBy: <a target="_blank" rel="noopener noreferrer nofollow" href="https://istio.io/latest/">Istio</a> 제공
   telemetry: 텔레메트리 활성화
   titles:
     components: 구성 요소
@@ -4908,6 +5687,10 @@ istio:
     description: 설명
   tracing: 예거 추적 활성화 (제한적)
   v1Warning: 이 버전을 설치하기 전에 현재 이스티오 버전을 <code>istio-system</code> 네임스페이스에서 제거하세요.
+
+itemCard:
+  ariaLabel:
+    clickable: "{cardTitle}을 보려면 카드를 클릭하세요."
 
 jwt:
   title: JWT 인증
@@ -4929,28 +5712,35 @@ labels:
   addTag: 태그 추가
   addTaint: 테인트 추가
   addAnnotation: 주석 추가
+  protectedWarning: 이 키는 보호되어 있으며 폐기될 것입니다.
   labels:
     title: 레이블
     description: 식별 속성을 지정하는 객체에 부착된 키/값 쌍입니다.
     fleetClusterTooltip: 레이블 변경은 관리 클러스터에서 수행되어 플릿 클러스터로 동기화됩니다.
-    show: 시스템 레이블 표시
-    hide: 시스템 레이블 숨김
+    show: 시스템 레이블 및 주석 표시
+    hide: 시스템 레이블 및 주석 숨김
   annotations:
     title: 주석
+    singular: 주석
 labelSelect:
   noOptions:
-    empty: No options
-    noMatch: No matching options
+    empty: 옵션 없음
+    noMatch: 일치하는 옵션이 없음
   pagination:
-    counts: '{count} / {totalCount} items'
+    counts: "{count} / {totalCount} 아이템"
     more: Load More...
 labeledSelect:
-  startTyping: Start typing to define an item
-  pressEnter: Press enter to add "{input}"
+  startTyping: 항목을 정의하려면 입력을 시작하세요.
+  pressEnter: Enter 키를 눌러 "{input}"을 추가하세요
 
 landing:
   clusters:
     title: 클러스터
+    tooMany:
+      showAll: 모든 클러스터를 표시합니다(로딩 시간이 길어질 수 있습니다).
+      showSome: 클러스터를 일부 표시합니다(로딩 시간이 개선될 수 있습니다).
+      showingAll: "{총}개의 클러스터를 표시합니다."
+      showingSome: "최근 생성된 클러스터 {총}개 중 {행}개를 표시합니다."
     provider: 공급자
     distro: 디스트로
     kubernetesVersion: 쿠버네티스 버전
@@ -4963,6 +5753,10 @@ landing:
       other {cores}}
     cpuUsed: 사용 중인 CPU
     memoryUsed: 사용 중인 메모리
+  whatsNew:
+    title: Rancher {버전}에 오신 것을 환영합니다
+    message: 이번 버전의 개선 사항 및 새로운 기능에 대해 자세히 알아보세요.
+    link: 릴리스 노트
   seeWhatsNew: 이 버전의 개선 사항과 새로운 기능에 대해 자세히 알아보세요.
   whatsNewLink: "2.8의 새로운 기능"
   learnMore: 더 알아보기
@@ -5034,7 +5828,7 @@ logging:
     dockerRootDirectory: 도커 루트 디렉터리
     systemdLogPath: systemd 로그 경로
     tooltip: "일부 쿠버네티스 배포는 <code>journald</code>에 로그를 남깁니다. 이러한 로그를 수집하려면 <code>systemdLogPath</code>를 정의해야 합니다. 기본적으로 <code>/run/log/journal</code> 디렉터리를 사용하지만 일부 Linux 배포판은 기본적으로 이 경로를 사용하지 않을 수 있습니다."
-    url: '<a href="https://ranchermanager.docs.rancher.com/v2.8/integrations-in-rancher/logging/logging-helm-chart-options" target="_blank" rel="noopener nofollow noreferrer">더 알아보기</a>'
+    url: "<a href="https://ranchermanager.docs.rancher.com/v2.8/integrations-in-rancher/logging/logging-helm-chart-options" target="_blank" rel="noopener nofollow noreferrer">더 알아보기</a>"
     default: /run/log/journal
   elasticsearch:
     host: 호스트
@@ -5121,7 +5915,7 @@ logging:
     keyId: 시크릿에서의 키 ID
     secretKey: 시크릿에서의 시크릿 키
     endpoint: 엔드포인트
-    region: 지역
+    region: 리전
     logGroupName: 로그 그룹 이름
     logStreamName: 로그 스트림 이름
   datadog:
@@ -5191,7 +5985,7 @@ logging:
     selectOutputs: 출력 선택
     selectBanner: 구성할 출력 선택
     sections:
-      target: 대상
+      target: 타겟
       access: 액세스
       certificate: 연결
       labels: 레이블
@@ -5247,13 +6041,13 @@ logging:
     username: 시크릿에서의 사용자 이름
     password: 시크릿에서의 비밀번호
     clientCertPath: 시크릿에서의 클라이언트 인증서 경로
-    clientPrivateKeyPath: 시크릿에서의 클라이언트 개인 키 경로
-    clientPrivateKeyPassphrase: 시크릿에서의 클라이언트 개인 키 암호
+    clientPrivateKeyPath: 시크릿에서의 클라이언트 프라이빗 키 경로
+    clientPrivateKeyPassphrase: 시크릿에서의 클라이언트 프라이빗 키 암호
 
 longhorn:
   overview:
     title: 개요
-    subtitle: "Powered By: <a href='https://github.com/longhorn' target='_blank' rel='noopener nofollow noreferrer'>Longhorn</a>"
+    subtitle: "Powered By: <a href="https://github.com/longhorn" target="_blank" rel="noopener nofollow noreferrer">Longhorn</a>"
     linkedList:
       longhorn:
         label: "Longhorn"
@@ -5264,7 +6058,7 @@ longhorn:
 neuvector:
   overview:
     title: 개요
-    subtitle: "Powered by: <a href='https://github.com/neuvector' target='_blank' rel='noopener nofollow noreferrer'>NeuVector</a>"
+    subtitle: "Powered by: <a href="https://github.com/neuvector" target="_blank" rel="noopener nofollow noreferrer">NeuVector</a>"
     linkedList:
       neuvector:
         label: "NeuVector"
@@ -5274,7 +6068,9 @@ neuvector:
 login:
   howdy: 안녕하세요!
   welcome: "Infinitystack에 오신 것을 환영합니다."
+  landscapeAlt: 랜드스케이프 이미지
   loggedOut: 로그아웃되었습니다.
+  loggedOutSessionIdle: 세션이 만료되어 Barastack에서 로그아웃되었습니다. 계속하려면 다시 로그인하세요.
   loggedOutFromSso: Barastack에서 로그아웃되었지만 Single Sign-On ID 공급자에는 여전히 로그인된 상태가 유지될 수 있습니다.
   loggedOutFromSlo: Barastack과 단일 로그인 ID 공급자에서 로그아웃되었습니다.
   loginAgain: 계속하려면 다시 로그인하세요.
@@ -5300,16 +6096,20 @@ login:
   useNonLocal: 로컬 사용자 사용 안 함
   remember:
     label: 사용자 이름 기억
-
+  cli:
+    welcome: CLI 인증을 완료하려면 로그인하십시오.
+    invalidParams: 잘못된 로그인 매개변수입니다. 로그인할 수 없습니다.
+    warning: "본인이 이 요청을 시작하지 않았거나 터미널에 표시되는 "클라이언트 요청 ID"가 아래 코드와 일치하지 않는 경우, 계속 진행하지 마십시오."
+    warningLegacy: "본인이 이 요청을 시작하지 않았거나 아래 코드가 터미널에 표시되는 로그인 URL의 "requestId" 매개변수와 일치하지 않는 경우, 계속 진행하지 마십시오."
 logout:
   message: 로그아웃 중...
-  error: '로그아웃 중 오류가 발생했습니다: {msg}'
+  error: "로그아웃 중 오류가 발생했습니다: {msg}"
   specificError:
     unknown: 알 수 없습니다.\n\n시스템 관리자에게 문의하세요.
     500: "서버 측 오류입니다.\n\n시스템 관리자에게 문의하세요."
 
 managementNode:
-  customName: 사용자 정의 이름
+  customName: 사용자정의 이름
 
 members:
   clusterMembers: 클러스터 멤버
@@ -5340,7 +6140,7 @@ members:
       label: 멤버
       description: 멤버는 클러스터 내의 리소스를 관리할 수 있지만 클러스터 자체는 변경할 수 없습니다.
     custom:
-      label: 사용자 정의
+      label: 사용자정의
       description: 이 사용자에 대해 개별 역할을 선택하세요.
       lockedRole: 이 역할은 잠겨 있습니다.
   localClusterWarning: "주의: 이 클러스터는 Rancher가 데이터 저장소로 사용하는 클러스터입니다. 이 클러스터에 쓰기 액세스 권한을 부여받아야 하는 것은 관리자뿐입니다. 이 클러스터에 대한 쓰기 액세스 권한을 가진 사용자는 이 설치의 모든 부분에 액세스 권한을 부여할 수 있습니다."
@@ -5358,22 +6158,22 @@ monitoring:
     readOnlyMany: 읽기 전용 다수
   aggregateDefaultRoles:
     label: 기본 쿠버네티스 역할에 집계
-    tip: '모니터링 차트에 의해 배포된 클러스터 역할에 레이블을 추가하여 <a target="_blank" rel="noopener nofollow noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles"> 기본 k8s admin, edit 및 view 클러스터 역할과 집계.</a>'
+    tip: "모니터링 차트에 의해 배포된 클러스터 역할에 레이블을 추가하여 <a target="_blank" rel="noopener nofollow noreferrer" href="https://kubernetes.io/docs/reference/access-authn-authz/rbac/#aggregated-clusterroles"> 기본 k8s admin, edit 및 view 클러스터 역할과 집계.</a>"
   alerting: 
     config:
-      label: Alert관리자 구성
+      label: Alert매니저 구성
     enable:
-      label: Alert관리자 배포
+      label: Alert매니저 배포
     secrets:
       additional:
-        info: 시크릿은 <pre class='inline-block m-0'>/etc/alertmanager/secrets/</pre>에 마운트되어야 합니다.
+        info: 시크릿은 <pre class="inline-block m-0">/etc/alertmanager/secrets/</pre>에 마운트되어야 합니다.
         label: 추가 시크릿
       existing: 기존 구성 시크릿 선택
       info: |
-        <span class="text-bold">기본 구성 생성</span>: Alert관리자 구성을 포함하는 시크릿이 이 차트를 배포 할 때 <pre class='inline-block m-0'>cattle-monitoring-system</pre> 네임 스페이스에 <pre class='inline-block m-0'>alertmanager-rancher-monitoring-alertmanager</pre> 이름으로 생성됩니다. 이 시크릿은 기본적으로이 차트를 제거하거나 업그레이드 할 때 수정되지 않습니다. <br />
-        차트를 배포 한 후 UI를 통해이 시크릿을 편집하여 Alert관리자에서 알림을 보내기 위해 사용되는 사용자 지정 알림 구성을 추가해야합니다. <br /> <br />
-        <span class="text-bold">기존 구성 시크릿 선택</span>: 반드시 <pre class='inline-block m-0'>cattle-monitoring-system</pre> 네임 스페이스에 존재하는 시크릿을 지정해야합니다. 네임 스페이스가 존재하지 않으면 기존 시크릿을 선택할 수 없습니다.
-      label: Alert관리자 시크릿
+        <span class="text-bold">기본 구성 생성</span>: Alert매니저 구성을 포함하는 시크릿이 이 차트를 배포 할 때 <pre class="inline-block m-0">cattle-monitoring-system</pre> 네임 스페이스에 <pre class="inline-block m-0">alertmanager-rancher-monitoring-alertmanager</pre> 이름으로 생성됩니다. 이 시크릿은 기본적으로이 차트를 제거하거나 업그레이드 할 때 수정되지 않습니다. <br />
+        차트를 배포 한 후 UI를 통해이 시크릿을 편집하여 Alert매니저에서 알림을 보내기 위해 사용되는 사용자 지정 알림 구성을 추가해야합니다. <br /> <br />
+        <span class="text-bold">기존 구성 시크릿 선택</span>: 반드시 <pre class="inline-block m-0">cattle-monitoring-system</pre> 네임 스페이스에 존재하는 시크릿을 지정해야합니다. 네임 스페이스가 존재하지 않으면 기존 시크릿을 선택할 수 없습니다.
+      label: Alert매니저 시크릿
       new: 기본 구성 생성
       radio:
         label: 시크릿 구성
@@ -5383,7 +6183,7 @@ monitoring:
       keyLabel: 파일 이름
       label: 템플릿 파일
       valueLabel: YAML 템플릿
-    title: Alert관리자 구성
+    title: Alert매니저 구성
   clusterType:
     label: 클러스터 유형
     placeholder: 클러스터 유형 선택
@@ -5428,7 +6228,7 @@ monitoring:
     linkedList:
       alertManager:
         description: 활성 경고
-        label: Alert관리자
+        label: Alert매니저
       grafana:
         description: 메트릭 대시 보드
         label: 그라파나
@@ -5502,30 +6302,30 @@ monitoring:
         canCreate: 프로젝트 모니터링을 추가하려면 만들기를 클릭하여 시작하십시오.
         cannotCreate: 프로젝트 모니터링을 추가하려면 관리자에게 문의하십시오.
   route:
-    label: 경로
+    label: 연결경로
     fields:
       groupBy: 그룹별
       groupInterval: 그룹 간격
       groupWait: 그룹 대기
       receiver: 수신자
       repeatInterval: 반복 간격
-  routesAndReceivers: 경로 및 수신자 (사용 중지)
+  routesAndReceivers: 연결경로 및 수신자 (사용 중지)
   monitors: 모니터
   projectMonitors: 프로젝트 모니터링
   alertmanagerConfig:
-    description: 프로젝트 경고 및 클러스터 경고에 대한 경로 및 수신자는 Alert관리자 구성 리소스 내에서 구성됩니다.
+    description: 프로젝트 경고 및 클러스터 경고에 대한 연결경로 및 수신자는 Alert매니저 구성 리소스 내에서 구성됩니다.
     empty: 접근 가능한 모든 네임 스페이스에 대해 경고가 구성되지 않았습니다.
     getStarted: 경고를 구성하려면 만들기를 클릭하여 시작하십시오.
-    receiverTooltip: 이 경로는 선택한 수신자로 경고를 전달하며 동일한 Alert관리자 구성 내에서 정의되어야합니다.
-    deprecationWarning: 경로 및 수신자 리소스는 사용되지 않습니다. 앞으로는 경로와 수신자를 이 페이지의 별도의 쿠버네티스 리소스로 관리하지 않아야합니다. Alert관리자 구성 리소스의 YAML 필드로 구성해야합니다.
-    routeInfo: 이 양식은 트래픽을 수신자로 보내는 하나의 경로를 구성하는 데 도움이됩니다. YAML에서 자식 경로를 구성하여 경고를 더 많은 수신자 (s)로 전송 할 수 있습니다.
+    receiverTooltip: 이 연결경로는 선택한 수신자로 경고를 전달하며 동일한 Alert매니저 구성 내에서 정의되어야합니다.
+    deprecationWarning: 연결경로 및 수신자 리소스는 사용되지 않습니다. 앞으로는 연결경로와 수신자를 이 페이지의 별도의 쿠버네티스 리소스로 관리하지 않아야합니다. Alert매니저 구성 리소스의 YAML 필드로 구성해야합니다.
+    routeInfo: 이 양식은 트래픽을 수신자로 보내는 하나의 연결경로를 구성하는 데 도움이됩니다. YAML에서 자식 연결경로를 구성하여 경고를 더 많은 수신자 (s)로 전송 할 수 있습니다.
     receiverFormNames:
-      create: Alert관리자 구성에서 수신자 만들기
-      edit: Alert관리자 구성에서 수신자 편집
-      editYaml: Alert관리자 구성 편집
-      detail: Alert관리자 구성에서 수신자
-    disabledReceiverButton: Alert관리자 구성이 작성 된 후에 수신자 양식을 사용할 수 있습니다.
-    error: Alert관리자 구성 저장 중에 오류가 발생했습니다.
+      create: Alert매니저 구성에서 수신자 만들기
+      edit: Alert매니저 구성에서 수신자 편집
+      editYaml: Alert매니저 구성 편집
+      detail: Alert매니저 구성에서 수신자
+    disabledReceiverButton: Alert매니저 구성이 작성 된 후에 수신자 양식을 사용할 수 있습니다.
+    error: Alert매니저 구성 저장 중에 오류가 발생했습니다.
     email:
       username: 인증 사용자 이름
       password: 인증 비밀번호가 있는 시크릿
@@ -5538,8 +6338,8 @@ monitoring:
       apiKey: API 키가 있는 시크릿
     webhook:
       url: URL
-      urlSecret: URL Secret
-      urlSecretTooltip: "urlSecret는 url보다 우선합니다. urlSecret 및 url 중 하나를 정의해야합니다."
+      urlSecret: URL시크릿
+      urlSecretTooltip: "url시크릿은 url보다 우선합니다. url시크릿 및 url 중 하나를 정의해야합니다."
     auth:
       bearerTokenSecret: Bearer 토큰 시크릿
       basicAuthUsername: Basic Auth 사용자 이름이있는 시크릿
@@ -5550,15 +6350,15 @@ monitoring:
     general: 일반
     grafana: 그라파나
     prometheus: 프로메테우스
-    projectMetrics: 프로젝트 메트릭
+    projectMetrics: 프로젝트 측정항목
   v1Warning: "현재 클러스터 매니저에서 모니터링이 배포되어 있습니다. {vendor}의 이전 버전에서 모니터링이 활성화 된 상태에서이 차트를 설치하기 전에 클러스터 매니저에서 모니터링을 비활성화하십시오."
 
 monitoringReceiver:
   addButton: "{type} 추가"
   custom:
-    label: 사용자 정의
-    title: 사용자 정의 구성
-    info: 여기에 제공된 YAML은 여러분의 수신자에 직접 추가될 것입니다. 이는 Alert관리자 구성 시크릿 내에 있을 것입니다.
+    label: 사용자정의
+    title: 사용자정의 구성
+    info: 여기에 제공된 YAML은 여러분의 수신자에 직접 추가될 것입니다. 이는 Alert매니저 구성 시크릿 내에 있을 것입니다.
   email:
     label: 이메일
     title: 이메일 구성
@@ -5618,16 +6418,16 @@ alertmanagerConfigReceiver:
   addButton: 수신자 추가
   receivers: 수신자
   namespaceWarning: 시크릿을 가져올 네임 스페이스를 찾을 수 없어 시크릿 선택기를 렌더링할 수 없습니다.
-  receiverTypes: "다음 수신자 유형은 양식에서 편집 할 수 있습니다: 이메일, 슬랙, 페이저듀티, 옵스지니 및 웹훅. 기타 수신자 유형의 경우 Alert관리자 구성 YAML에서 편집하십시오."
+  receiverTypes: "다음 수신자 유형은 양식에서 편집 할 수 있습니다: 이메일, 슬랙, 페이저듀티, 옵스지니 및 웹훅. 기타 수신자 유형의 경우 Alert매니저 구성 YAML에서 편집하십시오."
   slack:
     webhookUrl: 웹훅 URL
-    apiUrlTooltip: 슬랙 웹훅 URL을 포함하는 시크릿의 키입니다. 시크릿은 Alert관리자 구성 객체와 동일한 네임 스페이스에 있어야하며 프로메테우스 오퍼레이터에서 액세스 할 수 있어야합니다.
+    apiUrlTooltip: 슬랙 웹훅 URL을 포함하는 시크릿의 키입니다. 시크릿은 Alert매니저 구성 객체와 동일한 네임 스페이스에 있어야하며 프로메테우스 오퍼레이터에서 액세스 할 수 있어야합니다.
 monitoringRoute:
   groups:
     label: 그룹별
     addGroupByLabel: 경고를 그룹화 할 레이블
     groupByTooltip: 각 레이블을 key:value 형식의 문자열로 추가하십시오. 특수 레이블 ...은 모든 가능한 레이블로 집계됩니다. 제공된 경우 ...는 목록에서 유일한 요소 여야합니다.
-  info: 이것은 Alert관리자가 다른 경로와 일치하지 않는 모든 경고의 기본 대상으로 사용하는 최상위 경로입니다. 이 경로는 존재해야하며 삭제 할 수 없습니다.
+  info: 이것은 Alert매니저가 다른 경로와 일치하지 않는 모든 경고의 기본 대상으로 사용하는 최상위 경로입니다. 이 경로는 존재해야하며 삭제 할 수 없습니다.
   interval:
     label: 그룹 간격
   matching:
@@ -5656,7 +6456,7 @@ moveModal:
   title: 새 프로젝트로 이동하시겠습니까?
   description: "다음 네임스페이스를 이동 중입니다:"
   moveButtonLabel: 이동
-  targetProject: 대상 프로젝트
+  targetProject: 타겟 프로젝트
 
 nameNsDescription:
   name:
@@ -5673,6 +6473,7 @@ nameNsDescription:
     placeholder: 리소스에 대한 자세한 설명
 
 namespace:
+  cancelCreateAriaLabel: 네임스페이스 생성 취소
   containerResourceLimit: 컨테이너 리소스 제한
   resourceQuotas: 리소스 할당
   project:
@@ -5708,9 +6509,14 @@ namespaceFilter:
   selected:
     label: |-
       {total, plural,
-      one {1 item selected}
-      other {{total} items selected}
+      one {1 선택한 항목}
+      other {{total} 선택한 항목d}
       }
+  input: 필터 네임스페이스 옵션
+  button:
+    clear: 적용된 네임스페이스 필터를 제거합니다.
+    clearFilter: 네임스페이스 옵션 필터 지우기
+  removeNamespace: '필터에서 {name}을 제거하세요'
 
 namespaceList:
   selectLabel: 네임스페이스
@@ -5747,7 +6553,7 @@ navLink:
           label: Scheme
           placeholder: "예: http"
     target:
-      label: Window 대상
+      label: Window 타겟
       option:
         blank: 새 window
         self: window 교체
@@ -5879,7 +6685,7 @@ node:
     tab:
       conditions: 조건
       images: 이미지
-      metrics: 메트릭
+      metrics: 측정항목
       info:
         label: 정보
         key:
@@ -5889,7 +6695,7 @@ node:
           kernelVersion: 커널 버전
           kubeProxyVersion: Kube 프록시 버전
           kubeletVersion: 쿠블릿 버전
-          machineID: 기계 ID
+          machineID: 머신 ID
           operatingSystem: 운영 체제
           osImage: 이미지
           systemUUID: 시스템 UUID
@@ -5900,6 +6706,17 @@ node:
     downloadNodeConfig: 키 다운로드
     scaleDown: 축소
     forceDelete: 강제 삭제
+
+notificationCenter:
+  caughtUp: "이제 모든 내용을 따라잡으셨군요!"
+  dates:
+    today: 오늘
+    yesterday: 어제
+  markAllRead: 모두 읽음으로 표시
+  markRead: 읽음으로 표시
+  markUnread: 읽지 않은 상태로 표시
+  title: 알림
+  ariaLabel: '알림 {title}: Enter 키를 눌러 상호 작용하세요'
 
 persistentVolume:
   pluginConfiguration:
@@ -6032,7 +6849,7 @@ persistentVolume:
   fc:
     label: Fibre Channel (지원되지 않음)
     targetWWNS:
-      add: 대상 WWN 추가
+      add: 타겟 WWN 추가
     wwids:
       add: WWID 추가
     lun:
@@ -6062,7 +6879,7 @@ persistentVolume:
       label: 경로
       placeholder: "예: kube-vol"
   iscsi:
-    label: iSCSI Target (지원되지 않음)
+    label: iSCSI 타겟 (지원되지 않음)
     initiatorName:
       label: 이니셔에이터 이름
       placeholder: iqn.1994-05.com.redhat:1df7a24fcb92
@@ -6080,7 +6897,7 @@ persistentVolume:
       label: Lun
       placeholder: "예: 2"
     targetPortal:
-      label: 대상 포털
+      label: 타겟 포털
       placeholder: "예: portal"
     portals:
       add: 포털 추가
@@ -6292,13 +7109,18 @@ plugins:
     image: 이미지
     installing: 설치 중...
     uninstalling: 제거 중...
+    upgrading: 업그레이딩 중...
+    downgrading: 다운그레이딩 중...
     menu: 확장 메뉴
     reloadRancher: 랜처 다시 로드
+    current: 현재
   descriptions:
     experimental: 이 확장 프로그램은 실험적으로 표시되었습니다.
     third-party: 이 확장 프로그램은 제3자에서 제공됩니다.
     built-in: 이 확장 프로그램은 내장되어 있습니다.
     image: 이 확장 프로그램 이미지는 수동으로 로드되었습니다.
+  tooltips:
+    installing: 설치 중...  
   error:
     title: 확장 프로그램 로드 오류
     message: 확장 프로그램 코드를 로드할 수 없습니다.
@@ -6397,6 +7219,14 @@ plugins:
     prompt: "이 확장 프로그램을 설치하시겠습니까?"
     version: 버전
     warnNotCertified: 신뢰할 수 없는 작성자에서 확장 프로그램을 설치하는 위험에 대해 알고 계십시오.
+  upgrade:
+    label: 업그레이드
+    title: 업그레이드 확장 프로그램 {이름}
+    prompt: "이 확장 프로그램을 업그레이드하시겠습니까?"
+  downgrade:
+    label: 다운그레이드
+    title: 다운그레이드 확장 프로그램 {이름}
+    prompt: "이 확장 프로그램을 다운그레이드하시겠습니까?"
   update:
     label: 업데이트
     title: 확장 프로그램 {name} 업데이트
@@ -6511,6 +7341,7 @@ prefs:
     allNamespaces: Rancher가 관리하는 시스템 네임스페이스 표시 (편집 또는 삭제가 목적이 아님)
     themeShortcut: 다크/라이트 테마 키보드 단축키 전환 활성화 (Shift + T)
     pluginDeveloper: 확장 프로그램 개발자 기능 활성화
+    pluginDeveloperTooltip: UI 확장 프로그램의 개발자 로드 기능을 활성화합니다.
   hideDesc:
     label: 모든 유형 설명 숨기기
   helm:
@@ -6641,7 +7472,7 @@ prometheusRule:
       summary:
         input: 요약 주석 값
         label: 요약
-    bannerText: "경고가 발생하면 주석 및 레이블이 구성된 Alert관리자로 전달되어 통지를 구성하는 데 사용됩니다."
+    bannerText: "경고가 발생하면 주석 및 레이블이 구성된 Alert매니저로 전달되어 통지를 구성하는 데 사용됩니다."
     for:
       label: 기다리는 시간
       placeholder: "60"
@@ -6682,6 +7513,7 @@ promptForceRemove:
   modalTitle: 정말로 진행하시겠습니까?
   removeWarning: "기본 인프라를 삭제하는 데 문제가 발생했습니다. 이 작업을 진행하면 머신 <b>{nameToMatch}</b>이(가) Rancher에서만 삭제됩니다. 참조된 모든 인프라를 수동으로 삭제하는 것이 강력히 권장됩니다."
   forceDelete: 강제 삭제
+  ariaLabel: 머신 이름을 클립보드에 붙여넣기
   confirmName: "아래에 풀 이름을 입력하여 확인하십시오:"
   podRemoveWarning: "파드를 강제로 삭제하면 파드 프로세스가 종료됐는지 확인하지 않습니다. 이로 인해 <strong>데이터 손상이나 불일치</strong>가 발생할 수 있습니다."
 
@@ -6740,6 +7572,10 @@ promptRollback:
   multipleWorkloadError: "한 번에 하나의 워크로드만 롤백할 수 있습니다."
   singleRevisionBanner: 롤백할 리비전이 없습니다.
 
+promptRedeploy:
+  title: "{type}을 재배포하시겠습니까?"
+  attemptingToRedeploy: "{type} {names}<br><br>재배포하면 선택한 워크로드가 다시 시작되어 일시적인 다운타임이 발생할 수 있습니다."
+
 promptSaveAsRKETemplate:
   title: "{cluster}를 새 RKE 템플릿으로 변환"
   name: 클러스터 템플릿 이름
@@ -6784,6 +7620,9 @@ rbac:
         label: 리소스 부여
         noApiGroupClusterScope: 핵심 K8s API, 클러스터 범위
         noApiGroupNamespaceScope: 핵심 K8s API, 네임스페이스 범위
+        neuvector:
+          labelClusterScoped: NeuVector, 클러스터 범위
+          labelNamespaceScoped: NeuVector, 네임스페이스
         deprecatedLabel: (폐기됨)
         resourceOptionInfo: 리소스 옵션은 모든 Rancher에서 관리하는 쿠버네티스 클러스터에서 사용 가능한 모든 리소스의 완전한 목록이 아닐 수 있습니다. 고급 사용 사례에서는 리소스 및 API 그룹을 수동으로 입력해야 할 수 있습니다.
         tableHeaders:
@@ -6791,6 +7630,7 @@ rbac:
           resources: 리소스
           nonResourceUrls: 비-리소스 URL
           apiGroups: API 그룹
+        psaWarning: 프로젝트 역할에 PSA 레이블 수정 권한을 부여하면 보안이 약화되고 권한 상승이 허용될 수 있습니다. 따라서 이러한 위험을 충분히 이해하는 고급 사용자에게만 권장합니다.
     subtypes:
       GLOBAL:
         createButton: 글로벌 역할 생성
@@ -6898,12 +7738,14 @@ rbac:
         label: 노드 템플릿 사용
         description: 사용자가 기존 노드 템플릿을 사용하여 새로운 노드를 배포할 수 있도록 허용합니다.
       view-rancher-metrics:
-        label: "{vendor} 메트릭 보기"
-        description: 사용자가 API를 통해 메트릭을 보는 것을 허용합니다.
+        label: "{vendor} 측정항목 보기"
+        description: 사용자가 API를 통해 측정항목을 보는 것을 허용합니다.
       base:
         label: 로그인 액세스
       clustertemplaterevisions-create:
         label: RKE 템플릿 리비전 생성
+  errors:
+    escalation: 본인보다 높은 전역 권한을 할당할 수 없습니다. 할당하려는 권한을 확인하십시오.
 
 resourceDetail:
   detailTop:
@@ -6937,6 +7779,9 @@ resourceDetail:
     stage: "{subtype} {name}에서 스테이징"
     view: "{subtype} {name} 보기"
   masthead:
+    ariaLabel:
+      favoriteAction: "{resource}를 즐겨찾기 목록에 추가하세요."
+      unfavoriteAction: "즐겨찾기/별표 목록에서 {resource}를 제거하세요."
     age: 생성 시간
     createdBy: 작성자
     restartCount: 파드 재시작 횟수
@@ -6976,7 +7821,8 @@ resourceTable:
     node: 노드별 그룹 정렬
     role: 역할별 그룹 정렬
     cluster: 클러스터별 그룹 정렬
-    device: 장비 그룹    
+    device: 장비 그룹
+    pool: 풀 그룹
   groupLabel:
     cluster: "<span>클러스터:</span> {name}"
     notInACluster: 클러스터 없음
@@ -6991,12 +7837,16 @@ resourceTable:
     notInANodePool: "풀 없음"
     nodePool: "<span>풀:</span> {name}"
     node: "<span>노드:</span> {name}"
+  autoRefresh:
+    label: 자동 새로고침
 
 resourceTabs:
   conditions:
     tab: 조건
   events:
     tab: 최근 이벤트
+    namespaceTab: "네임스페이스의 이벤트"
+    namespaceCaption: "<span class='namespace-name'><b>{namespace}</b></span> 네임스페이스의 리소스에서 발생하는 모든 이벤트를 표시합니다."
   related:
     tab: 관련 리소스
     from: 참조됨
@@ -7031,8 +7881,8 @@ secret:
       =1 {{count} {count, plural, =1 {{singularLabel}} other {{pluralLabel}}}}
       other {{from} - {to} of {count} {pluralLabel}}}
     plusMore: "+ {n} 더 보기"
-    privateKey: 개인 키
-    privateKeyPlaceholder: "개인 키를 붙여넣기하세요. 일반적으로 -----BEGIN RSA PRIVATE KEY-----로 시작합니다."
+    privateKey: 프라이빗 키
+    privateKeyPlaceholder: "프라이빗 키를 붙여넣기하세요. 일반적으로 -----BEGIN RSA PRIVATE KEY-----로 시작합니다."
     warnings:
       expiring: "{count} {count, plural, =1 {Certificate expires soon} other {Certificates expire soon}}"
       expired: "{count} {count, plural, =1 {Certificate has expired} other {Certificates have expired}}"
@@ -7047,10 +7897,11 @@ secret:
     username: 사용자 이름
   ssh:
     keys: 키
-    public: 공개 키
-    publicPlaceholder: "공개 키를 붙여넣기하세요."
-    private: 개인 키
-    privatePlaceholder: "개인 키를 붙여넣기하세요."
+    keysAndHosts: 키 및 알려진 호스트
+    public: 퍼블릭 키
+    publicPlaceholder: "퍼블릭 키를 붙여넣기하세요."
+    private: 프라이빗 키
+    privatePlaceholder: "프라이빗 키를 붙여넣기하세요."
     knownHosts: 알려진 호스트
     knownHostsPlaceholder: "알려진 호스트 메타데이터(줄당 하나씩)"
     editKnownHosts:
@@ -7109,11 +7960,18 @@ secret:
       description: 컨테이너 이미지를 가져오기 위한 인증된 레지스트리
       docLink: https://kubernetes.io/docs/concepts/configuration/secret/#docker-config-secrets
     "kubernetes.io/ssh-auth":
-      description: SSH 인증을 위한 공개 키와 개인 키
+      description: SSH 인증을 위한 퍼블릭 키와 프라이빗 키
       docLink: https://kubernetes.io/docs/concepts/configuration/secret/#ssh-authentication-secrets
     "kubernetes.io/tls":
       description: TLS를 위한 인증서와 키 저장
       docLink: https://kubernetes.io/docs/concepts/configuration/secret/#tls-secrets
+  tabs:
+    namespaced:
+      label: 네임스페이스
+      create: 시크릿 생성
+    projectScoped:
+      label: 프로젝트 범위
+      create: 프로젝트 시크릿 생성
 
 selectOrCreateAuthSecret:
   label: 인증
@@ -7127,8 +7985,8 @@ selectOrCreateAuthSecret:
     accessKey: 액세스 키
     secretKey: 시크릿 키
   ssh:
-    publicKey: 공개 키
-    privateKey: 개인 키
+    publicKey: 퍼블릭 키
+    privateKey: 프라이빗 키
   basic:
     username: 사용자 이름
     password: 비밀번호
@@ -7163,7 +8021,7 @@ servicePorts:
     protocol:
       label: 프로토콜
     target:
-      label: 대상 포트
+      label: 타겟 포트
       placeholder: "예: 80 또는 http"
 
 serviceTypes:
@@ -7284,9 +8142,22 @@ setup:
   telemetry: <a href="{docsBase}/faq/telemetry/" target="_blank" rel="noopener noreferrer nofollow">익명 통계 정보</a> 수집을 허용하여 {name}을(를) 개선하는 데 도움을 주십시오.
   useManual: 특정 비밀번호 설정
   useRandom: 무작위 생성된 비밀번호 사용
+  copyRandom: 무작위 비밀번호를 클립보드에 복사합니다.
   welcome: "Infinitystack에 오신 것을 환영합니다!"
 
 sortableTable:
+  ariaLabel:
+    firstPageBtn: 결과의 첫 번째 페이지
+    prevPageBtn: 결과의 이전 페이지
+    nextPageBtn: 결과의 다음 페이지
+    lastPageBtn: 결과의 마지막 페이지
+  alt:
+    firstPageBtn: 결과의 첫 페이지 아이콘
+    prevPageBtn: 결과의 이전 페이지 아이콘
+    nextPageBtn: 결과의 다음 페이지 아이콘
+    lastPageBtn: 결과의 마지막 페이지 아이콘
+    sortingIconDesc: 테이블 헤더 내림차순 정렬 아이콘
+    sortingIconAsc: 테이블 헤더 오름차순 정렬 아이콘
   genericGroupCheckbox: 테이블 그룹 선택 체크박스
   genericRowCheckbox: '{item} 항목에 대한 테이블 행 선택 체크박스'
   tableActionsLabel: 추가 작업 - { resource }
@@ -7315,6 +8186,7 @@ sortableTable:
   searchLabel: Filter table results  
   in: 에
   addFilter: 필터 추가
+  filteringDescription: 이 입력값을 사용하면 아래 표의 결과가 즉시 필터링됩니다.
   filterFor: 필터 대상...
   selectCol: 열 선택
   resetFilters: 재설정
@@ -7406,14 +8278,14 @@ storageClass:
       label: 파일 시스템 유형
       placeholder: "예: ext4"
     availabilityZone:
-      label: 가용 영역
+      label: 가용 존
       automatic: "자동: 클러스터에 노드가 있는 영역"
       manual: "수동: 특정 영역 선택"
       placeholder: us-east-1d, us-east-1c
     replicationType:
       label: 복제 유형
-      zonal: 영역
-      regional: 지역
+      zonal: 존
+      regional: 리전
   longhorn:
     title: Longhorn (CSI)
     addLabel: 매개변수 추가
@@ -7476,10 +8348,10 @@ storageClass:
       label: 볼륨 유형
       placeholder: "예: fast"
     availabilityZone:
-      label: 가용 영역
-      automatic: "자동: 클러스터에 노드가 있는 영역"
+      label: 가용 존
+      automatic: "자동: 클러스터에 노드가 있는 존"
       manual:
-        label: "수동: 특정 영역 선택"
+        label: "수동: 특정 존 선택"
         placeholder: "예: nova"
   rbd:
     title: Ceph RBD
@@ -7624,6 +8496,7 @@ storageClass:
 
 tableHeaders:
   assuredConcurrencyShares: 보장된 동시성 공유
+  autoscaler: 오토스케일러
   accessKey: 액세스 키
   addressType: 주소 유형
   accessModes: 액세스 모드
@@ -7638,7 +8511,7 @@ tableHeaders:
     clusterDefault: 클러스터 생성자 기본값
     projectDefault: 프로젝트 생성자 기본값
   branch: 브랜치
-  backupTarget: 백업 대상
+  backupTarget: 백업 타겟
   builtIn: 내장
   bundlesReady: 번들 준비 완료
   bundleDeploymentsReady: 배포
@@ -7681,14 +8554,17 @@ tableHeaders:
   endpoints: 엔드포인트
   expires: 만료
   firstSeen: 최초 발견
+  firstSeenTooltip: 사건이 처음 기록된 시점
   fleetBundleType: 타입
   flow: Flow
   fingerprint: 지문
   gitRepos: Git 저장소
+  helmOps: 헬름 옵스
   groups: 그룹
   groupName: 그룹 이름
   groupRoleNames: 그룹 역할 이름
   global-Default: 글로벌 기본값
+  helmOpsReady: 헬름 옵스 준비 완료
   host: 호스트
   hostIp: 호스트 IP
   holder: 보유자
@@ -7702,7 +8578,7 @@ tableHeaders:
   imageSize: 크기
   ingressClass: 인그레스 클래스
   ingressDefaultBackend: 기본
-  ingressTarget: 대상
+  ingressTarget: 타겟
   internalExternalIp: 외부/내부 IP
   ipaddress: IP 주소
   internalIpSameAsExternal: 외부와 동일
@@ -7801,6 +8677,11 @@ tableHeaders:
   scope: 범위
   selector: 선택기
   secrets: 시크릿
+  secret:
+    project-clone: 프로젝트 시크릿에 의해 생성됨
+    project-clone-tooltip: "프로젝트 범위 시크릿이 이 네임스페이스에 이 시크릿을 생성했습니까?"
+    project-scoped: 프로젝트 시크릿
+    project-scoped-tooltip: 이 프로젝트 범위 시크릿 키는 포함된 네임스페이스에 일치하는 시크릿 키를 생성합니다.
   schedule: 일정
   service: 서비스
   serviceAccounts: 서비스 계정
@@ -7812,7 +8693,7 @@ tableHeaders:
   started: 시작됨
   state: 상태
   status: 상태
-  targetVm: 대상 VM
+  targetVm: 타겟 VM
   storage_class_provisioner: 프로비저너
   storage: 저장소 크기
   storageClass: 스토리지 클래스
@@ -7823,9 +8704,9 @@ tableHeaders:
   summary: 요약
   subobject: 하위 오브젝트
   taints: 테인트
-  target: 대상
-  targetKind: 대상 유형
-  targetPort: 대상 포트
+  target: 타겟
+  targetKind: 타겟 유형
+  targetPort: 타겟 포트
   template: 템플릿
   totalSnapshotQuota: 총 스냅샷 할당량
   type: 유형
@@ -7857,7 +8738,7 @@ target:
   service:
     label: 서비스
     placeholder: 서비스 선택
-  title: 대상
+  title: 타겟
   version:
     label: 버전
     placeholder: 버전 선택
@@ -7981,8 +8862,12 @@ validation:
   flowOutput:
     both: '"Output" 또는 "클러스터 Output"을 선택해야 합니다.'
     global: '"클러스터 Output"을 선택해야 합니다.'
+  repository:
+    url: 끝에 공백이 없는 유효한 HTTP(s) 또는 SSH URL이어야 합니다.
+  oci:
+    url: 끝에 공백이 없는 유효한 OCI URL이어야 합니다.
   git:
-    repository: Repository URL must be a HTTP(s) or SSH url with no trailing spaces
+    repository: 저장소 URL은 끝에 공백이 없는 HTTP(s) 또는 SSH URL이어야 합니다.
   output:
     logdna:
       apiKey: '"API 키"를 설정해야 합니다.'
@@ -8049,6 +8934,7 @@ validation:
       missingApiGroup: 각 리소스 부여에 대해 API 그룹을 지정해야 합니다
       missingOneResource: 각 리소스 부여에 대해 적어도 하나의 리소스, 비-리소스 URL 또는 API 그룹을 지정해야 합니다
       noResourceAndNonResource: 각 규칙에는 리소스 또는 비-리소스 URL이 포함될 수 있지만 둘 다 포함될 수는 없습니다
+  semanticVersion: "버전은 유효한 버전 번호이거나 의미론적 버전 제약 조건(예: 2.x.x, < 1.0)이어야 합니다."
   service:
     externalName:
       none: ExternalName 서비스에는 외부 이름이 필요합니다.
@@ -8070,21 +8956,24 @@ validation:
   setting:
     serverUrl:
       https: 서버 URL은 https여야 합니다.
-      localhost: '서버 URL이 Rancher 서버 내부(예: localhost)인 경우 다운스트림 클러스터가 Rancher와 통신하지 못할 수 있습니다.'
+      localhost: "서버 URL이 Rancher 서버 내부(예: localhost)인 경우 다운스트림 클러스터가 Rancher와 통신하지 못할 수 있습니다."
       trailingForwardSlash: 서버 URL에는 맨 뒤에 슬래시가 있어서는 안 됩니다.
       url: 서버 URL은 URL이어야 합니다.
+      awsStyleEndpoint: "엔드포인트 URL은 유효한 도메인 기반 엔드포인트여야 하며 프로토콜(예: https:// 또는 http://)로 시작할 수 없습니다."
+  genericUrl: 입력란은 유효한 URL이어야 합니다.
   stringLength:
     between: '{key}은(는) {min}에서 {max} {max, plural, =1 {문자} other {문자}} 사이어야 합니다.'
     exactly: '{key}은(는) {count, plural, =1 {# 문자} other {# 문자}}여야 합니다.'
     max: '{key}은(는) 최대 {count} {count, plural, =1 {문자} other {문자}}까지어야 합니다.'
     min: '{key}은(는) 최소 {count} {count, plural, =1 {문자} other {문자}}가 있어야 합니다.'
   targets:
-    missingProjectId: 대상은 프로젝트가 선택되어야 합니다.
+    missingProjectId: 타겟은 프로젝트가 선택되어야 합니다.
   monitoring:
     route:
       match: 적어도 하나의 일치 또는 일치 정규식을 선택해야 합니다.
       interval: '{key}은(는) 숫자 다음에 단위가 있는 형식이어야 합니다(예: 1h, 2m, 30s)'
   tab: "이 탭의 하나 이상의 필드에 양식 유효성 검사 오류가 포함되어 있습니다"
+  version: 잘못된 버전 번호
 carousel:
   previous: 이전
   next: 다음
@@ -8098,7 +8987,17 @@ wizard:
   edit: 편집
   create: 생성
   view: 보기
+  install: 설치
+  upgrade: 업그레이드
+  downgrade: 다운그레이드
+sideWindow:
+  secondary:
+    resize: 보조 Window 크기 조정
+
 wm:
+  resize: "Window 크기 조절 - 키보드의 화살표 키(arrow1)와 화살표 키(arrow2)를 사용하여 창 크기를 조절하세요."
+  tabIcon: Window 탭 아이콘
+  closeTab: "탭 닫기 - {tabId}"
   connection:
     connected: 연결됨
     connecting: 연결 중&hellip;
@@ -8299,17 +9198,17 @@ workload:
         "false": 아니오
         "true": "예: 컨테이너는 호스트에 대한 완전한 액세스 권한이 있음"
       readOnlyRootFilesystem:
-        label: 읽기 전용 루트 파일 시스템
+        label: 읽기 전용 Root 파일 시스템
         "false": 아니오
-        "true": "예: 컨테이너는 읽기 전용 루트 파일 시스템을 가짐"
+        "true": "예: 컨테이너는 읽기 전용 Root 파일 시스템을 가짐"
       runAsGroup: 그룹 ID로 실행
       runAsNonRoot:
-        label: 비루트로 실행
+        label: Non-Root로 실행
         "false": 아니오
-        "true": "예: 컨테이너는 비루트 사용자로 실행되어야 함"
+        "true": "예: 컨테이너는 Non-Root 사용자로 실행되어야 함"
       runAsNonRootOptions:
         noOption: "아니요"
-        yesOption: "예: 컨테이너는 비루트 사용자로 실행되어야 함"
+        yesOption: "예: 컨테이너는 Non-Root 사용자로 실행되어야 함"
       runAsUser: 사용자 ID로 실행
       shareProcessNamespace: 단일 프로세스 네임스페이스 공유
       supplementalGroups: 추가 그룹 ID
@@ -8332,7 +9231,7 @@ workload:
       networkSettings: 네트워크 설정
       podAnnotations: 파드 주석
       podLabels: 파드 레이블
-      metrics: 메트릭
+      metrics: 측정항목
       podScheduling: 파드 스케줄링
       nodeScheduling: 노드 스케줄링
       ports: 포트
@@ -8361,6 +9260,10 @@ workload:
     workload: 워크로드
     pods: 상태별 파드
     runs: 실행
+    started: 시작됨
+    duration: 마지막 예약 시간
+    image: 이미지
+  error: "Pod { name } 보안 정책 위반 { policy }"
   gaugeStates:
     succeeded: 성공
     running: 실행 중
@@ -8392,8 +9295,8 @@ workload:
   list:
     errorCannotScale: "{workloadName}를 {direction, select, up {확장} down {축소}}하는 데 실패했습니다."
   metrics:
-    pod: 파드 메트릭
-    metricsView: 메트릭 보기
+    pod: 파드 측정항목
+    metricsView: 측정항목 보기
   networking:
     dnsPolicy:
       label: DNS 정책
@@ -8426,14 +9329,14 @@ workload:
       placeholder: 모드 선택...
     dns: DNS
     resolver:
-      label: Resolver 옵션
+      label: 리졸버 옵션
       add: 옵션 추가
     searches:
-      add: Search Domain 추가
-      label: Search Domains
+      add: 검색 도메인 추가
+      label: 검색 도메인
       placeholder: "예: mycompany.com"
     subdomain:
-      label: 서브도메인
+      label: 서브 도메인
       placeholder: "예: web"
   normanWarning: 이 워크로드는 기존 Rancer UI에서 생성된 것으로 보입니다. 자동으로 생성된 서비스를 수동으로 삭제해야 할 수도 있습니다.
   validation:
@@ -8674,6 +9577,9 @@ model:
       saml: SAML
       oauth: OAuth
       oidc: OIDC
+      keycloakoidc: Keycloak
+      genericoidc: OIDC provider
+      cognito: Amazon Cognito
     name:
       keycloak: Keycloak (SAML)
       keycloakoidc: Keycloak (OIDC)
@@ -8684,6 +9590,7 @@ model:
       activedirectory: ActiveDirectory
       azuread: AzureAD
       github: GitHub
+      githubapp: GitHub 앱
       keycloak: Keycloak
       ldap: LDAP
       openldap: OpenLDAP
@@ -8693,8 +9600,10 @@ model:
       okta: Okta
       freeipa: FreeIPA
       googleoauth: Google
+      genericoidc: 범용 OIDC
       oidc: OIDC
       keycloakoidc: Keycloak
+      cognito: Amazon Cognito
 
   cluster:
     name: 클러스터 이름
@@ -8735,7 +9644,11 @@ typeDescription:
   #       target="_blank" rel="noopener noreferrer nofollow"
   jwt.authentication: 클러스터에서 이 기능을 활성화하면 다운스트림 서비스 계정에 대한 JWT 인증 지원이 추가됩니다.  
   branding: "브랜딩을 사용하면 관리자가  Rancher 제품 이름, 로고 및 색상 체계를 커스텀 하여 UI를 전체적으로 다시 브랜딩 할 수 있습니다."
-  chart: "모든 차트에는 Linux 및 Windows 노드를 사용하는 클러스터에 설치할 수 있는 하나 이상의 버전이 있습니다(그렇지 않은 경우 명시되지 않음)."
+  chart: "별도로 명시되지 않는 한, 모든 차트는 Linux 및 Windows 노드로 구성된 클러스터에 설치 가능한 버전을 하나 이상 보유하고 있습니다."
+  compliance.cattle.io.clusterscanbenchmark: 벤치마크 버전은 kube-bench를 사용하여 실행할 벤치마크의 이름과 해당 벤치마크에 대한 유효한 구성 매개변수를 나타냅니다.
+  compliance.cattle.io.clusterscanprofile: 프로필은 규정 준수 검사를 위한 구성으로, 사용할 벤치마크 버전과 해당 벤치마크에서 건너뛸 특정 테스트를 지정합니다.
+  compliance.cattle.io.clusterscan: 정의된 프로필을 기반으로 클러스터에 대한 규정 준수 검사를 트리거하는 스캔이 생성됩니다. 검사가 완료되면 보고서가 생성됩니다.
+  compliance.cattle.io.clusterscanreport: 보고서는 클러스터에 대한 규정 준수 검사 결과입니다.
   cis.cattle.io.clusterscanbenchmark: 벤치마크 버전은 kube-bench를 사용하여 실행할 벤치마크의 이름과 해당 벤치마크에 대한 유효한 구성 매개변수입니다.
   cis.cattle.io.clusterscanprofile: 프로필은 CIS 스캔의 구성입니다. 이는 사용할 벤치마크 버전 및 해당 벤치마크에서 건너뛸 특정 테스트를 지정합니다.
   cis.cattle.io.clusterscan: 스캔은 정의된 프로필을 기반으로 클러스터에서 CIS 스캔을 트리거하기 위해 만들어집니다. 스캔이 완료되면 보고서가 작성됩니다.
@@ -8749,9 +9662,9 @@ typeDescription:
   resources.cattle.io.resourceset: 리소스 세트는 백업에 저장할 CRD 및 리소스를 정의합니다.
   monitoring.coreos.com.servicemonitor: 서비스 모니터는 프로메테우스가 메트릭을 수집할 서비스 및 엔드포인트를 정의합니다. 이것은 메트릭 수집을 정의하는 가장 일반적인 방법입니다.
   monitoring.coreos.com.podmonitor: 파드 모니터는 프로메테우스가 메트릭을 수집할 파드의 그룹을 정의합니다. 일반적으로 서비스 모니터를 사용하지만 파드 모니터를 사용하면 서비스 모니터가 작동하지 않는 상황도 처리할 수 있습니다.
-  monitoring.coreos.com.prometheusrule: 프로메테우스 규칙 리소스는 레코딩 및/또는 경고 규칙을 정의합니다. 레코딩 규칙은 값을 미리 계산하고 결과를 저장할 수 있습니다. 알림 규칙을 사용하면 Alert관리자에 알림을 보낼 조건을 정의할 수 있습니다.
-  monitoring.coreos.com.prometheus: 프로메테우스 서버는 선택된 서비스 모니터, 파드 모니터 및 프로메테우스 규칙에 의해 결정된 스크레이프 구성 및 규칙을 가진 프로메테우스 배포입니다. 그리고 해당 알림은 사용 가능한 모든 Alert관리자로 전송됩니다.
-  monitoring.coreos.com.alertmanager: Alert관리자는 구성이 동일한 네임스페이스 내의 시크릿으로 지정된 배포입니다. 이는 어떤 알림이 어떤 수신자로 전송되어야 하는지 결정합니다.
+  monitoring.coreos.com.prometheusrule: 프로메테우스 규칙 리소스는 레코딩 및/또는 경고 규칙을 정의합니다. 레코딩 규칙은 값을 미리 계산하고 결과를 저장할 수 있습니다. 알림 규칙을 사용하면 Alert매니저에 알림을 보낼 조건을 정의할 수 있습니다.
+  monitoring.coreos.com.prometheus: 프로메테우스 서버는 선택된 서비스 모니터, 파드 모니터 및 프로메테우스 규칙에 의해 결정된 스크레이프 구성 및 규칙을 가진 프로메테우스 배포입니다. 그리고 해당 알림은 사용 가능한 모든 Alert매니저로 전송됩니다.
+  monitoring.coreos.com.alertmanager: Alert매니저는 구성이 동일한 네임스페이스 내의 시크릿으로 지정된 배포입니다. 이는 어떤 알림이 어떤 수신자로 전송되어야 하는지 결정합니다.
   node: 기본 쿠버네티스 노드 리소스는 배포를 호스팅하는 가상 또는 물리적 머신을 나타냅니다. 머신 라이프사이클을 관리하려면 Cluster Management로 이동하십시오.
   catalog.cattle.io.clusterrepo: "차트 저장소는 헬름 저장소 또는 {vendor} git 기반 응용 프로그램 카탈로그입니다. 클러스터의 사용 가능한 차트 목록을 제공합니다."
   catalog.cattle.io.clusterrepo.local: " 차트 저장소는 헬름 저장소 또는 {vendor} git 기반 응용 프로그램 카탈로그입니다. 클러스터 템플릿은 헬름 차트를 통해 배포됩니다."
@@ -8762,6 +9675,7 @@ typeDescription:
   logging.banzaicloud.io.flow: flow는 수집 및 필터링할 로그 및 로그를 보낼 Output을 정의합니다. flow는 네임스페이스별 리소스이므로 로그는 flow가 배포된 네임스페이스에서만 수집됩니다.
   logging.banzaicloud.io.output: Output은 로그를 전송할 수 있는 로깅 제공자를 정의합니다. Output은 해당 Output을 사용하는 flow와 동일한 네임스페이스에 있어야 합니다.
   group.principal: 그룹에 전역 역할을 할당하는 것은 그룹을 지원하는 외부 인증 공급자에서만 작동합니다. 로컬 권한 부여는 그룹을 지원하지 않습니다.
+  management.cattle.io.oidcclient: 여기에서 Rancher의 단일 로그인 ID 공급자에 애플리케이션을 추가할 수 있습니다.
   harvester: "브랜딩을 통해 관리자는 Infinitystack 제품 이름, 로고 및 색 구성표를 사용자 정의하여 UI를 전 세계적으로 리브랜딩할 수 있습니다."
 
 typeLabel:
@@ -8837,8 +9751,8 @@ typeLabel:
     }
   harvesterhci.io.monitoring.alertmanagerconfig: |-
     {count, plural,
-      one { Alert관리자 구성 }
-      other { Alert관리자 구성 }
+      one { Alert매니저 구성 }
+      other { Alert매니저 구성 }
     }
   harvesterhci.io.logging.clusterflow: |-
     {count, plural,
@@ -8893,7 +9807,7 @@ typeLabel:
   devices.harvesterhci.io.sriovgpudevice: |-
     {count, plural,
       one { SR-IOV GPU 장치 }
-      other { SR-IOV GPU 장치치 }
+      other { SR-IOV GPU 장치 }
     }
 
   devices.harvesterhci.io.vgpudevice: |-
@@ -8922,11 +9836,30 @@ typeLabel:
       one { IP 풀 }
       other { IP 풀 }
     }
-
+  management.cattle.io.oidcclient: |-
+    {count, plural,
+      one { OIDC 앱 }
+      other { OIDC 앱 }
+    }
   management.cattle.io.token: |-
     {count, plural,
       one { API 키 }
       other { API 키 }
+    }
+  compliance.cattle.io.clusterscan: |-
+    {count, plural,
+      one { 스캔 }
+      other { 스캔 }
+    }
+  compliance.cattle.io.clusterscanprofile: |-
+    {count, plural,
+      one { 프로파일 }
+      other { 프로파일 }
+    }
+  compliance.cattle.io.clusterscanbenchmark: |-
+    {count, plural,
+      one { 벤치마크 버전 }
+      other { 벤치마크 버전 }
     }
   cis.cattle.io.clusterscan: |-
     {count, plural,
@@ -9003,10 +9936,20 @@ typeLabel:
       one { 클러스터 그룹 }
       other { 클러스터 그룹 }
     }
+  fleet.cattle.io.application: |-
+    {count, plural,
+      one { 앱 번들 }
+      other { 앱 번들 }
+    }
   fleet.cattle.io.gitrepo: |-
     {count, plural,
       one { Git 저장소 }
       other { Git 저장소 }
+    }
+  fleet.cattle.io.helmop: |-
+    {count, plural,
+      one { 헬름 옵스 }
+      other { 헬름 옵스 }
     }
   management.cattle.io.authconfig: |-
     {count, plural,
@@ -9076,13 +10019,13 @@ typeLabel:
     }
   monitoring.coreos.com.alertmanager: |-
     {count, plural,
-      one { Alert관리자 }
-      other { Alert관리자 }
+      one { Alert매니저 }
+      other { Alert매니저 }
     }
   monitoring.coreos.com.alertmanagerconfig: |-
     {count, plural,
-      one { Alert관리자 구성 }
-      other { Alert관리자 구성 }
+      one { Alert매니저 구성 }
+      other { Alert매니저 구성 }
     }
   monitoring.coreos.com.podmonitor: |-
     {count, plural,
@@ -9109,17 +10052,17 @@ typeLabel:
       one { 경로 }
       other { 경로 }
     }
-  "management.cattle.io.cluster": |-
+  'management.cattle.io.cluster': |-
     {count, plural,
       one { Mgmt 클러스터 }
       other { Mgmt 클러스터 }
     }
-  "cluster.x-k8s.io.cluster": |-
+  'cluster.x-k8s.io.cluster': |-
     {count, plural,
       one { CAPI 클러스터 }
       other { CAPI 클러스터 }
     }
-  "provisioning.cattle.io.cluster": |-
+  'provisioning.cattle.io.cluster': |-
     {count, plural,
       one { 클러스터 }
       other { 클러스터 }
@@ -9218,6 +10161,11 @@ typeLabel:
     {count, plural,
       one { 시크릿 }
       other { 시크릿 }
+    }
+  projectsecret: |-
+    {count, plural,
+      one { 프로젝트 시크릿 }
+      other { 프로젝트 시크릿 }
     }
   apiregistration.k8s.io.apiservice: |-
     {count, plural,
@@ -9475,7 +10423,66 @@ typeLabel:
       other { 클러스터 등록 토큰 }
     }
 
+oidcclient:
+  a11y:
+    copyText:
+      issuerURL: 발급자 URL을 클립보드에 복사
+      discoveryDocument: 디스커버리 도큐먼트 URL을 클립보드에 복사
+      jwksUri: JWKS URI를 클립보드에 복사
+      clientId: 클라이언트 ID를 클립보드에 복사
+      clientSecret: 클라이언트 시크릿을 클립보드에 복사
+  usedNever: Never
+  listViewCreate: 애플리케이션 추가
+  oidcEndpoints: 공급자 엔드포인트
+  createClient: 새로운 애플리케이션 생성
+  clientData: 애플리케이션
+  clientId: 클라이언트 ID
+  clientSecrets: 클라이언트 시크릿
+  issuerURL: 발급자 URL
+  discoveryDocument: 디스커버리 도큐먼트
+  jwksUri: JWKS URI
+  regenerate: 재생성
+  addNewSecret: 새로운 시크릿 추가
+  copySecretText: <b>지금 시크릿 키를 복사하세요<b>. 이 키는 지금 단 한 번만 표시됩니다. 안전한 곳에 저장해 두세요.
+  secretRegenerated: 시크릿 재생성!
+  secretAdded: 시크릿 추가됨!
+  noClientId: 이 애플리케이션에 대한 클라이언트 ID를 찾을 수 없습니다. 문제가 지속되면 애플리케이션을 다시 생성하십시오.
+  errors:
+    performSecretAction: OIDC 시크릿 정보에 대해 시도한 작업이 유효하지 않습니다. 이 함수에 대한 유효한 매개변수를 확인하십시오.
+  removeOidcClientModal:
+    title: OIDC 애플리케이션 삭제
+    content: 다음 OIDC 애플리케이션을 삭제하시겠습니까?
+    action: 애플리케이션 삭제
+  regenModal:
+    title: OIDC 애플리케이션 시크릿 키 재생성
+    content: OIDC 애플리케이션 시크릿을 다시 생성하시겠습니까? 기존 시크릿은 즉시 작동을 멈춥니다.
+    action: 시크릿 재생성
+  deleteModal:
+    title: OIDC 애플리케이션 시크릿 삭제
+    content: 이 OIDC 애플리케이션 암호를 삭제하시겠습니까? 삭제하면 즉시 작동이 중지됩니다.
+    action: 시크릿 삭제
+  appName:
+    placeholder: 인증 과정에서 표시되는 앱 이름
+  appDescription:
+    placeholder: 지원서에 대한 간략한 설명
+  redirectURIs:
+    label: 인증 콜백 URL
+    addLabel: 콜백 URL 추가
+    valueLabel: 리다이렉션 URI
+    placeholder: 사용자 인증 후 애플리케이션에서 허용되는 리다이렉션 URL입니다. HTTPS가 필수입니다. 여러 개의 URL을 추가할 수 있습니다.
+  refreshTokenExpirationSeconds:
+    detailLabel: 리프레시 토큰 만료 시간(초)
+    label: 리프레시 토큰 만료
+    placeholder:  새로 고침 토큰을 사용하여 재로그인 없이 새 액세스/ID 토큰을 얻을 수 있는 지속 시간(초)입니다.
+  tokenExpirationSeconds:
+    detailLabel: 토큰 만료 시간(초)
+    label: 토큰 만료
+    placeholder: 사용자 인증 정보가 포함된 토큰의 유효 기간(초)
+
 action:
+  ariaLabel:
+    hidePass: 숨기기 {area}
+    showPass: 표시 {area}
   clone: 복제
   disable: 비활성화
   download: YAML 다운로드
@@ -9503,6 +10510,7 @@ action:
   runNow: 지금 실행
   suspend: 중단
   resume: 계속
+  showConfiguration: 구성 표시
 
 unit:
   sec: 초
@@ -9597,8 +10605,9 @@ advancedSettings:
     'auth-user-info-max-age-seconds': "사용자 인증 토큰의 최대 유효 기간(초)을 정의합니다. 인증 공급자 그룹 멤버십 동기화가 수행됩니다."
     'auth-user-info-resync-cron': "인증 공급자 그룹 멤버십을 다시 동기화하는 기본 cron 일정."
     'cluster-template-enforcement': "관리자가 아닌 사용자는 미리 승인된 RKE 템플릿을 통해서만 클러스터를 시작할 수 있습니다."
-    'auth-user-session-ttl-minutes': "사용자 인증 세션의 사용자 지정 TTL(분)."
-    'auth-token-max-ttl-minutes': "모든 인증 토큰의 최대 TTL(분). 0으로 설정하면 토큰이 만료되지 않습니다."
+    'auth-user-session-idle-ttl-minutes': '사용자 인증 세션의 사용자 지정 유휴 TTL(분)입니다. 이는 브라우저에서 사용자 활동이 없을 때 세션이 유지될 수 있는 최대 시간입니다. 이 값은 "auth-user-session-ttl-minutes"보다 작아야 합니다. "auth-user-session-idle-ttl-minutes"가 "auth-user-session-ttl-minutes"보다 크거나 같으면 세션 유휴 기능이 비활성화된 것으로 간주됩니다.'
+    'auth-user-session-ttl-minutes': '사용자 인증 세션에 대한 사용자 지정 TTL(분)입니다. 이는 브라우저에서 사용자 활동과 관계없이 세션이 유지될 수 있는 최대 시간입니다. 이 값은 "auth-user-session-idle-ttl-minutes"보다 커야 합니다.'
+    'auth-token-max-ttl-minutes': '"auth-user-session-ttl-minutes" 설정으로 제어되는 토큰(사용자 세션 토큰)을 제외한 모든 토큰의 최대 TTL(분)입니다. 0으로 설정하면 토큰은 만료되지 않습니다.'
     'kubeconfig-generate-token': "Kubeconfig 요청 시 사용자에 대한 토큰을 자동으로 생성합니다."
     'kubeconfig-default-token-ttl-minutes': "모든 kubeconfig 토큰에 적용되는 TTL(분). 0으로 설정하면 토큰이 만료되지 않습니다."
     'rke-metadata-config': "RKE 메타데이터 새로 고침 매개변수를 구성합니다."
@@ -9610,9 +10619,10 @@ advancedSettings:
     'hide-local-cluster': 로컬 클러스터 숨기기
     'agent-tls-mode': "Rancher 인증서 확인. `strict` 모드에서는 에이전트(시스템, 클러스터, 플릿 등)가 `cacerts` 설정에서 CABundle이 서명한 인증서를 사용하는 Rancher 설치만 신뢰합니다. 모드가 `system-store`인 경우, 에이전트는 운영 체제의 신뢰 저장소에 있는 CABundle이 서명한 모든 인증서를 신뢰합니다."
     'k3s-based-upgrader-uninstall-concurrency': Rancher가 가져온 K3s 또는 RKE2 클러스터에서 기존 `rancher-k3s-upgrader` 또는 `rancher-rke2-upgrader` 앱을 동시에 제거할 수 있는 최대 클러스터 수를 정의합니다.
+    'system-agent-upgrader-install-concurrency': Rancher가 시스템 에이전트 업그레이드에 필요한 리소스를 동시에 설치할 수 있는 최대 클러스터 수를 정의합니다.
     'imported-cluster-version-management': 가져온 RKE2/K3s 클러스터와 로컬 클러스터(RKE2/K3s 클러스터인 경우)에 대한 버전 관리를 활성화합니다. 클러스터별 버전 관리 설정은 클러스터 수준에서 이 전역 설정을 재정의합니다. 클러스터 수준 버전 관리가 'system-default'로 설정된 기존 클러스터의 경우, 이 플래그를 변경하면 다음 조정 시(기본적으로 5분마다 또는 클러스터가 편집되는 즉시, 둘 중 먼저 발생하는 시점) 클러스터 에이전트가 다시 배포됩니다.
     'harv-vlan': VLAN 네트워크의 기본 네트워크 인터페이스 이름입니다.
-    'harv-backup-target': 가상 머신 백업을 저장하기 위한 사용자 정의 백업 대상입니다.
+    'harv-backup-target': 가상 머신 백업을 저장하기 위한 사용자 정의 백업 타겟입니다.
     'branding': 브랜딩을 통해 관리자는 Infinitystack 제품 이름, 로고, 색 구성표를 사용자 정의하여 UI를 전 세계적으로 리브랜딩할 수 있습니다.
     'harv-csi-driver-config': CSI 드라이버에 대한 추가 정보를 구성합니다.
     'harv-containerd-registry': 개인 레지스트리를 연결하기 위한 Containerd 레지스트리 구성.
@@ -9644,7 +10654,7 @@ advancedSettings:
     'harv-longhorn-v2-data-engine-enabled': 'Longhorn V2 데이터 엔진을 활성화합니다. 기본값은 false입니다. <ul><li>이 설정을 변경하면 모든 노드에서 RKE2가 다시 시작됩니다. 실행 중인 VM 워크로드에는 영향을 미치지 않습니다.</li><li>이 설정을 활성화할 때 "hugepages 용량 부족 - 2Mi" 오류가 표시되면 오류가 사라질 때까지 잠시 기다리세요. 오류가 지속되면 영향을 받는 노드를 재부팅하세요.</li></ul>'
     'harv-additional-guest-memory-overhead-ratio': 'Kubevirt가 VM 오버헤드 메모리를 조정하는 비율입니다. 값은 0, 빈 값 또는 1.0에서 10.0 사이의 부동 소수점 수일 수 있으며, 기본값은 1.5입니다.'
   warnings:
-    'agent-tls-mode': 'Changing this setting will cause all agents to be redeployed.'
+    'agent-tls-mode': '이 설정을 변경하면 모든 에이전트가 다시 배포됩니다.'
 
   editHelp:
     'ui-banners': 이 설정은 3개의 루트 매개변수를 포함하는 JSON 객체를 사용합니다. <code>banner</code>, <code>showHeader</code>, <code>showFooter</code>. <code>banner</code>는 <code>textColor</code>, <code>background</code>, 및 <code>text</code>를 포함하는 객체이며 <code>textColor</code> 및 <code>background</code>는 모든 유효한 CSS 색상 값입니다.
@@ -9687,6 +10697,7 @@ featureFlags:
 performance:
   label: UI 성능 설정
   settingName: 성능
+  deprecatedInactivitySetting: <i class="mr-5">"비활성"</i> 설정은 이제 <i class="mr-5">인증 사용자 세션 유휴 시간 총 소요 시간(분)</i> 및 <a href="{settingsPageUrl}">설정</a>으로 대체되어 더 이상 사용되지 않습니다.
   deprecatedForSSP: <i class="mr-5">"{setting}"</i> 설정은 더 이상 사용되지 않으며 향후 릴리스에서 제거될 예정입니다.
   experimental: 이 설정은 실험적이며 향후 버전에서 제거되거나 업데이트될 수 있습니다.
   incrementalLoad:
@@ -9763,6 +10774,9 @@ performance:
 banner:
   label: 고정 배너
   settingName: 배너
+  bannerHeader: 헤더 배너
+  bannerFooter: 푸터 배너
+  bannerConsent: 로그인 화면 배너
   headerBanner: 헤더 배너
   footerBanner: 푸터 배너
   loginScreenBanner: 로그인 화면 배너
@@ -9791,6 +10805,13 @@ banner:
     label: "글꼴 크기"
   consent: 동의 배너
   consentFootnote: "팁: 줄 바꿈을 위해 \\n 문자를 사용하십시오"
+  individualSetting: '이 배너는 "{name}" 설정으로 관리되며 사용자 인터페이스에서 수정할 수 없습니다.'
+  type:
+    html: HTML
+    text: 텍스트
+  htmlWarning: '모든 HTML 요소나 속성이 허용되는 것은 아니며, 여기에 입력된 HTML은 표시되기 전에 검증 과정을 거칩니다. HTML 앵커 요소의 경우, 링크가 빈 탭에서 열리도록 `타겟` 속성을 사용하는 것이 좋습니다.'
+  htmlContent: HTML 컨텐츠
+  toggleTextHtml: 텍스트와 HTML 모드 간 전환
 
 branding:
   label: 브랜딩
@@ -9989,6 +11010,11 @@ volumeClaimTemplate:
 manager:
   cloudCredentials:
     label: 클라우드 자격 증명
+    list:
+      groupBy:
+        provider: 공급자별 그룹
+      headers:
+        provider: 공급자
     renew: 갱신
     expired: 만료됨
     banners:
@@ -10091,3 +11117,212 @@ gitPicker:
 networkAttachmentDefinition:
   tabs:
     config: 설정
+
+errors:
+  actionNotAvailable: 이 기능은 현재 사용할 수 없습니다.
+  missingRequired: 필수 항목입니다.
+  notUnique: 중복된 값입니다.
+  notNullable: 설정해야 합니다
+  invalidOption: 유효한 옵션이 아닙니다.
+  invalidCharacters: 잘못된 문자가 포함되어 있습니다
+  minLengthExceeded: 충분히 길지 않습니다.
+  maxLengthExceeded: 너무 깁니다.
+  minLimitExceeded: 너무 작습니다.
+  maxLimitExceded: 너무 큽니다.
+  messageAndDetail: '{message} ({detail})'
+  messageOrDetail: '{val}'
+  failedInApi:
+    withName:
+      withCodeExplanation:
+        withMessageDetail: 'API 유효성 검사에 실패 했습니다.: {name} {codeExplanation}: {messageDetail}'
+        withoutMessageDetail: 'API 유효성 검사에 실패 했습니다.: {name} {codeExplanation}'
+      withMessageDetail: 'API 유효성 검사에 실패 했습니다.: {name} {messageDetail}'
+      withoutAnythingElse: 'API 유효성 검사에 실패 했습니다.: {name} '
+    withoutName:
+      withMessageDetail:
+        withCodeExplanation: 'API 유효성 검사에 실패 했습니다.: {codeExplanation}: {messageDetail}'
+        withoutCodeExplanation: 'API 유효성 검사에 실패 했습니다.: {messageDetail}'
+      withCode:
+        withCodeExplanation: 'API 유효성 검사에 실패 했습니다.: {code} {codeExplanation}'
+        withoutCodeExplanation: 'API 유효성 검사에 실패 했습니다.: {code}'
+    withoutAnything: API 유효성 검사에 실패 했습니다..
+  notFound:
+    withUrl: '{msg}: {url}'
+    withoutUrl: '{msg}'
+component:
+  drawer:
+    chrome:
+      ariaLabel:
+        close: drawer {target} 닫기
+      close: 닫기
+    resourceDetailDrawer:
+      title: "{resourceName} ({resourceType}) - Configuration"
+      editConfig: 구성 편집
+      editYaml: YAML 편집
+      ariaLabel:
+        editConfig: 구성 편집
+        editYaml: YAML 편집
+      yamlTab:
+        title: YAML
+      configTab:
+        title: 구성
+  resource:
+    detail:
+      copyToClipboard:
+        ariaLabel:
+          copy: 클립보드에 복사
+      card:
+        resourceUsage:
+          used: 사용됨
+          amount: '{used} of {available}'
+          cpu: CPU
+          memory: 메모리
+          pods: 파드
+        resourcesCard:
+          title: 리소스
+          rows:
+            services: 서비스
+            ingresses: 인그레스
+            referredToBy: 참조자
+            refersTo: 참조대상
+        podsCard:
+          title: 파드
+          ariaResourceName: 파드
+        insightsCard:
+          title: 인사이트
+          rows:
+            conditions: 조건
+            events: 이벤트
+        scaler:
+          ariaLabel:
+            increase: 증가 {resourceName}
+            decrease: 감소 {resourceName}
+      titleBar:
+        showConfiguration: 구성 표시
+        ariaLabel:
+          actionMenu: 추가 작업- { resource }
+          showConfiguration: 전체 구성을 표시합니다 { resource }
+      metadata:
+        labelsAndAnnotations: 레이블 및 주석
+        identifyingInformation:
+          namespace: 네임스페이스
+          project: 프로젝트
+          age: 생성 시간
+          image: 이미지
+          ready: 준비됨
+          up-to-date: 최신
+          available: 사용가능
+          serviceAccount: 서비스 계정
+          type: 타입
+          certificate: 인증서
+          issuer: 발급자
+          expires: 만료일
+          workspace: 워크스페이스
+        annotations:
+          title: 주석
+        labels:
+          title: 레이블
+        keyValue:
+          noRows: 이 리소스에는 {propertyName}이 구성되어 있지 않습니다.
+          showConfiguration: 구성 표시
+          ariaLabel:
+            showPreview: 미리보기 표시
+      glance:
+        state: 상태
+        age: 생성 시간
+        namespace: 네임스페이스
+        project: 프로젝트
+        type: 타입
+        ariaLabel:
+          showDetails: '{name}이라는 이름의 {resource}에 대한 리소스 정보를 표시합니다.'
+          actionMenu: 리소스 기능 - { resource }
+  cron:
+    expressionEditor:
+      label:
+        minute: "분"
+        hour: "시"
+        dayOfMonth: "일"
+        month: "월"
+        dayOfWeek: "요일"
+      invalidValue: "잘못된 값"
+      invalidCronExpression: "잘못된 Cron 표현식"
+      minute:
+        any: "임의의 값 (매분)"
+        at1and5: "매시 1분과 5분"
+        range: "1분부터 5분까지 매분"
+        every5: "5분마다"
+        start8: "매시 정각 8분부터 5분 간격으로"
+        allowed: "허용되는 리터럴 값: 0-59"
+      hour:
+        any: "임의의 값 (매시)"
+        at1and5: "AM 1시와 AM 5시에"
+        range: "AM 1시부터 5시까지 매시간"
+        every5: "5시간마다"
+        start8: "AM 8시부터 5시간 간격으로"
+        allowed: "허용되는 리터럴 값: 0-23"
+      dayOfMonth:
+        any: "임의의 값 (매일)"
+        omit: "생략"
+        1and5: "매월 1일과 5일에"
+        range: "1일부터 5일까지 매일"
+        every5: "5일마다"
+        start8: "8일부터 5일마다"
+        allowed: "허용되는 리터럴 값: 1-31"
+      month:
+        any: "임의의 값 (매달)"
+        1and5: "1개월 차와 5개월 차(1월과 5월)에"
+        range: "1월부터 5월까지 매달"
+        every2: "2개월마다"
+        start3: "3개월 차(3월)부터 2개월마다"
+        allowed: "허용되는 리터럴 값: 1-12"
+        alias: "허용되는 별칭 값: jan-dec"
+      dayOfWeek:
+        any: "임의의 값 (매주)"
+        omit: "생략"
+        1and5: "1일차와 5일차(월요일과 금요일)"
+        range: "월요일부터 금요일까지 매일"
+        allowed: "허용되는 리터럴 값: 0-7"
+        alias: "허용되는 별칭 값: mon-sun"
+      a11y:
+        examples: "편집 {label}. 예시:"
+    expressionEditorModal:
+      title: "Cron 표현식 정의"
+      description: "유효한 값과 와일드카드 기호에 대한 힌트를 보려면 임의의 필드를 클릭하세요."
+      wildcards:
+        title: "일반 와일드카드"
+        anyValue: "임의의 값"
+        xAndY: "X 와 Y"
+        fromXtoY: "X 부터 Y 까지"
+        everyX: "X 마다"
+        everyXStartingY: "Y 부터 X 마다"
+        everyXFromYtoZ: "Y 부터 Z 까지 X 마다"
+      examples:
+        title: "예제"
+        dailyMidnight: "매일 오전 12시에"
+        every5Hours: "매 5시간마다 정시 0분에"
+        day1At1745: "매월 1일 오후 5시 45분"
+        weekdaysAt0830: "매주 월요일부터 금요일까지 오전 8시부터 매 1시간마다 매시 30분에"
+        marchToMayHourly: "3월, 4월, 5월에 매시간"
+        every4Hours9to17: "오전 9시부터 오후 5시까지 매 4시간마다 매 정각 0분에"
+
+autoscaler:
+  card:
+    title: 오토스케일러
+    pause: 일시중지
+    resume: 재개
+    loadingError: 세부 정보를 불러오는 데 문제가 발생했습니다.
+    loadingAlt: 세부정보 로드 중
+    details:
+      status: 상태
+      health: 헬스첵크
+      scaleDown: 스케일 다운
+      scaleUp: 스케일 업
+      nodes: 노드
+      ready: 준비됨
+      notStarted: 시작되지 않음
+      inTotal: 전체
+      provisioning: 프로비저닝
+      paused: 일시중지
+      unavailable: 사용불가
+  tab:
+    title: 오토스케일러
