@@ -308,6 +308,7 @@ harvester:
     snapshots: 스냅샷
     instanceLabel: 인스턴스 라벨
     annotations: 주석
+    addOns: 애드-온
   fields:
     version: 버전
     name: 이름
