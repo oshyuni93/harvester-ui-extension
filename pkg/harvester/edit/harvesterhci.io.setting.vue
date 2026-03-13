@@ -45,6 +45,11 @@ export default {
     }
 
     this.value.value = this.value.value || this.value.default || '';
+// ... 여기에 커스텀 로직 추가 ...
+    if (this.value.id === 'upgrade-checker-enabled') {
+      this.value.value = 'false'; // 강제로 false로 덮어쓰기
+    }
+        
     const oldValue = this.value.value;
 
     const isHarvester = this.value?.type?.includes('harvesterhci');

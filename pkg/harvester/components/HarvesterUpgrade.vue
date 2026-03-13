@@ -155,7 +155,7 @@ export default {
         />
       </h1>
       <button
-        v-if="versionOptions.length && !isUpgradeInProgress"
+        v-if="false"
         type="button"
         class="btn bg-warning btn-sm"
         @click="open"
