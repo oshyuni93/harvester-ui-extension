@@ -2402,6 +2402,12 @@ dialog:
       message: "{type} {names}을(를) 중지하시겠습니까?"
     pause:
       message: "{type} {names}을(를) 일시 중지하시겠습니까?"
+  promptRemove:
+    title: "{type} 삭제"
+    warningMessage: "선택한 {type}을 삭제하면 {thisOrThese} {type}에 대한 모든 리소스가 영구적으로 제거됩니다. 이 작업은 되돌릴 수 없습니다. 계속하시겠습니까?"
+    confirmName: "{type}을 삭제하려면 <b>{nameToMatch}</b>를 입력하세요."
+    protip: "팁: 삭제 버튼을 클릭하는 동안 {alternateLabel} 키를 누른 상태로 클릭하면 확인 단계를 건너뛸 수 있습니다."
+
 
 backupRestoreOperator:
   backup:
