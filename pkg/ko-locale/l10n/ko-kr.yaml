@@ -16,7 +16,7 @@ unsupported:
 nav:
   group:
     networks: 네트워크
-    backupAndSnapshot: 백업 및 스냅샷
+    backupAndSnapshot: 스냅샷
     Monitoring: 모니터링
     Logging: 로깅
     'Monitoring & Logging': 모니터링 및 로깅

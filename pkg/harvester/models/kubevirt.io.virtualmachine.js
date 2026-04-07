@@ -57,28 +57,28 @@ const POD_STATUS_ALL_READY = [
 ];
 
 const RunStrategy = {
-  Always:         'Always',
+  Always: 'Always',
   RerunOnFailure: 'RerunOnFailure',
-  Halted:         'Halted',
-  Manual:         'Manual'
+  Halted: 'Halted',
+  Manual: 'Manual'
 };
 
 const StateChangeRequest = {
   Start: 'Start',
-  Stop:  'Stop'
+  Stop: 'Stop'
 };
 
 const STARTING_MESSAGE =
   'This virtual machine will start shortly. Preparing storage, networking, and compute resources.';
 
 const VMIPhase = {
-  Pending:    'Pending',
+  Pending: 'Pending',
   Scheduling: 'Scheduling',
-  Scheduled:  'Scheduled',
-  Running:    'Running',
-  Succeeded:  'Succeeded',
-  Failed:     'Failed',
-  Unknown:    'Unknown'
+  Scheduled: 'Scheduled',
+  Running: 'Running',
+  Succeeded: 'Succeeded',
+  Failed: 'Failed',
+  Unknown: 'Unknown'
 };
 
 let productInStore;
@@ -87,7 +87,11 @@ const IgnoreMessages = ['pod has unbound immediate PersistentVolumeClaims'];
 
 export default class VirtVm extends HarvesterResource {
   get availableActions() {
-    const out = super._availableActions;
+    let out = super._availableActions;
+
+    // Comment out "Edit YAML" and "Download YAML" actions
+    out = out.filter((action) => action.action !== 'goToEditYaml' && action.action !== 'download');
+
     const clone = out.find((action) => action.action === 'goToClone');
 
     if (clone) {
@@ -96,133 +100,133 @@ export default class VirtVm extends HarvesterResource {
 
     return [
       {
-        action:     'stopVM',
-        altAction:  'altStopVM',
-        enabled:    !!this.actions?.stop,
-        icon:       'icon icon-close',
-        label:      this.t('harvester.action.stop'),
-        bulkable:   true,
+        action: 'stopVM',
+        altAction: 'altStopVM',
+        enabled: !!this.actions?.stop,
+        icon: 'icon icon-close',
+        label: this.t('harvester.action.stop'),
+        bulkable: true,
         bulkAction: 'stopVM',
       },
       {
-        action:   'forceStop',
-        enabled:  !!this.actions?.forceStop,
-        icon:     'icon icon-close',
-        label:    this.t('harvester.action.forceStop'),
+        action: 'forceStop',
+        enabled: !!this.actions?.forceStop,
+        icon: 'icon icon-close',
+        label: this.t('harvester.action.forceStop'),
         bulkable: true
       },
       {
-        action:    'pauseVM',
+        action: 'pauseVM',
         altAction: 'altPauseVM',
-        enabled:   !!this.actions?.pause,
-        icon:      'icon icon-pause',
-        label:     this.t('harvester.action.pause')
+        enabled: !!this.actions?.pause,
+        icon: 'icon icon-pause',
+        label: this.t('harvester.action.pause')
       },
       {
-        action:  'unpauseVM',
+        action: 'unpauseVM',
         enabled: !!this.actions?.unpause,
-        icon:    'icon icon-spinner',
-        label:   this.t('harvester.action.unpause')
+        icon: 'icon icon-spinner',
+        label: this.t('harvester.action.unpause')
       },
       {
-        action:     'restartVM',
-        enabled:    !!this.actions?.restart,
-        icon:       'icon icon-refresh',
-        label:      this.t('harvester.action.restart'),
-        bulkable:   true,
+        action: 'restartVM',
+        enabled: !!this.actions?.restart,
+        icon: 'icon icon-refresh',
+        label: this.t('harvester.action.restart'),
+        bulkable: true,
         bulkAction: 'restartVM'
       },
       {
-        action:  'softrebootVM',
+        action: 'softrebootVM',
         enabled: !!this.actions?.softreboot,
-        icon:    'icon icon-pipeline',
-        label:   this.t('harvester.action.softreboot')
+        icon: 'icon icon-pipeline',
+        label: this.t('harvester.action.softreboot')
       },
       {
-        action:   'startVM',
-        enabled:  !!this.actions?.start,
-        icon:     'icon icon-play',
-        label:    this.t('harvester.action.start'),
+        action: 'startVM',
+        enabled: !!this.actions?.start,
+        icon: 'icon icon-play',
+        label: this.t('harvester.action.start'),
         bulkable: true
       },
+      // {
+      //   action:  'backupVM',
+      //   enabled: !!this.actions?.backup && !this.isBackupTargetUnavailable,
+      //   icon:    'icon icon-backup',
+      //   label:   this.t('harvester.action.backup')
+      // },
       {
-        action:  'backupVM',
-        enabled: !!this.actions?.backup && !this.isBackupTargetUnavailable,
-        icon:    'icon icon-backup',
-        label:   this.t('harvester.action.backup')
-      },
-      {
-        action:  'takeVMSnapshot',
+        action: 'takeVMSnapshot',
         enabled: (!!this.actions?.snapshot || !!this.action?.backup),
-        icon:    'icon icon-snapshot',
-        label:   this.t('harvester.action.vmSnapshot')
+        icon: 'icon icon-snapshot',
+        label: this.t('harvester.action.vmSnapshot')
       },
+      // {
+      //   action:  'editVMQuota',
+      //   enabled: !!this.actions?.updateResourceQuota && !!this.actions.deleteResourceQuota,
+      //   icon:    'icon icon-storage',
+      //   label:   this.t('harvester.action.editVMQuota')
+      // },
       {
-        action:  'editVMQuota',
-        enabled: !!this.actions?.updateResourceQuota && !!this.actions.deleteResourceQuota,
-        icon:    'icon icon-storage',
-        label:   this.t('harvester.action.editVMQuota')
-      },
-      {
-        action:  'cpuMemoryHotplug',
+        action: 'cpuMemoryHotplug',
         enabled: !!this.actions?.cpuAndMemoryHotplug,
-        icon:    'icon icon-os-management',
-        label:   this.t('harvester.action.cpuAndMemoryHotplug')
+        icon: 'icon icon-os-management',
+        label: this.t('harvester.action.cpuAndMemoryHotplug')
       },
       {
-        action:  'createSchedule',
+        action: 'createSchedule',
         enabled: this.schedulingVMBackupFeatureEnabled,
-        icon:    'icon icon-history',
-        label:   this.t('harvester.action.createSchedule')
+        icon: 'icon icon-history',
+        label: this.t('harvester.action.createSchedule')
       },
       {
-        action:  'restoreVM',
+        action: 'restoreVM',
         enabled: !!this.actions?.restore,
-        icon:    'icon icon-backup-restore',
-        label:   this.t('harvester.action.restore')
+        icon: 'icon icon-backup-restore',
+        label: this.t('harvester.action.restore')
       },
       {
-        action:  'ejectCDROM',
+        action: 'ejectCDROM',
         enabled: !!this.actions?.ejectCdRom,
-        icon:    'icon icon-delete',
-        label:   this.t('harvester.action.ejectCDROM')
+        icon: 'icon icon-delete',
+        label: this.t('harvester.action.ejectCDROM')
       },
+      // {
+      //   action:  'migrateVM',
+      //   enabled: !!this.actions?.migrate,
+      //   icon:    'icon icon-copy',
+      //   label:   this.t('harvester.action.migrate')
+      // },
+      // {
+      //   action:  'abortMigrationVM',
+      //   enabled: !!this.actions?.abortMigration,
+      //   icon:    'icon icon-close',
+      //   label:   this.t('harvester.action.abortMigration')
+      // },
       {
-        action:  'migrateVM',
-        enabled: !!this.actions?.migrate,
-        icon:    'icon icon-copy',
-        label:   this.t('harvester.action.migrate')
-      },
-      {
-        action:  'abortMigrationVM',
-        enabled: !!this.actions?.abortMigration,
-        icon:    'icon icon-close',
-        label:   this.t('harvester.action.abortMigration')
-      },
-      {
-        action:  'addHotplugVolume',
+        action: 'addHotplugVolume',
         enabled: !!this.actions?.addVolume,
-        icon:    'icon icon-plus',
-        label:   this.t('harvester.action.addHotplugVolume')
+        icon: 'icon icon-plus',
+        label: this.t('harvester.action.addHotplugVolume')
       },
+      // {
+      //  action: 'addHotplugNic',
+      //  enabled: this.hotplugNicFeatureEnabled && !!this.actions?.addNic,
+      //  icon: 'icon icon-plus',
+      //  label: this.t('harvester.action.addHotplugNic')
+      // },
       {
-        action:  'addHotplugNic',
-        enabled: this.hotplugNicFeatureEnabled && !!this.actions?.addNic,
-        icon:    'icon icon-plus',
-        label:   this.t('harvester.action.addHotplugNic')
-      },
-      {
-        action:  'createTemplate',
+        action: 'createTemplate',
         enabled: !!this.actions?.createTemplate,
-        icon:    'icon icon-copy',
-        label:   this.t('harvester.action.createTemplate')
+        icon: 'icon icon-copy',
+        label: this.t('harvester.action.createTemplate')
       },
       {
-        action:  'openLogs',
+        action: 'openLogs',
         enabled: !!this.podResource,
-        icon:    'icon icon-fw icon-chevron-right',
-        label:   this.t('harvester.action.viewlogs'),
-        total:   1
+        icon: 'icon icon-fw icon-chevron-right',
+        label: this.t('harvester.action.viewlogs'),
+        total: 1
       },
       ...out
     ];
@@ -239,20 +243,20 @@ export default class VirtVm extends HarvesterResource {
   applyDefaults(resources = this, realMode) {
     const spec = {
       runStrategy: 'RerunOnFailure',
-      template:    {
+      template: {
         metadata: { annotations: {}, labels: {} },
-        spec:     {
+        spec: {
           domain: {
             machine: { type: '' },
-            cpu:     {
-              cores:   null,
+            cpu: {
+              cores: null,
               sockets: 1,
               threads: 1
             },
             devices: {
               inputs: [
                 {
-                  bus:  'usb',
+                  bus: 'usb',
                   name: 'tablet',
                   type: 'tablet'
                 }
@@ -260,8 +264,8 @@ export default class VirtVm extends HarvesterResource {
               interfaces: [
                 {
                   masquerade: {},
-                  model:      'virtio',
-                  name:       'default'
+                  model: 'virtio',
+                  name: 'default'
                 }
               ],
               disks: []
@@ -269,20 +273,20 @@ export default class VirtVm extends HarvesterResource {
             resources: {
               limits: {
                 memory: null,
-                cpu:    ''
+                cpu: ''
               }
             },
             features: { acpi: { enabled: true } }
           },
           evictionStrategy: 'LiveMigrateIfPossible',
-          hostname:         '',
-          networks:         [
+          hostname: '',
+          networks: [
             {
               name: 'default',
-              pod:  {}
+              pod: {}
             }
           ],
-          volumes:  [],
+          volumes: [],
           affinity: {},
         }
       }
@@ -322,9 +326,9 @@ export default class VirtVm extends HarvesterResource {
   restartVM(resources = this) {
     this.$dispatch('promptModal', {
       resources,
-      action:            'restart',
+      action: 'restart',
       warningMessageKey: 'dialog.confirmExecution.restart.message',
-      component:         'ConfirmExecutionDialog'
+      component: 'ConfirmExecutionDialog'
     });
   }
 
@@ -335,9 +339,9 @@ export default class VirtVm extends HarvesterResource {
   softrebootVM(resources = this) {
     this.$dispatch('promptModal', {
       resources,
-      action:            'softreboot',
+      action: 'softreboot',
       warningMessageKey: 'dialog.confirmExecution.softreboot.message',
-      component:         'ConfirmExecutionDialog'
+      component: 'ConfirmExecutionDialog'
     });
   }
 
@@ -345,12 +349,12 @@ export default class VirtVm extends HarvesterResource {
     this.$dispatch(
       'wm/open',
       {
-        id:        `${ this.id }-logs`,
-        label:     this.nameDisplay,
-        icon:      'file',
+        id: `${this.id}-logs`,
+        label: this.nameDisplay,
+        icon: 'file',
         component: 'ContainerLogs',
-        attrs:     {
-          pod:              this.podResource,
+        attrs: {
+          pod: this.podResource,
           initialContainer: this.podResource.metadata.annotations['kubectl.kubernetes.io/default-container']
         }
       },
@@ -362,9 +366,9 @@ export default class VirtVm extends HarvesterResource {
     const router = this.currentRouter();
 
     router.push({
-      name:   `${ HARVESTER_PRODUCT }-c-cluster-resource-create`,
+      name: `${HARVESTER_PRODUCT}-c-cluster-resource-create`,
       params: { resource: HCI.SCHEDULE_VM_BACKUP },
-      query:  { vmNamespace: this.metadata.namespace, vmName: this.metadata.name }
+      query: { vmNamespace: this.metadata.namespace, vmName: this.metadata.name }
     });
   }
 
@@ -386,7 +390,7 @@ export default class VirtVm extends HarvesterResource {
     this.$dispatch('promptModal', {
       resources,
       snapshotSizeQuota: this.snapshotSizeQuota,
-      component:         'HarvesterQuotaDialog'
+      component: 'HarvesterQuotaDialog'
     });
   }
 
@@ -395,9 +399,9 @@ export default class VirtVm extends HarvesterResource {
 
     this.$dispatch('promptModal', {
       resources,
-      name:      diskName,
-      type:      'volume',
-      component:  'HarvesterHotUnplug',
+      name: diskName,
+      type: 'volume',
+      component: 'HarvesterHotUnplug',
     });
   }
 
@@ -406,8 +410,8 @@ export default class VirtVm extends HarvesterResource {
 
     this.$dispatch('promptModal', {
       resources,
-      name:      networkName,
-      type:      'network',
+      name: networkName,
+      type: 'network',
       component: 'HarvesterHotUnplug',
     });
   }
@@ -442,9 +446,9 @@ export default class VirtVm extends HarvesterResource {
   pauseVM(resources = this) {
     this.$dispatch('promptModal', {
       resources,
-      action:            'pause',
+      action: 'pause',
       warningMessageKey: 'dialog.confirmExecution.pause.message',
-      component:         'ConfirmExecutionDialog'
+      component: 'ConfirmExecutionDialog'
     });
   }
 
@@ -466,9 +470,9 @@ export default class VirtVm extends HarvesterResource {
   stopVM(resources = this) {
     this.$dispatch('promptModal', {
       resources,
-      action:            'stop',
+      action: 'stop',
       warningMessageKey: 'dialog.confirmExecution.stop.message',
-      component:         'ConfirmExecutionDialog'
+      component: 'ConfirmExecutionDialog'
     });
   }
 
@@ -571,43 +575,43 @@ export default class VirtVm extends HarvesterResource {
       let changeRequests;
 
       switch (runStrategy) {
-      case RunStrategy.Halted:
-        return false;
-      case RunStrategy.Always:
-        return true;
-      case RunStrategy.RerunOnFailure:
-        if (
-          this.status?.printableStatus === 'ErrorUnschedulable' &&
+        case RunStrategy.Halted:
+          return false;
+        case RunStrategy.Always:
+          return true;
+        case RunStrategy.RerunOnFailure:
+          if (
+            this.status?.printableStatus === 'ErrorUnschedulable' &&
             conditions.find(
               (C) => C.message && C.message.includes(IgnoreMessages)
             )
-        ) {
-          return true;
-        }
+          ) {
+            return true;
+          }
 
-        return ['Starting', 'Running'].includes(this.status?.printableStatus);
-      case RunStrategy.Manual:
-      default:
-        changeRequests = new Set(
-          (this.status?.stateChangeRequests || []).map(
-            (chRequest) => chRequest?.action
-          )
-        );
-
-        if (changeRequests.has(StateChangeRequest.Stop)) {
-          return false;
-        }
-        if (changeRequests.has(StateChangeRequest.Start)) {
-          return true;
-        }
-
-        if (changeRequests.size === 0) {
-          return ['Starting', 'Running'].includes(
-            this.status?.printableStatus
+          return ['Starting', 'Running'].includes(this.status?.printableStatus);
+        case RunStrategy.Manual:
+        default:
+          changeRequests = new Set(
+            (this.status?.stateChangeRequests || []).map(
+              (chRequest) => chRequest?.action
+            )
           );
-        }
 
-        return this.isVMCreated; // if there is no change request we can assume created is representing running (current and expected)
+          if (changeRequests.has(StateChangeRequest.Stop)) {
+            return false;
+          }
+          if (changeRequests.has(StateChangeRequest.Start)) {
+            return true;
+          }
+
+          if (changeRequests.size === 0) {
+            return ['Starting', 'Running'].includes(
+              this.status?.printableStatus
+            );
+          }
+
+          return this.isVMCreated; // if there is no change request we can assume created is representing running (current and expected)
       }
     }
 
@@ -617,8 +621,8 @@ export default class VirtVm extends HarvesterResource {
   get podResource() {
     const inStore = this.productInStore;
 
-    const vmiResource = this.$rootGetters[`${ inStore }/byId`](HCI.VMI, this.id);
-    const podList = this.$rootGetters[`${ inStore }/all`](POD);
+    const vmiResource = this.$rootGetters[`${inStore}/byId`](HCI.VMI, this.id);
+    const podList = this.$rootGetters[`${inStore}/all`](POD);
 
     return podList.find((P) => {
       return (
@@ -633,7 +637,7 @@ export default class VirtVm extends HarvesterResource {
     const isPause = conditions.filter((cond) => cond.type === PAUSED).length > 0;
 
     return isPause ? {
-      status:  PAUSED,
+      status: PAUSED,
       message: PAUSED_VM_MODAL_MESSAGE
     } : null;
   }
@@ -644,7 +648,7 @@ export default class VirtVm extends HarvesterResource {
 
     if (vmFailureCond) {
       return {
-        status:          VM_ERROR,
+        status: VM_ERROR,
         detailedMessage: vmFailureCond.message
       };
     }
@@ -654,9 +658,9 @@ export default class VirtVm extends HarvesterResource {
 
   get nsResourceQuota() {
     const inStore = this.productInStore;
-    const allResQuotas = this.$rootGetters[`${ inStore }/all`](HCI.RESOURCE_QUOTA);
+    const allResQuotas = this.$rootGetters[`${inStore}/all`](HCI.RESOURCE_QUOTA);
 
-    return allResQuotas.find( (RQ) => RQ.namespace === this.metadata.namespace);
+    return allResQuotas.find((RQ) => RQ.namespace === this.metadata.namespace);
   }
 
   get snapshotSizeQuota() {
@@ -666,13 +670,13 @@ export default class VirtVm extends HarvesterResource {
   get vmi() {
     const inStore = this.productInStore;
 
-    const vmis = this.$rootGetters[`${ inStore }/all`](HCI.VMI);
+    const vmis = this.$rootGetters[`${inStore}/all`](HCI.VMI);
 
     return vmis.find((VMI) => VMI.id === this.id);
   }
 
   get volumes() {
-    const pvcs = this.$rootGetters[`${ this.productInStore }/all`](PVC);
+    const pvcs = this.$rootGetters[`${this.productInStore}/all`](PVC);
 
     const volumeClaimNames = this.spec.template.spec.volumes?.map((v) => v.persistentVolumeClaim?.claimName).filter((v) => !!v) || [];
 
@@ -783,18 +787,18 @@ export default class VirtVm extends HarvesterResource {
         if (!POD_STATUS_ALL_READY.includes(podStatus?.status)) {
           return {
             ...podStatus,
-            status:          'Starting',
-            message:         STARTING_MESSAGE,
+            status: 'Starting',
+            message: STARTING_MESSAGE,
             detailedMessage: podStatus?.message,
-            pod:             this.podResource
+            pod: this.podResource
           };
         }
       }
 
       return {
-        status:  'Starting',
+        status: 'Starting',
         message: STARTING_MESSAGE,
-        pod:     this.podResource
+        pod: this.podResource
       };
     }
 
@@ -807,7 +811,7 @@ export default class VirtVm extends HarvesterResource {
 
       if (!!condition) {
         return {
-          status:  UNSCHEDULABLE,
+          status: UNSCHEDULABLE,
           message: condition.message || 'VM is unschedulable',
         };
       }
@@ -825,12 +829,12 @@ export default class VirtVm extends HarvesterResource {
       [VMIPhase.Scheduling, VMIPhase.Scheduled].includes(
         this.vmi?.status?.phase
       ) && {
-      status:  'Starting',
+      status: 'Starting',
       message: STARTING_MESSAGE
     }) ||
       (this.vmi &&
         this.vmi.status?.phase === VMIPhase.Pending && {
-        status:  'VMI_WAITING',
+        status: 'VMI_WAITING',
         message: VMI_WAITING_MESSAGE
       }) ||
       (this.vmi &&
@@ -850,23 +854,23 @@ export default class VirtVm extends HarvesterResource {
   }
 
   get restoreResource() {
-    const id = `${ this.metadata.namespace }/${ get(
+    const id = `${this.metadata.namespace}/${get(
       this,
-      `metadata.annotations."${ HCI_ANNOTATIONS.RESTORE_NAME }"`
-    ) }`;
+      `metadata.annotations."${HCI_ANNOTATIONS.RESTORE_NAME}"`
+    )}`;
 
     const inStore = this.productInStore;
 
-    const allRestore = this.$rootGetters[`${ inStore }/all`](HCI.RESTORE);
+    const allRestore = this.$rootGetters[`${inStore}/all`](HCI.RESTORE);
 
     const res = allRestore.find((O) => O.id === id);
 
     if (res) {
-      const allBackups = this.$rootGetters[`${ inStore }/all`](HCI.BACKUP);
+      const allBackups = this.$rootGetters[`${inStore}/all`](HCI.BACKUP);
 
       res.fromSnapshot = !!allBackups
         .filter((b) => b.spec?.type !== BACKUP_TYPE.BACKUP)
-        .find((s) => s.id === `${ res.spec?.virtualMachineBackupNamespace }/${ res.spec?.virtualMachineBackupName }`);
+        .find((s) => s.id === `${res.spec?.virtualMachineBackupNamespace}/${res.spec?.virtualMachineBackupName}`);
     }
 
     return res;
@@ -881,9 +885,9 @@ export default class VirtVm extends HarvesterResource {
 
     if (status !== undefined) {
       return {
-        type:       'restore',
+        type: 'restore',
         percentage: status?.progress || 0,
-        details:    { volumes: status?.restores || [] }
+        details: { volumes: status?.restores || [] }
       };
     }
 
@@ -934,7 +938,7 @@ export default class VirtVm extends HarvesterResource {
   get warningMessage() {
     if (this.metadata?.annotations[HCI_ANNOTATIONS.VM_INSUFFICIENT]) {
       return {
-        message:    this.metadata?.annotations[HCI_ANNOTATIONS.VM_INSUFFICIENT],
+        message: this.metadata?.annotations[HCI_ANNOTATIONS.VM_INSUFFICIENT],
         canDismiss: true,
       };
     }
@@ -944,7 +948,7 @@ export default class VirtVm extends HarvesterResource {
 
     if (vmFailureCond) {
       return {
-        status:  VM_ERROR,
+        status: VM_ERROR,
         message: vmFailureCond.message
       };
     }
@@ -963,7 +967,7 @@ export default class VirtVm extends HarvesterResource {
         return {
           ...podStatus,
           status: 'LAUNCHER_POD_ERROR',
-          pod:    this.podResource
+          pod: this.podResource
         };
       }
     }
@@ -1024,7 +1028,7 @@ export default class VirtVm extends HarvesterResource {
           }
         });
       }
-    } catch (err) {}
+    } catch (err) { }
 
     return out;
   }
@@ -1039,7 +1043,7 @@ export default class VirtVm extends HarvesterResource {
 
   get resourcesStatus() {
     const inStore = this.productInStore;
-    const vmList = this.$rootGetters[`${ inStore }/all`](HCI.VM);
+    const vmList = this.$rootGetters[`${inStore}/all`](HCI.VM);
     let warningCount = 0;
     let errorCount = 0;
 
@@ -1082,7 +1086,7 @@ export default class VirtVm extends HarvesterResource {
   get rootImageId() {
     let imageId = '';
     const inStore = this.productInStore;
-    const pvcs = this.$rootGetters[`${ inStore }/all`](PVC) || [];
+    const pvcs = this.$rootGetters[`${inStore}/all`](PVC) || [];
 
     const volumes = this.spec.template.spec.volumes || [];
 
@@ -1093,7 +1097,7 @@ export default class VirtVm extends HarvesterResource {
 
     if (!isNoExistingVolume) {
       const existingVolume = pvcs.find(
-        (P) => P.id === `${ this.metadata.namespace }/${ firstVolumeName }`
+        (P) => P.id === `${this.metadata.namespace}/${firstVolumeName}`
       );
 
       if (existingVolume) {
@@ -1114,28 +1118,28 @@ export default class VirtVm extends HarvesterResource {
 
   get restoreName() {
     return (
-      get(this, `metadata.annotations."${ HCI_ANNOTATIONS.RESTORE_NAME }"`) || ''
+      get(this, `metadata.annotations."${HCI_ANNOTATIONS.RESTORE_NAME}"`) || ''
     );
   }
 
   get customValidationRules() {
     const rules = [
       {
-        nullable:       false,
-        path:           'metadata.name',
-        required:       true,
-        minLength:      1,
-        maxLength:      63,
+        nullable: false,
+        path: 'metadata.name',
+        required: true,
+        minLength: 1,
+        maxLength: 63,
         translationKey: 'harvester.fields.name'
       },
       {
-        nullable:   false,
-        path:       'spec.template.spec',
+        nullable: false,
+        path: 'spec.template.spec',
         validators: ['vmNetworks']
       },
       {
-        nullable:   false,
-        path:       'spec',
+        nullable: false,
+        path: 'spec',
         validators: [`vmDisks`]
       }
     ];
@@ -1161,8 +1165,8 @@ export default class VirtVm extends HarvesterResource {
   get ingoreVMMessage() {
     const ignoreConditions = [
       {
-        name:    'unavailable',
-        error:   false,
+        name: 'unavailable',
+        error: false,
         vmState: this.actualState === PAUSED
       }
     ];
@@ -1265,13 +1269,13 @@ export default class VirtVm extends HarvesterResource {
 
   get isBackupTargetUnavailable() {
     const allSettings = this.$rootGetters['harvester/all'](HCI.SETTING) || [];
-    const backupTargetSetting = allSettings.find( (O) => O.id === 'backup-target');
+    const backupTargetSetting = allSettings.find((O) => O.id === 'backup-target');
 
     return isBackupTargetSettingUnavailable(backupTargetSetting);
   }
 
   setInstanceLabels(val) {
-    if ( !this.spec?.template?.metadata?.labels ) {
+    if (!this.spec?.template?.metadata?.labels) {
       set(this, 'spec.template.metadata.labels', {});
     }
 

@@ -656,7 +656,7 @@ export default {
           </ArrayListGrouped>
         </Tab>
         <Tab
-          v-if="hasHugepagesSchema"
+          v-if="false"
           name="Hugepages"
           :weight="70"
           :label="t('harvester.host.tabs.hugepages')"
@@ -667,7 +667,7 @@ export default {
           />
         </Tab>
         <Tab
-          v-if="hasKsmtunedSchema"
+          v-if="false"
           name="Ksmtuned"
           :weight="70"
           :label="t('harvester.host.tabs.ksmtuned')"
@@ -679,7 +679,7 @@ export default {
           />
         </Tab>
         <Tab
-          v-if="hasAddonSchema"
+          v-if="false"
           name="seeder"
           :weight="60"
           :label="t('harvester.host.tabs.seeder')"

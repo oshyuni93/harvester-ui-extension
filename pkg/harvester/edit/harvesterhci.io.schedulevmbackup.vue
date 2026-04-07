@@ -80,7 +80,7 @@ export default {
               kind:     'VirtualMachine',
               name:     vmName || ''
             },
-            type: BACKUP_TYPE.BACKUP
+            type: BACKUP_TYPE.SNAPSHOT
           }
         };
       }
@@ -150,7 +150,7 @@ export default {
       };
     },
     scheduleTypeOptions() {
-      return [BACKUP_TYPE.BACKUP, BACKUP_TYPE.SNAPSHOT];
+      return [BACKUP_TYPE.SNAPSHOT];
     }
   },
 
@@ -216,7 +216,7 @@ export default {
           v-model:value="value.spec.vmbackup.type"
           name="model"
           :options="scheduleTypeOptions"
-          :labels="[t('harvester.schedule.type.backup'), t('harvester.schedule.type.snapshot')]"
+          :labels="[t('harvester.schedule.type.snapshot')]"
           :disabled="isEdit || isView"
           :mode="mode"
           row

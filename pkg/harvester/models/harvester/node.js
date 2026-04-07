@@ -99,16 +99,16 @@ export default class HciNode extends HarvesterResource {
     };
 
     return [
-      cordon,
+      // cordon,
       uncordon,
-      enableMaintenance,
+      // enableMaintenance,
       disableMaintenance,
       enableCPUManager,
       disableCPUManager,
       shutDown,
       powerOn,
       reboot,
-      ...super._availableActions
+      ...super._availableActions.filter(action => !['goToEditYaml', 'download'].includes(action.action))
     ];
   }
 

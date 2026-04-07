@@ -303,6 +303,7 @@ export default {
         />
       </Tab>
 
+      <template v-if="false">
       <Tab
         name="nodeScheduling"
         :label="t('workload.container.titles.nodeScheduling')"
@@ -544,6 +545,7 @@ export default {
           :mode="mode"
         />
       </Tab>
+      </template>
     </Tabbed>
   </CruResource>
 </template>

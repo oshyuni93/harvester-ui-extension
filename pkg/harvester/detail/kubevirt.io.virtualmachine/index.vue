@@ -20,7 +20,7 @@ import Volume from '../../edit/kubevirt.io.virtualmachine/VirtualMachineVolume';
 import Network from '../../edit/kubevirt.io.virtualmachine/VirtualMachineNetwork';
 import AccessCredentials from '../../edit/kubevirt.io.virtualmachine/VirtualMachineAccessCredentials';
 import Events from './VirtualMachineTabs/VirtualMachineEvents';
-import Migration from './VirtualMachineTabs/VirtualMachineMigration';
+// import Migration from './VirtualMachineTabs/VirtualMachineMigration';
 import OverviewBasics from './VirtualMachineTabs/VirtualMachineBasics';
 import OverviewKeypairs from './VirtualMachineTabs/VirtualMachineKeypairs';
 import { formatSi } from '@shell/utils/units';
@@ -42,7 +42,7 @@ export default {
     Network,
     OverviewKeypairs,
     CloudConfig,
-    Migration,
+    // Migration,
     DashboardMetrics,
     AccessCredentials,
     NodeScheduling,
@@ -280,7 +280,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="hasResourceQuotaSchema"
+        v-if="false"
         name="quotas"
         :label="t('harvester.tab.quotas')"
         :weight="3"
@@ -309,6 +309,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="nodeScheduling"
         :label="t('workload.container.titles.nodeScheduling')"
         :weight="2.4"
@@ -325,6 +326,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         :label="t('harvester.tab.vmScheduling')"
         name="vmScheduling"
         :weight="2.3"
@@ -344,6 +346,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         :label="t('harvester.tab.accessCredentials')"
         class="bordered-table"
         name="accessCredentials"
@@ -357,6 +360,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="cloudConfig"
         :label="t('harvester.virtualMachine.detail.tabs.cloudConfig')"
         class="bordered-table"
@@ -381,7 +385,7 @@ export default {
         />
       </Tab>
 
-      <Tab
+      <!-- <Tab
         name="migration"
         :label="t('harvester.virtualMachine.detail.tabs.migration')"
       >
@@ -403,9 +407,10 @@ export default {
           :resource="vmi"
           :events="migrationEvents"
         />
-      </Tab>
+      </Tab> -->
 
       <Tab
+        v-if="false"
         name="instanceLabel"
         :label="t('harvester.tab.instanceLabel')"
         :weight="-99"

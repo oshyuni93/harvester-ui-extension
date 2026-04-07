@@ -95,7 +95,7 @@ export default {
     },
 
     isCPUMemoryHotPlugFeatureEnabled() {
-      return this.$store.getters['harvester-common/getFeatureEnabled']('cpuMemoryHotplug');
+      return false;
     },
 
     maxHotplugRatio() {

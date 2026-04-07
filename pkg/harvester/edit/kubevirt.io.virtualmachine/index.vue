@@ -682,6 +682,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="nodeScheduling"
         :label="t('workload.container.titles.nodeScheduling')"
         :weight="-3"
@@ -696,6 +697,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         :label="t('harvester.tab.vmScheduling')"
         name="vmScheduling"
         :weight="-4"
@@ -713,7 +715,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="enabledPCI"
+        v-if="false"
         :label="t('harvester.tab.pciDevices')"
         name="pciDevices"
         :weight="-5"
@@ -726,7 +728,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="enabledSriovgpu"
+        v-if="false"
         :label="t('harvester.tab.vGpuDevices')"
         name="vGpuDevices"
         :weight="-6"
@@ -739,7 +741,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="enabledPCI && usbPassthroughEnabled"
+        v-if="false"
         :label="t('harvester.tab.usbDevices')"
         name="usbDevices"
         :weight="-7"
@@ -752,7 +754,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="isEdit"
+        v-if="false"
         :label="t('harvester.tab.accessCredentials')"
         name="accessCredentials"
         :weight="-8"
@@ -766,6 +768,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="labels"
         :label="t('generic.labels')"
         :weight="-9"
@@ -785,6 +788,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="instanceLabel"
         :label="t('harvester.tab.instanceLabel')"
         :weight="-10"
@@ -806,6 +810,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="annotations"
         :label="t('harvester.tab.annotations')"
         :weight="-11"
@@ -827,6 +832,7 @@ export default {
       </Tab>
 
       <Tab
+        v-if="false"
         name="advanced"
         :label="t('harvester.tab.advanced')"
         :weight="-12"
@@ -861,7 +867,7 @@ export default {
               :mode="mode"
             />
           </div>
-          <div class="col span-6">
+          <div class="col span-6" v-if="false">
             <Reserved
               :reserved-memory="reservedMemory"
               :mode="mode"
@@ -927,6 +933,7 @@ export default {
         </div>
 
         <CloudConfig
+          v-if="false"
           ref="yamlEditor"
           :user-script="userScript"
           :mode="mode"

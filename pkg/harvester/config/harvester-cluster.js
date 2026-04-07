@@ -246,7 +246,7 @@ export function init($plugin, store) {
     exact: false
   });
 
-  basicType(['projects-namespaces']);
+  // basicType(['projects-namespaces']);
   virtualType({
     ifHave: IF_HAVE.MULTI_CLUSTER,
     labelKey: 'harvester.projectNamespace.label',
@@ -260,7 +260,7 @@ export function init($plugin, store) {
 
   if (isSingleVirtualCluster) {
     headers(NAMESPACE, [STATE, NAME_UNLINKED, DESCRIPTION, AGE]);
-    basicType([NAMESPACE]);
+    // basicType([NAMESPACE]);
     virtualType({
       labelKey: 'harvester.namespace.label',
       name: NAMESPACE,
@@ -274,19 +274,19 @@ export function init($plugin, store) {
     });
   }
 
-  basicType([
-    HCI.ALERTMANAGERCONFIG
-  ], MONITORING_GROUP);
-
-  basicType([
-    HCI.CLUSTER_FLOW,
-    HCI.CLUSTER_OUTPUT,
-    HCI.FLOW,
-    HCI.OUTPUT,
-  ], LOGGING_GROUP);
-
-  weightGroup('Monitoring', 2, true);
-  weightGroup('Logging', 1, true);
+  //   basicType([
+  //     HCI.ALERTMANAGERCONFIG
+  //   ], MONITORING_GROUP);
+  // 
+  //   basicType([
+  //     HCI.CLUSTER_FLOW,
+  //     HCI.CLUSTER_OUTPUT,
+  //     HCI.FLOW,
+  //     HCI.OUTPUT,
+  //   ], LOGGING_GROUP);
+  // 
+  //   weightGroup('Monitoring', 2, true);
+  //   weightGroup('Logging', 1, true);
 
   headers(HCI.ALERTMANAGERCONFIG, [
     STATE,
@@ -425,10 +425,10 @@ export function init($plugin, store) {
     [
       HCI.CLUSTER_NETWORK,
       HCI.NETWORK_ATTACHMENT,
-      HCI.VPC,
-      NETWORK_POLICY,
-      HCI.LB,
-      HCI.IP_POOL,
+      // HCI.VPC,
+      // NETWORK_POLICY,
+      // HCI.LB,
+      // HCI.IP_POOL,
     ],
     'networks'
   );
@@ -436,7 +436,7 @@ export function init($plugin, store) {
   basicType(
     [
       HCI.SCHEDULE_VM_BACKUP,
-      HCI.BACKUP,
+      // HCI.BACKUP,
       HCI.SNAPSHOT,
       HCI.VM_SNAPSHOT,
     ],
@@ -451,17 +451,17 @@ export function init($plugin, store) {
     [
       TEMPLATE,
       HCI.SSH,
-      HCI.CLOUD_TEMPLATE,
-      HCI.STORAGE,
-      HCI.SR_IOV,
-      HCI.PCI_DEVICE,
-      HCI.SR_IOVGPU_DEVICE,
-      HCI.VGPU_DEVICE,
-      HCI.MIG_CONFIGURATION,
-      HCI.USB_DEVICE,
-      HCI.ADD_ONS,
-      HCI.SECRET,
-      HCI.SETTING
+      // HCI.CLOUD_TEMPLATE,
+      // HCI.STORAGE,
+      // HCI.SR_IOV,
+      // HCI.PCI_DEVICE,
+      // HCI.SR_IOVGPU_DEVICE,
+      // HCI.VGPU_DEVICE,
+      // HCI.MIG_CONFIGURATION,
+      // HCI.USB_DEVICE,
+      // HCI.ADD_ONS,
+      // HCI.SECRET,
+      // HCI.SETTING
     ],
     'advanced'
   );
@@ -721,6 +721,7 @@ export function init($plugin, store) {
     },
     exact: false
   });
+
 
   configureType(HCI.STORAGE, {
     location: {

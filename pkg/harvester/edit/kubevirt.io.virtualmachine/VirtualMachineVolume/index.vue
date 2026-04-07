@@ -446,6 +446,7 @@ export default {
       </button>
 
       <button
+        v-if="false"
         type="button"
         class="btn btn-sm bg-primary mr-15 mb-10"
         @click="addVolume(SOURCE_TYPE.IMAGE)"
@@ -454,6 +455,7 @@ export default {
       </button>
 
       <button
+        v-if="false"
         type="button"
         class="btn btn-sm bg-primary mb-10"
         @click="addVolume(SOURCE_TYPE.CONTAINER)"

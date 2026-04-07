@@ -464,7 +464,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="hasKsmtunedSchema"
+        v-if="false"
         name="ksmtuned"
         :weight="0"
         :show-header="false"
@@ -477,7 +477,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="hasHugepagesSchema"
+        v-if="false"
         name="hugepages"
         :weight="0"
         :show-header="false"
@@ -487,7 +487,7 @@ export default {
       </Tab>
 
       <Tab
-        v-if="seederEnabled"
+        v-if="false"
         name="seeder"
         :weight="-1"
         :label="t('harvester.host.tabs.seeder')"
