@@ -182,6 +182,7 @@ export default {
     :resource="value"
     :mode="mode"
     :errors="errors"
+    :can-yaml="false"
     :apply-hooks="applyHooks"
     :validation-passed="canSave"
     @finish="save"

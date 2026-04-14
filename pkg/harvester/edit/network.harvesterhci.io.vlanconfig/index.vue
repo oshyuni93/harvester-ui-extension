@@ -372,6 +372,7 @@ export default {
     :resource="value"
     :mode="mode"
     :errors="errors"
+    :can-yaml="false"
     @finish="save"
     @error="e=>errors=e"
   >

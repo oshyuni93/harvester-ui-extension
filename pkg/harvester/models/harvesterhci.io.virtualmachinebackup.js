@@ -52,7 +52,7 @@ export default class HciVmBackup extends HarvesterResource {
   }
 
   get _availableActions() {
-    const toFilter = ['goToEdit', 'cloneYaml', 'goToClone', 'download'];
+    const toFilter = ['goToEdit', 'cloneYaml', 'goToClone', 'download', 'goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'downloadYaml', 'viewEditYaml'];
 
     const out = super._availableActions.filter((action) => {
       if (!toFilter.includes(action.action)) {

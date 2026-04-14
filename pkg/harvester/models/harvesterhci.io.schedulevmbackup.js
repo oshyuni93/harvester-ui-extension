@@ -11,7 +11,7 @@ export default class ScheduleVmBackup extends HarvesterResource {
   }
 
   get _availableActions() {
-    const toFilter = ['goToClone'];
+    const toFilter = ['goToClone', 'goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'viewEditYaml'];
 
     const out = super._availableActions.filter((action) => {
       if (!toFilter.includes(action.action)) {

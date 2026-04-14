@@ -14,7 +14,7 @@ import HarvesterResource from './harvester';
 export default class HciVmTemplateVersion extends HarvesterResource {
   get availableActions() {
     let out = super._availableActions;
-    const toFilter = ['goToClone', 'cloneYaml', 'goToViewConfig', 'goToEditYaml', 'goToViewYaml'];
+    const toFilter = ['goToClone', 'cloneYaml', 'goToViewConfig', 'goToEditYaml', 'goToViewYaml', 'download', 'downloadYaml'];
 
     out = out.filter((action) => {
       if (!toFilter.includes(action.action)) {

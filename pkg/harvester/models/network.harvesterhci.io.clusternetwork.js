@@ -4,6 +4,12 @@ import { HCI } from '../types';
 import HarvesterResource from './harvester';
 
 export default class HciClusterNetwork extends HarvesterResource {
+  get availableActions() {
+    let out = super._availableActions;
+    const toFilter = ['goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'migrate', 'viewEditYaml'];
+    return out.filter( (A) => !toFilter.includes(A.action));
+  }
+
   get doneOverride() {
     const detailLocation = clone(this.listLocation);
 

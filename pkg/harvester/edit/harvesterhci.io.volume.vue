@@ -397,6 +397,7 @@ export default {
     :resource="value"
     :mode="mode"
     :errors="errors"
+    :can-yaml="false"
     :generate-yaml="generateYaml"
     :apply-hooks="applyHooks"
     @finish="save"

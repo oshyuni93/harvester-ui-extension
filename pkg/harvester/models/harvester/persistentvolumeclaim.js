@@ -35,6 +35,9 @@ export default class HciPv extends HarvesterResource {
   get availableActions() {
     let out = super._availableActions;
 
+    const toFilter = ['goToEditYaml', 'download'];
+    out = out.filter( (A) => !toFilter.includes(A.action));
+
     const clone = out.find((action) => action.action === 'goToClone');
 
     if (clone) {

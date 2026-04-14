@@ -450,7 +450,7 @@ export default {
     :resource="value"
     :mode="mode"
     :errors="errors"
-    :can-yaml="showEditAsYaml ? true : false"
+    :can-yaml="false"
     :apply-hooks="applyHooks"
     @finish="saveImage"
     @error="e=>errors=e"

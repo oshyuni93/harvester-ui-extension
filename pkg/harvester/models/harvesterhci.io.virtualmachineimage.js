@@ -39,7 +39,7 @@ function isReady() {
 export default class HciVmImage extends HarvesterResource {
   get availableActions() {
     let out = super._availableActions;
-    const toFilter = ['goToEditYaml'];
+    const toFilter = ['goToEditYaml', 'download'];
 
     out = out.filter( (A) => !toFilter.includes(A.action));
 

@@ -55,11 +55,10 @@ export default class HciVlanConfig extends HarvesterResource {
   }
 
   get _availableActions() {
-    const out = super._availableActions;
+    let out = super._availableActions;
 
-    insertAt(out, 0, this.migrateAction);
-
-    return out;
+    const toFilter = ['goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'migrate', 'viewEditYaml'];
+    return out.filter( (A) => !toFilter.includes(A.action));
   }
 
   get migrateAction() {

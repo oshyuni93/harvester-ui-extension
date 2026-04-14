@@ -9,4 +9,9 @@ export default class HciKeypair extends HarvesterResource {
 
     return status === 'True' ? 'Validated' : 'Not Validated';
   }
+
+  get availableActions() {
+    const toFilter = ['goToEditYaml', 'goToViewYaml', 'download', 'downloadYaml', 'viewEditYaml'];
+    return super._availableActions.filter((action) => !toFilter.includes(action.action));
+  }
 }

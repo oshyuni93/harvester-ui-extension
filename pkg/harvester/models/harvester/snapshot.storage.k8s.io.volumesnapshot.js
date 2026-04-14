@@ -6,6 +6,9 @@ import { PRODUCT_NAME as HARVESTER_PRODUCT } from '../../config/harvester';
 
 export default class HciSnapshot extends HarvesterResource {
   get availableActions() {
+    const toFilter = ['goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'viewEditYaml'];
+    const out = super._availableActions.filter((action) => !toFilter.includes(action.action));
+
     return [
       {
         action:  'restoreSnapshot',
@@ -13,7 +16,7 @@ export default class HciSnapshot extends HarvesterResource {
         icon:    'icon icon-refresh',
         label:   this.t('harvester.action.restore'),
       },
-      ...super._availableActions
+      ...out
     ];
   }
 
