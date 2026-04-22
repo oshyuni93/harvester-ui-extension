@@ -1,0 +1,66 @@
+site_name: Infinitystack Windows 가상머신
+site_description: Infinitystack Windows 가상머신 관리 가이드
+site_author: 기술연구소
+docs_dir: docs
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  icon:
+    repo: fontawesome/brands/github
+
+nav:
+  - 홈: index.md
+  - 1. 이미지 관리:
+    - 개요: image-management/overview.md
+    - ISO 이미지 등록: image-management/iso-registration.md
+    - 이미지 상태 점검: image-management/status-check.md
+  - 2. ISO Windows VM 관리:
+    - 개요: iso-windows-vm/overview.md
+    - VM 기본 정보 설정: iso-windows-vm/basic-info.md
+    - 네트워크 및 볼륨 설정: iso-windows-vm/network-volume.md
+    - Windows 설치: iso-windows-vm/installation.md
+    - qemu-ga 수동 설치: iso-windows-vm/qemu-ga.md
+    - 원격 접속 설정: iso-windows-vm/remote-access.md
+    - VM 재시작: iso-windows-vm/restart.md
+  - 3. QCOW Windows VM 관리:
+    - 개요: qcow-windows-vm/overview.md
+    - VM 생성: qcow-windows-vm/create-vm.md
+    - Console 접속: qcow-windows-vm/console.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true

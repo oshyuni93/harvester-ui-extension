@@ -1,0 +1,91 @@
+site_name: Infinitystack 사용자 가이드
+site_description: Infinitystack HCI 플랫폼 사용자 가이드 - 연결과 혁신의 순간
+site_author: 기술연구소 - BGROUND Co., Ltd.
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: ko
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: 다크 모드로 전환
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: 라이트 모드로 전환
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - toc.integrate
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://www.bground.ai
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+
+nav:
+  - 홈: index.md
+  - 1. 로그인 및 암호 설정: 01-login.md
+  - 2. 사용자 정의 설정: 02-settings.md
+  - 3. 네트워크 관리:
+      - 개요: 03-network/index.md
+      - VM 네트워크 구성: 03-network/vm-network.md
+      - Storage 네트워크 구성: 03-network/storage-network.md
+      - Static IP 할당: 03-network/static-ip.md
+  - 4. 이미지 관리: 04-image.md
+  - 5. SSH 키 관리: 05-ssh.md
+  - 6. VM 관리:
+      - VM 생성: 06-vm/create.md
+      - 볼륨 추가: 06-vm/volume.md
+      - Static IP 할당: 06-vm/static-ip.md
+      - 스냅샷 및 백업: 06-vm/snapshot.md
+  - 7. 볼륨 관리: 07-volume.md
+  - 8. 로드밸런서 관리: 08-lb.md
+  - 9. 백업 관리: 09-backup.md
+  - 10. Windows 이미지 관리:
+      - 개요: image-management/overview.md
+      - ISO 이미지 등록: image-management/iso-registration.md
+      - 이미지 상태 점검: image-management/status-check.md
+  - 11. ISO Windows VM 관리:
+      - 개요: iso-windows-vm/overview.md
+      - VM 기본 정보 설정: iso-windows-vm/basic-info.md
+      - 네트워크 및 볼륨 설정: iso-windows-vm/network-volume.md
+      - Windows 설치: iso-windows-vm/installation.md
+      - qemu-ga 수동 설치: iso-windows-vm/qemu-ga.md
+      - 원격 접속 설정: iso-windows-vm/remote-access.md
+      - VM 재시작: iso-windows-vm/restart.md
+  - 12. QCOW Windows VM 관리:
+      - 개요: qcow-windows-vm/overview.md
+      - VM 생성: qcow-windows-vm/create-vm.md
+      - Console 접속: qcow-windows-vm/console.md

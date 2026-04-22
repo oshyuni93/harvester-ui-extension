@@ -1,0 +1,1591 @@
+
+<!doctype html>
+<html lang="ko" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Infinitystack Windows 가상머신 관리 가이드">
+      
+      
+        <meta name="author" content="기술연구소">
+      
+      
+      
+        <link rel="prev" href="../network-volume/">
+      
+      
+        <link rel="next" href="../qemu-ga/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Windows 설치 - Infinitystack Windows 가상머신</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#windows" class="md-skip">
+          콘텐츠로 이동
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="상단/헤더">
+    <a href="../.." title="Infinitystack Windows 가상머신" class="md-header__button md-logo" aria-label="Infinitystack Windows 가상머신" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Infinitystack Windows 가상머신
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Windows 설치
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="검색" placeholder="검색" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="검색">
+        
+        <button type="reset" class="md-search__icon md-icon" title="지우기" aria-label="지우기" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            검색 초기화
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="탭" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  홈
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../image-management/overview/" class="md-tabs__link">
+          
+  
+  
+  1. 이미지 관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  2. ISO Windows VM 관리
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../qcow-windows-vm/overview/" class="md-tabs__link">
+          
+  
+  
+  3. QCOW Windows VM 관리
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="네비게이션" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Infinitystack Windows 가상머신" class="md-nav__button md-logo" aria-label="Infinitystack Windows 가상머신" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Infinitystack Windows 가상머신
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    홈
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. 이미지 관리
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    1. 이미지 관리
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-management/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-management/iso-registration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ISO 이미지 등록
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../image-management/status-check/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    이미지 상태 점검
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. ISO Windows VM 관리
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2. ISO Windows VM 관리
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../basic-info/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM 기본 정보 설정
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../network-volume/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    네트워크 및 볼륨 설정
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 설치
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Windows 설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console 접속 및 언어 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Console 접속 및 언어 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드 및 설치 시작
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="키보드 및 설치 시작">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; keyboard 자판
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS 선택 및 라이선스 동의
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OS 선택 및 라이선스 동의">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; OS 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치 유형 및 위치 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설치 유형 및 위치 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-install-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Install Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        드라이버 폴더 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="드라이버 폴더 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; 폴더 찾기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        드라이버 설치 및 설치 위치
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="드라이버 설치 및 설치 위치">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-install-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Install driver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 설치 진행 및 암호 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 설치 진행 및 암호 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; 암호 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administrator 로그인
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Administrator 로그인">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Admin 로그인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../qemu-ga/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    qemu-ga 수동 설치
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../remote-access/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    원격 접속 설정
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../restart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM 재시작
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. QCOW Windows VM 관리
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    3. QCOW Windows VM 관리
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qcow-windows-vm/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    개요
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qcow-windows-vm/create-vm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    VM 생성
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qcow-windows-vm/console/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Console 접속
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="목차">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      목차
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Console 접속 및 언어 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Console 접속 및 언어 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-console" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Console
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        키보드 및 설치 시작
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="키보드 및 설치 시작">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; keyboard 자판
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        OS 선택 및 라이선스 동의
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="OS 선택 및 라이선스 동의">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-os" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; OS 선택
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        설치 유형 및 위치 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="설치 유형 및 위치 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-install-type" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Install Type
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        드라이버 폴더 선택
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="드라이버 폴더 선택">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; 폴더 찾기
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        드라이버 설치 및 설치 위치
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="드라이버 설치 및 설치 위치">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-install-driver" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Install driver
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#windows_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Windows 설치 진행 및 암호 설정
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Windows 설치 진행 및 암호 설정">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; 암호 설정
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#administrator" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Administrator 로그인
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Administrator 로그인">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vm-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ☞ 가상 머신(VM) 설치 &gt; Admin 로그인
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="windows">Windows 설치<a class="headerlink" href="#windows" title="Permanent link">&para;</a></h1>
+<p>Console에 접속하여 Windows OS를 설치합니다.</p>
+<h2 id="console">Console 접속 및 언어 설정<a class="headerlink" href="#console" title="Permanent link">&para;</a></h2>
+<p><img alt="Console 접속" src="../../images/slides/slide-09.jpg" /></p>
+<h3 id="vm-console">☞ 가상 머신(VM) 설치 &gt; Console<a class="headerlink" href="#vm-console" title="Permanent link">&para;</a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Windows는 <strong>cdrom으로 부팅한 후</strong> 추가 설치를 해야합니다.</p>
+</div>
+<ol>
+<li>Console 접속: <strong>"Web VNC에서 열기"</strong> 를 선택합니다.</li>
+<li>현재 시간 설정: <strong>"Korean(Korea)"</strong> 를 선택합니다.</li>
+<li><strong>Next</strong> 입력하여 다음으로 넘어갑니다.</li>
+</ol>
+<hr />
+<h2 id="_1">키보드 및 설치 시작<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><img alt="키보드 설정" src="../../images/slides/slide-10.jpg" /></p>
+<h3 id="vm-keyboard">☞ 가상 머신(VM) 설치 &gt; keyboard 자판<a class="headerlink" href="#vm-keyboard" title="Permanent link">&para;</a></h3>
+<ol>
+<li>키보드 자판 확인: <strong>"Microsoft IME"</strong> 를 선택합니다.</li>
+<li><strong>Install now</strong> 를 실행합니다.</li>
+</ol>
+<hr />
+<h2 id="os">OS 선택 및 라이선스 동의<a class="headerlink" href="#os" title="Permanent link">&para;</a></h2>
+<p><img alt="OS 선택" src="../../images/slides/slide-11.jpg" /></p>
+<h3 id="vm-os">☞ 가상 머신(VM) 설치 &gt; OS 선택<a class="headerlink" href="#vm-os" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Install OS 선택: <strong>"Windows Server 2022 Standard Evaluation (Desktop Experience)"</strong> 를 선택합니다.</li>
+<li>라이선스 유형 동의를 합니다.</li>
+</ol>
+<hr />
+<h2 id="_2">설치 유형 및 위치 선택<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><img alt="설치 위치" src="../../images/slides/slide-12.jpg" /></p>
+<h3 id="vm-install-type">☞ 가상 머신(VM) 설치 &gt; Install Type<a class="headerlink" href="#vm-install-type" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Install을 수행할 방법을 선택: <strong>"Custom: Install Microsoft Server Operating System only (advanced)"</strong> 를 선택합니다.</li>
+<li>설치 위치를 정하기 위해서 <strong>Load driver</strong> 를 찾아야 합니다.</li>
+</ol>
+<hr />
+<h2 id="_3">드라이버 폴더 선택<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><img alt="드라이버 폴더" src="../../images/slides/slide-13.jpg" /></p>
+<h3 id="vm">☞ 가상 머신(VM) 설치 &gt; 폴더 찾기<a class="headerlink" href="#vm" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>항목</th>
+<th>값</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>드라이브</td>
+<td><code>CD Drive (E:) VMDP-WIN-2.5.4.3</code></td>
+</tr>
+<tr>
+<td>폴더 경로</td>
+<td><code>E:\win10-11-server22\x64\pvvx</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">드라이버 설치 및 설치 위치<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<p><img alt="드라이버 설치" src="../../images/slides/slide-14.jpg" /></p>
+<h3 id="vm-install-driver">☞ 가상 머신(VM) 설치 &gt; Install driver<a class="headerlink" href="#vm-install-driver" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Install driver 선택: <strong>"SUSE Block Driver for Windows~"</strong> 외 각각 모든 드라이버를 <strong>중복되지 않게 모두 선택</strong>합니다.</li>
+<li>설치 위치를 선택: <strong>"Drive 0 Unallocated Space"</strong> 를 선택합니다.</li>
+</ol>
+<hr />
+<h2 id="windows_1">Windows 설치 진행 및 암호 설정<a class="headerlink" href="#windows_1" title="Permanent link">&para;</a></h2>
+<p><img alt="암호 설정" src="../../images/slides/slide-15.jpg" /></p>
+<h3 id="vm_1">☞ 가상 머신(VM) 설치 &gt; 암호 설정<a class="headerlink" href="#vm_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Windows Installing 진행을 기다립니다.</li>
+<li>암호 설정: <strong>"Administrator"</strong> 의 암호를 입력합니다.</li>
+<li>암호 확인: <strong>"Administrator"</strong> 의 암호를 확인합니다.</li>
+<li>로그인: <strong>"Administrator"</strong> 의 암호로 로그인합니다.</li>
+</ol>
+<hr />
+<h2 id="administrator">Administrator 로그인<a class="headerlink" href="#administrator" title="Permanent link">&para;</a></h2>
+<p><img alt="관리자 로그인" src="../../images/slides/slide-16.jpg" /></p>
+<h3 id="vm-admin">☞ 가상 머신(VM) 설치 &gt; Admin 로그인<a class="headerlink" href="#vm-admin" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Windows 설치 완료 후 로그인합니다.</li>
+<li>로그인: <strong>"Administrator"</strong> 의 암호로 로그인합니다.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">보안 주의</p>
+<p>실제 운영 환경에서는 기본 예시 암호를 반드시 변경하세요.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  맨위로
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\ud074\ub9bd\ubcf4\ub4dc\uc5d0 \ubcf5\uc0ac\ub428", "clipboard.copy": "\ud074\ub9bd\ubcf4\ub4dc\ub85c \ubcf5\uc0ac", "search.result.more.one": "\uc774 \ubb38\uc11c\uc5d0\uc11c 1\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.more.other": "\uc774 \ubb38\uc11c\uc5d0\uc11c #\uac1c\uc758 \uac80\uc0c9 \uacb0\uacfc \ub354 \ubcf4\uae30", "search.result.none": "\uac80\uc0c9\uc5b4\uc640 \uc77c\uce58\ud558\ub294 \ubb38\uc11c\uac00 \uc5c6\uc2b5\ub2c8\ub2e4", "search.result.one": "1\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.other": "#\uac1c\uc758 \uc77c\uce58\ud558\ub294 \ubb38\uc11c", "search.result.placeholder": "\uac80\uc0c9\uc5b4\ub97c \uc785\ub825\ud558\uc138\uc694", "search.result.term.missing": "\ud3ec\ud568\ub418\uc9c0 \uc54a\uc740 \uac80\uc0c9\uc5b4", "select.version": "\ubc84\uc804 \uc120\ud0dd"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

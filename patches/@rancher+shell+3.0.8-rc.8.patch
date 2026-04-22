@@ -14328,6 +14328,43 @@ index 0000000..43de8b1
 +      unavailable: 사용불가
 +  tab:
 +    title: 오토스케일러
+diff --git a/node_modules/@rancher/shell/components/nav/Header.vue b/node_modules/@rancher/shell/components/nav/Header.vue
+index f69928c..ab11266 100644
+--- a/node_modules/@rancher/shell/components/nav/Header.vue
++++ b/node_modules/@rancher/shell/components/nav/Header.vue
+@@ -558,6 +558,32 @@ export default {
+         <NamespaceFilter v-if="clusterReady && currentProduct && (currentProduct.showNamespaceFilter || isExplorer)" />
+         <WorkspaceSwitcher v-else-if="clusterReady && currentProduct && currentProduct.showWorkspaceSwitcher && showWorkspaceSwitcher" />
+       </div>
++
++      <div class="header-buttons" style="margin-left: 10px;">
++        <!--
++        <a
++          href="http://localhost:8000/" 
++          target="_blank"
++          class="btn header-btn role-tertiary"
++          style="display: flex; align-items: center; text-decoration: none; font-weight: 500;"
++        >
++          Docs
++          <i class="icon icon-external-link" style="margin-left: 5px; font-size: 14px;" />
++        </a>
++        -->
++        <a
++          href="/docs/index.html" 
++          target="_blank"
++          class="btn header-btn role-tertiary"
++          style="display: flex; align-items: center; text-decoration: none; font-weight: 500;"
++        >
++          Docs
++          <!--
++          <i class="icon icon-external-link" style="margin-left: 5px; font-size: 14px;" />
++          -->
++        </a>
++      </div>
++
+       <div
+         v-if="currentCluster && !simple"
+         class="header-buttons"
 diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
 index 90641fb..b2e2f61 100644
 --- a/node_modules/@rancher/shell/config/private-label.js
