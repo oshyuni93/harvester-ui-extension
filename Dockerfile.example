@@ -5,6 +5,7 @@ WORKDIR /src
 COPY . .
 
 # build-embedded 스크립트 실행 (latest-embedded 및 latest.tar.gz 생성)
+ENV NODE_OPTIONS="--max-old-space-size=8192"
 RUN scripts/build-embedded
 
 FROM rancher/harvester:v1.7.1
