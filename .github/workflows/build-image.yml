@@ -4,9 +4,9 @@ name: Dispatch Harvester-ui-extension image
 
 on:
   push:
-    branches: [main]
+    branches: [v1.7-gsauth]
   pull_request:
-    branches: [main]
+    branches: [v1.7-gsauth]
     
 env:
   #REGISTRY: harbor.spaasta.com
@@ -50,4 +50,4 @@ jobs:
           file: ./Dockerfile.example # Dockerfile you created
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1.7.1
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1.7.1-gsauth
