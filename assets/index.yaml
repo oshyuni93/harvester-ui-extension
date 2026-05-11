@@ -14,13 +14,13 @@ entries:
       catalog.cattle.io/ui-extensions-version: '>= 3.0.0 < 4.0.0'
     apiVersion: v2
     appVersion: 1.7.1
-    created: "2026-05-11T04:36:25.800722305Z"
+    created: "2026-05-11T04:51:33.372016121Z"
     description: Barastack UI Extension for Infinitystack
-    digest: 6940a8ac217568cb81d8119fedd853199f70f50ad0718fb74f091b125846e0cf
+    digest: 240877e2a1888e8111098193e91afd98b7060364bbca0df0d803990eec62e155
     icon: https://raw.githubusercontent.com/oshyuni93/harvester-ui-extension/main/pkg/harvester/icon.svg
     name: harvester
     type: application
     urls:
     - assets/harvester/harvester-1.7.1.tgz
     version: 1.7.1
-generated: "2026-05-11T04:36:25.799626362Z"
+generated: "2026-05-11T04:51:33.370969842Z"
