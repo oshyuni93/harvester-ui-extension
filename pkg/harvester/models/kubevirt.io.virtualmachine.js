@@ -191,18 +191,18 @@ export default class VirtVm extends HarvesterResource {
         icon: 'icon icon-delete',
         label: this.t('harvester.action.ejectCDROM')
       },
-      // {
-      //   action:  'migrateVM',
-      //   enabled: !!this.actions?.migrate,
-      //   icon:    'icon icon-copy',
-      //   label:   this.t('harvester.action.migrate')
-      // },
-      // {
-      //   action:  'abortMigrationVM',
-      //   enabled: !!this.actions?.abortMigration,
-      //   icon:    'icon icon-close',
-      //   label:   this.t('harvester.action.abortMigration')
-      // },
+      {
+        action:  'migrateVM',
+        enabled: !!this.actions?.migrate,
+        icon:    'icon icon-copy',
+        label:   this.t('harvester.action.migrate')
+      },
+      {
+        action:  'abortMigrationVM',
+        enabled: !!this.actions?.abortMigration,
+        icon:    'icon icon-close',
+        label:   this.t('harvester.action.abortMigration')
+      },
       {
         action: 'addHotplugVolume',
         enabled: !!this.actions?.addVolume,
