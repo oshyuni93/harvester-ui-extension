@@ -19,8 +19,7 @@ nav:
     backupAndSnapshot: 스냅샷
     Monitoring: 모니터링
     Logging: 로깅
-    'Monitoring & Logging': 모니터링 및 로깅
-
+    'Monitoring & Logging': 로그
 resourceTable:
   groupBy:
     device: 장비별 그룹

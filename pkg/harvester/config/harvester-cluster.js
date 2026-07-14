@@ -274,9 +274,9 @@ export function init($plugin, store) {
     });
   }
 
-  basicType([
-    HCI.ALERTMANAGERCONFIG
-  ], MONITORING_GROUP);
+  // basicType([
+  //   HCI.ALERTMANAGERCONFIG
+  // ], MONITORING_GROUP);
 
   basicType([
     HCI.CLUSTER_FLOW,
@@ -285,44 +285,44 @@ export function init($plugin, store) {
     HCI.OUTPUT,
   ], LOGGING_GROUP);
 
-  weightGroup('Monitoring', 2, true);
+  // weightGroup('Monitoring', 2, true);
   weightGroup('Logging', 1, true);
 
-  headers(HCI.ALERTMANAGERCONFIG, [
-    STATE,
-    NAME_COL,
-    NAMESPACE_COL,
-    {
-      name:      'receivers',
-      labelKey:  'tableHeaders.receivers',
-      formatter: 'ReceiverIcons',
-      value:     'name'
-    },
-  ]);
+  // headers(HCI.ALERTMANAGERCONFIG, [
+  //   STATE,
+  //   NAME_COL,
+  //   NAMESPACE_COL,
+  //   {
+  //     name:      'receivers',
+  //     labelKey:  'tableHeaders.receivers',
+  //     formatter: 'ReceiverIcons',
+  //     value:     'name'
+  //   },
+  // ]);
 
-  configureType(HCI.ALERTMANAGERCONFIG, {
-    location: {
-      name:   `${ PRODUCT_NAME }-c-cluster-resource`,
-      params: { resource: HCI.ALERTMANAGERCONFIG },
-    },
-    resource:       MONITORING.ALERTMANAGERCONFIG,
-    resourceDetail: HCI.ALERTMANAGERCONFIG,
-    resourceEdit:   HCI.ALERTMANAGERCONFIG,
-    canYaml:        false
-  });
+  // configureType(HCI.ALERTMANAGERCONFIG, {
+  //   location: {
+  //     name:   `${ PRODUCT_NAME }-c-cluster-resource`,
+  //     params: { resource: HCI.ALERTMANAGERCONFIG },
+  //   },
+  //   resource:       MONITORING.ALERTMANAGERCONFIG,
+  //   resourceDetail: HCI.ALERTMANAGERCONFIG,
+  //   resourceEdit:   HCI.ALERTMANAGERCONFIG,
+  //   canYaml:        false
+  // });
 
-  virtualType({
-    ifHaveType: MONITORING.ALERTMANAGERCONFIG,
-    labelKey:   'harvester.monitoring.alertmanagerConfig.label',
-    name:       HCI.ALERTMANAGERCONFIG,
-    namespaced: true,
-    weight:     87,
-    route:      {
-      name:   `${ PRODUCT_NAME }-c-cluster-resource`,
-      params: { resource: HCI.ALERTMANAGERCONFIG }
-    },
-    exact: false,
-  });
+  // virtualType({
+  //   ifHaveType: MONITORING.ALERTMANAGERCONFIG,
+  //   labelKey:   'harvester.monitoring.alertmanagerConfig.label',
+  //   name:       HCI.ALERTMANAGERCONFIG,
+  //   namespaced: true,
+  //   weight:     87,
+  //   route:      {
+  //     name:   `${ PRODUCT_NAME }-c-cluster-resource`,
+  //     params: { resource: HCI.ALERTMANAGERCONFIG }
+  //   },
+  //   exact: false,
+  // });
 
   configureType(HCI.CLUSTER_FLOW, {
     location: {
