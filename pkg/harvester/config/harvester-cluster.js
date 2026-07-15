@@ -281,8 +281,8 @@ export function init($plugin, store) {
   basicType([
     HCI.CLUSTER_FLOW,
     HCI.CLUSTER_OUTPUT,
-    HCI.FLOW,
-    HCI.OUTPUT,
+    // HCI.FLOW,
+    // HCI.OUTPUT,
   ], LOGGING_GROUP);
 
   // weightGroup('Monitoring', 2, true);
