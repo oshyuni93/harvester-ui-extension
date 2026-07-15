@@ -86,7 +86,10 @@ export function init($plugin, store) {
       productName:       PRODUCT_NAME,
       logo:              require(`@shell/assets/images/providers/harvester.svg`),
       productNameKey:    'harvester.productLabel',
-      getVersionInfo:    (store) => store.getters[`${ PRODUCT_NAME }/byId`]?.(HCI.SETTING, 'server-version')?.value || 'unknown',
+      getVersionInfo:    (store) => {
+        const hasVersion = store.getters[`${ PRODUCT_NAME }/byId`]?.(HCI.SETTING, 'server-version');
+        return hasVersion ? 'v2.0' : 'unknown';
+      },
       afterLoginRoute:   home,
       logoRoute:         home,
       supportCustomLogo: true

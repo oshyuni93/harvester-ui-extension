@@ -62,9 +62,7 @@ export default {
     },
 
     currentVersion() {
-      const serverVersion = this.$store.getters['harvester/byId'](HCI.SETTING, 'server-version');
-
-      return serverVersion.currentVersion || '';
+      return 'v2.0';
     },
 
     canEnableLogging() {

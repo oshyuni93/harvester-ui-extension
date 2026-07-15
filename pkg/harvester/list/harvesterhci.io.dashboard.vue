@@ -320,7 +320,7 @@ export default {
       const inStore = this.$store.getters['currentProduct'].inStore;
       const setting = this.$store.getters[`${ inStore }/byId`](HCI.SETTING, 'server-version');
 
-      return setting?.value || setting?.default;
+      return setting ? 'v2.0' : '';
     },
 
     firstNodeCreationTimestamp() {
