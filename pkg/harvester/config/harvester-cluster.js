@@ -463,7 +463,7 @@ export function init($plugin, store) {
       // HCI.MIG_CONFIGURATION,
       // HCI.USB_DEVICE,
       // HCI.ADD_ONS,
-      // HCI.SECRET,
+      HCI.SECRET,
       // HCI.SETTING
     ],
     'advanced'
