@@ -867,7 +867,10 @@ export default {
               :mode="mode"
             />
           </div>
-          <div class="col span-6" v-if="false">
+          <div
+            v-if="false"
+            class="col span-6"
+          >
             <Reserved
               :reserved-memory="reservedMemory"
               :mode="mode"

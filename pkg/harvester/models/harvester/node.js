@@ -26,27 +26,11 @@ const WARNING = 'warning';
 
 export default class HciNode extends HarvesterResource {
   get _availableActions() {
-    const cordon = {
-      action:  'cordon',
-      enabled: this.hasAction('cordon') && !this.isCordoned,
-      icon:    'icon icon-fw icon-pause',
-      label:   this.t('harvester.action.cordon'),
-      total:   1
-    };
-
     const uncordon = {
       action:  'uncordon',
       enabled: this.hasAction('uncordon'),
       icon:    'icon icon-fw icon-play',
       label:   this.t('harvester.action.uncordon'),
-      total:   1
-    };
-
-    const enableMaintenance = {
-      action:  'enableMaintenanceMode',
-      enabled: this.hasAction('enableMaintenanceMode'),
-      icon:    'icon icon-fw icon-unlock',
-      label:   this.t('harvester.action.enableMaintenance'),
       total:   1
     };
 
@@ -108,7 +92,7 @@ export default class HciNode extends HarvesterResource {
       shutDown,
       powerOn,
       reboot,
-      ...super._availableActions.filter(action => !['goToEditYaml', 'download'].includes(action.action))
+      ...super._availableActions.filter((action) => !['goToEditYaml', 'download'].includes(action.action))
     ];
   }
 

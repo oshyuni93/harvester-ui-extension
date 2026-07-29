@@ -76,12 +76,12 @@ export default {
 
   props: {
     value: {
-      type: Object,
+      type:     Object,
       required: true,
     },
 
     resourceType: {
-      type: String,
+      type:    String,
       default: ''
     }
   },
@@ -89,43 +89,43 @@ export default {
   async fetch() {
     const inStore = this.$store.getters['currentProduct'].inStore;
     const hash = {
-      pvs: this.$store.dispatch(`${inStore}/findAll`, { type: PV }),
-      pvcs: this.$store.dispatch(`${inStore}/findAll`, { type: PVC }),
-      storageClasses: this.$store.dispatch(`${inStore}/findAll`, { type: STORAGE_CLASS }),
-      sshs: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.SSH }),
-      settings: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.SETTING }),
-      images: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.IMAGE }),
-      versions: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VM_VERSION }),
-      templates: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VM_TEMPLATE }),
-      networkAttachment: this.$store.dispatch(`${inStore}/findAll`, { type: NETWORK_ATTACHMENT }),
-      vmis: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VMI }),
-      vmims: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VMIM }),
-      vms: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VM }),
-      secrets: this.$store.dispatch(`${inStore}/findAll`, { type: SECRET }),
-      addons: this.$store.dispatch(`${inStore}/findAll`, { type: HCI.ADD_ONS }),
-      longhornV2Engine: this.$store.dispatch(`${inStore}/find`, { type: LONGHORN.SETTINGS, id: LONGHORN_V2_DATA_ENGINE }),
+      pvs:               this.$store.dispatch(`${ inStore }/findAll`, { type: PV }),
+      pvcs:              this.$store.dispatch(`${ inStore }/findAll`, { type: PVC }),
+      storageClasses:    this.$store.dispatch(`${ inStore }/findAll`, { type: STORAGE_CLASS }),
+      sshs:              this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.SSH }),
+      settings:          this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.SETTING }),
+      images:            this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.IMAGE }),
+      versions:          this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VM_VERSION }),
+      templates:         this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VM_TEMPLATE }),
+      networkAttachment: this.$store.dispatch(`${ inStore }/findAll`, { type: NETWORK_ATTACHMENT }),
+      vmis:              this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VMI }),
+      vmims:             this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VMIM }),
+      vms:               this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VM }),
+      secrets:           this.$store.dispatch(`${ inStore }/findAll`, { type: SECRET }),
+      addons:            this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.ADD_ONS }),
+      longhornV2Engine:  this.$store.dispatch(`${ inStore }/find`, { type: LONGHORN.SETTINGS, id: LONGHORN_V2_DATA_ENGINE }),
     };
 
-    if (this.$store.getters[`${inStore}/schemaFor`](NODE)) {
-      hash.nodes = this.$store.dispatch(`${inStore}/findAll`, { type: NODE });
+    if (this.$store.getters[`${ inStore }/schemaFor`](NODE)) {
+      hash.nodes = this.$store.dispatch(`${ inStore }/findAll`, { type: NODE });
     }
 
-    if (this.$store.getters[`${inStore}/schemaFor`](HCI.CLUSTER_NETWORK)) {
-      hash.clusterNetworks = this.$store.dispatch(`${inStore}/findAll`, { type: HCI.CLUSTER_NETWORK });
+    if (this.$store.getters[`${ inStore }/schemaFor`](HCI.CLUSTER_NETWORK)) {
+      hash.clusterNetworks = this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.CLUSTER_NETWORK });
     }
 
-    if (this.$store.getters[`${inStore}/schemaFor`](HCI.VLAN_CONFIG)) {
-      hash.clusterNetworks = this.$store.dispatch(`${inStore}/findAll`, { type: HCI.VLAN_CONFIG });
+    if (this.$store.getters[`${ inStore }/schemaFor`](HCI.VLAN_CONFIG)) {
+      hash.clusterNetworks = this.$store.dispatch(`${ inStore }/findAll`, { type: HCI.VLAN_CONFIG });
     }
 
-    if (this.$store.getters[`${inStore}/schemaFor`](LONGHORN.VOLUMES)) {
-      hash.longhornVolumes = this.$store.dispatch(`${inStore}/findAll`, { type: LONGHORN.VOLUMES });
+    if (this.$store.getters[`${ inStore }/schemaFor`](LONGHORN.VOLUMES)) {
+      hash.longhornVolumes = this.$store.dispatch(`${ inStore }/findAll`, { type: LONGHORN.VOLUMES });
     }
 
     const res = await allHash(hash);
 
-    const hasPCISchema = !!this.$store.getters[`${inStore}/schemaFor`](HCI.PCI_DEVICE);
-    const hasSRIOVGPUSchema = !!this.$store.getters[`${inStore}/schemaFor`](HCI.SR_IOVGPU_DEVICE);
+    const hasPCISchema = !!this.$store.getters[`${ inStore }/schemaFor`](HCI.PCI_DEVICE);
+    const hasSRIOVGPUSchema = !!this.$store.getters[`${ inStore }/schemaFor`](HCI.SR_IOVGPU_DEVICE);
 
     const enabledAddons = res.addons.reduce((acc, addon) => ({ ...acc, [addon.name]: addon.spec?.enabled }), {});
 
@@ -139,49 +139,49 @@ export default {
     return {
       OS,
       isClone,
-      showYaml: false,
-      spec: null,
-      osType: 'linux',
-      useTemplate: false,
-      sshKey: [],
+      showYaml:                      false,
+      spec:                          null,
+      osType:                        'linux',
+      useTemplate:                   false,
+      sshKey:                        [],
       maintenanceStrategies,
-      maintenanceStrategy: 'Migrate',
+      maintenanceStrategy:           'Migrate',
       runStrategies,
-      runStrategy: 'RerunOnFailure',
-      installAgent: true,
-      hasCreateVolumes: [],
-      installUSBTablet: true,
-      networkScript: '',
-      userScript: '',
-      imageId: '',
-      diskRows: [],
-      networkRows: [],
-      machineType: '',
-      machineTypes: [],
-      secretName: '',
-      secretRef: null,
-      showAdvanced: false,
-      deleteAgent: true,
-      memory: null,
-      cpu: '',
-      maxMemory: null,
-      maxCpu: '',
-      cpuMemoryHotplugEnabled: false,
-      reservedMemory: null,
-      accessCredentials: [],
-      efiEnabled: false,
-      tpmEnabled: false,
-      tpmPersistentStateEnabled: false,
-      efiPersistentStateEnabled: false,
-      secureBoot: false,
-      userDataTemplateId: '',
-      saveUserDataAsClearText: false,
-      saveNetworkDataAsClearText: false,
-      enabledPCI: false,
-      enabledSriovgpu: false,
-      immutableMode: this.realMode === _CREATE ? _CREATE : _VIEW,
+      runStrategy:                   'RerunOnFailure',
+      installAgent:                  true,
+      hasCreateVolumes:              [],
+      installUSBTablet:              true,
+      networkScript:                 '',
+      userScript:                    '',
+      imageId:                       '',
+      diskRows:                      [],
+      networkRows:                   [],
+      machineType:                   '',
+      machineTypes:                  [],
+      secretName:                    '',
+      secretRef:                     null,
+      showAdvanced:                  false,
+      deleteAgent:                   true,
+      memory:                        null,
+      cpu:                           '',
+      maxMemory:                     null,
+      maxCpu:                        '',
+      cpuMemoryHotplugEnabled:       false,
+      reservedMemory:                null,
+      accessCredentials:             [],
+      efiEnabled:                    false,
+      tpmEnabled:                    false,
+      tpmPersistentStateEnabled:     false,
+      efiPersistentStateEnabled:     false,
+      secureBoot:                    false,
+      userDataTemplateId:            '',
+      saveUserDataAsClearText:       false,
+      saveNetworkDataAsClearText:    false,
+      enabledPCI:                    false,
+      enabledSriovgpu:               false,
+      immutableMode:                 this.realMode === _CREATE ? _CREATE : _VIEW,
       terminationGracePeriodSeconds: '',
-      cpuPinning: false,
+      cpuPinning:                    false,
     };
   },
 
@@ -191,23 +191,23 @@ export default {
     },
 
     images() {
-      return this.$store.getters[`${this.inStore}/all`](HCI.IMAGE);
+      return this.$store.getters[`${ this.inStore }/all`](HCI.IMAGE);
     },
 
     versions() {
-      return this.$store.getters[`${this.inStore}/all`](HCI.VM_VERSION);
+      return this.$store.getters[`${ this.inStore }/all`](HCI.VM_VERSION);
     },
 
     templates() {
-      return this.$store.getters[`${this.inStore}/all`](HCI.VM_TEMPLATE);
+      return this.$store.getters[`${ this.inStore }/all`](HCI.VM_TEMPLATE);
     },
 
     pvcs() {
-      return this.$store.getters[`${this.inStore}/all`](PVC);
+      return this.$store.getters[`${ this.inStore }/all`](PVC);
     },
 
     secrets() {
-      return this.$store.getters[`${this.inStore}/all`](SECRET);
+      return this.$store.getters[`${ this.inStore }/all`](SECRET);
     },
 
     filteredNamespaces() {
@@ -219,10 +219,10 @@ export default {
     },
 
     nodesIdOptions() {
-      const nodes = this.$store.getters[`${this.inStore}/all`](NODE);
+      const nodes = this.$store.getters[`${ this.inStore }/all`](NODE);
 
       const networkNames = this.networkRows.map((n) => n.networkName);
-      const vmNetworks = this.$store.getters[`${this.inStore}/all`](NETWORK_ATTACHMENT);
+      const vmNetworks = this.$store.getters[`${ this.inStore }/all`](NETWORK_ATTACHMENT);
       const selectedVMNetworks = networkNames.map((name) => vmNetworks.find((n) => n.id === name)).filter((n) => n?.id);
       const clusterNetworks = uniq(selectedVMNetworks.map((n) => n.clusterNetworkResource?.id));
 
@@ -232,7 +232,7 @@ export default {
 
         if (clusterNetworks.length > 0) {
           clusterNetworks.map((clusterNetwork) => {
-            requireLabelKeys.push(`network.harvesterhci.io/${clusterNetwork}`);
+            requireLabelKeys.push(`network.harvesterhci.io/${ clusterNetwork }`);
           });
         }
 
@@ -243,8 +243,8 @@ export default {
         });
 
         return {
-          label: isNetworkSchedule ? node.nameDisplay : `${node.nameDisplay} (${this.t('harvester.virtualMachine.scheduling.networkNotSupport')})`,
-          value: node.id,
+          label:    isNetworkSchedule ? node.nameDisplay : `${ node.nameDisplay } (${ this.t('harvester.virtualMachine.scheduling.networkNotSupport') })`,
+          value:    node.id,
           disabled: !isNetworkSchedule,
         };
       });
@@ -252,7 +252,7 @@ export default {
 
     storageClassSetting() {
       try {
-        const storageClassValue = this.$store.getters[`${this.inStore}/all`](HCI.SETTING).find((O) => O.id === HCI_SETTING.DEFAULT_STORAGE_CLASS)?.value;
+        const storageClassValue = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find((O) => O.id === HCI_SETTING.DEFAULT_STORAGE_CLASS)?.value;
 
         return JSON.parse(storageClassValue);
       } catch (e) {
@@ -278,27 +278,27 @@ export default {
     },
 
     defaultTerminationSetting() {
-      const setting = this.$store.getters[`${this.inStore}/all`](HCI.SETTING).find((O) => O.id === HCI_SETTING.VM_TERMINATION_PERIOD) || {};
+      const setting = this.$store.getters[`${ this.inStore }/all`](HCI.SETTING).find((O) => O.id === HCI_SETTING.VM_TERMINATION_PERIOD) || {};
 
       return Number(setting?.value || setting?.default);
     },
 
     affinityLabels() {
       return {
-        namespaceInputLabel: this.t('harvester.virtualMachine.affinity.namespaces.label'),
+        namespaceInputLabel:      this.t('harvester.virtualMachine.affinity.namespaces.label'),
         namespaceSelectionLabels: [
           this.t('harvester.virtualMachine.affinity.thisPodNamespace'),
           this.t('workload.scheduling.affinity.allNamespaces'),
           this.t('harvester.virtualMachine.affinity.matchExpressions.inNamespaces')
         ],
-        addLabel: this.t('harvester.virtualMachine.affinity.addLabel'),
+        addLabel:               this.t('harvester.virtualMachine.affinity.addLabel'),
         topologyKeyPlaceholder: this.t('harvester.virtualMachine.affinity.topologyKey.placeholder')
       };
     },
   },
 
   async created() {
-    await this.$store.dispatch(`${this.inStore}/findAll`, { type: SECRET });
+    await this.$store.dispatch(`${ this.inStore }/findAll`, { type: SECRET });
 
     if (!this.value.vmMachineTypeAutoFeatureEnabled) {
       try {
@@ -472,21 +472,21 @@ export default {
           if (!isIsoImage) {
             imageSizeGiB = Math.max(imageSizeGiB, 10);
           }
-          size = `${imageSizeGiB}${GIBIBYTE}`;
+          size = `${ imageSizeGiB }${ GIBIBYTE }`;
         }
 
         out.push({
-          id: randomStr(5),
-          source: SOURCE_TYPE.IMAGE,
-          name: 'disk-0',
-          accessMode: 'ReadWriteMany', // root disk only support LHv1 volume, should be RWX
+          id:               randomStr(5),
+          source:           SOURCE_TYPE.IMAGE,
+          name:             'disk-0',
+          accessMode:       'ReadWriteMany', // root disk only support LHv1 volume, should be RWX
           bus,
-          volumeName: '',
+          volumeName:       '',
           size,
           type,
           storageClassName: '',
-          image: this.imageId,
-          volumeMode: VOLUME_MODE.BLOCK,
+          image:            this.imageId,
+          volumeMode:       VOLUME_MODE.BLOCK,
           isEncrypted,
           volumeBackups,
         });
@@ -539,7 +539,7 @@ export default {
               // SOURCE_TYPE.ATTACH_VOLUME
               // Compatible with VMS that have been created before, Because they're not saved in the annotation
               const allPVCs = this.$store.getters['harvester/all'](PVC);
-              const pvcResource = allPVCs.find((O) => O.id === `${namespace}/${volume?.persistentVolumeClaim?.claimName}`);
+              const pvcResource = allPVCs.find((O) => O.id === `${ namespace }/${ volume?.persistentVolumeClaim?.claimName }`);
 
               source = SOURCE_TYPE.ATTACH_VOLUME;
               accessMode = pvcResource?.spec?.accessModes?.[0] || 'ReadWriteMany';
@@ -559,13 +559,13 @@ export default {
           const parseValue = parseSi(size);
 
           const formatSize = formatSi(parseValue, {
-            increment: 1024,
-            addSuffix: false,
+            increment:   1024,
+            addSuffix:   false,
             maxExponent: 3,
             minExponent: 3,
           });
 
-          const pvc = this.pvcs.find((P) => P.id === `${this.value.metadata.namespace}/${volumeName}`);
+          const pvc = this.pvcs.find((P) => P.id === `${ this.value.metadata.namespace }/${ volumeName }`);
 
           const volumeStatus = pvc?.relatedPV?.metadata?.annotations?.[HCI_ANNOTATIONS.VOLUME_ERROR];
 
@@ -573,16 +573,16 @@ export default {
           const volumeBackups = volBackups?.find((vBackup) => vBackup.volumeName === DISK.name) || null;
 
           return {
-            id: randomStr(5),
+            id:         randomStr(5),
             bootOrder,
             source,
-            name: DISK.name,
+            name:       DISK.name,
             realName,
             bus,
             volumeName,
             container,
             accessMode,
-            size: `${formatSize}${GIBIBYTE}`,
+            size:       `${ formatSize }${ GIBIBYTE }`,
             volumeMode: volumeMode || this.customVolumeMode,
             image,
             type,
@@ -621,7 +621,7 @@ export default {
           type,
           isPod,
           newCreateId: (fromTemplate || init) ? randomStr(10) : false,
-          model: I.model,
+          model:       I.model,
           networkName: isPod ? MANAGEMENT_NETWORK : network?.multus?.networkName,
         };
       });
@@ -738,7 +738,7 @@ export default {
           const userData = this.getUserData({ osType: this.osType, installAgent: this.installAgent });
 
           const cloudinitdisk = {
-            name: 'cloudinitdisk',
+            name:             'cloudinitdisk',
             cloudInitNoCloud: {}
           };
 
@@ -764,7 +764,7 @@ export default {
       let spec = {
         ...this.spec,
         runStrategy: this.runStrategy,
-        template: {
+        template:    {
           ...this.spec.template,
           metadata: {
             ...this.spec?.template?.metadata,
@@ -803,13 +803,13 @@ export default {
         this.value.metadata['annotations'] = {
           ...this.value.metadata.annotations,
           [HCI_ANNOTATIONS.VOLUME_CLAIM_TEMPLATE]: JSON.stringify(volumeClaimTemplates),
-          [HCI_ANNOTATIONS.NETWORK_IPS]: JSON.stringify(this.value.networkIps)
+          [HCI_ANNOTATIONS.NETWORK_IPS]:           JSON.stringify(this.value.networkIps)
         };
 
         this.value.metadata['labels'] = {
           ...this.value.metadata.labels,
           [HCI_ANNOTATIONS.CREATOR]: 'harvester',
-          [HCI_ANNOTATIONS.OS]: this.osType
+          [HCI_ANNOTATIONS.OS]:      this.osType
         };
 
         this.value['spec'] = spec;
@@ -842,9 +842,9 @@ export default {
       spec.template.metadata.labels[HCI_ANNOTATIONS.VM_NAME_PREFIX] = namePrefix;
 
       const rule = {
-        weight: 1,
+        weight:          1,
         podAffinityTerm: {
-          topologyKey: HOSTNAME,
+          topologyKey:   HOSTNAME,
           labelSelector: { matchLabels: { [HCI_ANNOTATIONS.VM_NAME_PREFIX]: namePrefix } }
         }
       };
@@ -914,7 +914,7 @@ export default {
           users.push(row.username);
           out.push({
             userPassword: {
-              source: { secret: { secretName: row.secretName } },
+              source:            { secret: { secretName: row.secretName } },
               propagationMethod: { qemuGuestAgent: {} }
             }
           });
@@ -925,7 +925,7 @@ export default {
           annotations[row.secretName] = row.sshkeys;
           out.push({
             sshPublicKey: {
-              source: { secret: { secretName: row.secretName } },
+              source:            { secret: { secretName: row.secretName } },
               propagationMethod: { qemuGuestAgent: { users: row.users } }
             }
           });
@@ -945,7 +945,7 @@ export default {
     },
 
     getMaintenanceStrategyOptionLabel(opt) {
-      return this.t(`harvester.virtualMachine.maintenanceStrategy.options.${opt.label || opt}`);
+      return this.t(`harvester.virtualMachine.maintenanceStrategy.options.${ opt.label || opt }`);
     },
 
     getInitUserData(config) {
@@ -953,7 +953,7 @@ export default {
 
       const out = jsyaml.dump(_QGA_JSON);
 
-      return `#cloud-config\n${out}`;
+      return `#cloud-config\n${ out }`;
     },
 
     /**
@@ -984,7 +984,7 @@ export default {
 
         const hasCloudComment = this.hasCloudConfigComment(userDataYaml);
 
-        return hasCloudComment ? userDataYaml : `#cloud-config\n${userDataYaml}`;
+        return hasCloudComment ? userDataYaml : `#cloud-config\n${ userDataYaml }`;
       } catch (e) {
         console.error('Error: Unable to parse yaml document', e); // eslint-disable-line no-console
 
@@ -1010,7 +1010,7 @@ export default {
       if (R.source === SOURCE_TYPE.ATTACH_VOLUME) {
         dataVolumeName = R.volumeName;
       } else if (this.isClone || !this.hasCreateVolumes.includes(R.realName)) {
-        dataVolumeName = `${prefixName}-${R.name}-${randomStr(5).toLowerCase()}`;
+        dataVolumeName = `${ prefixName }-${ R.name }-${ randomStr(5).toLowerCase() }`;
       } else {
         dataVolumeName = R.realName;
       }
@@ -1051,15 +1051,15 @@ export default {
       const sizeString = String(R.size);
 
       if (!(sizeString.includes('Gi') || sizeString.includes('Ti')) && R.size) {
-        R.size = `${R.size}${GIBIBYTE}`;
+        R.size = `${ R.size }${ GIBIBYTE }`;
       }
 
       const out = {
         metadata: { name: dataVolumeName },
-        spec: {
+        spec:     {
           accessModes: [R.accessMode],
-          resources: { requests: { storage: R.size } },
-          volumeMode: R.volumeMode
+          resources:   { requests: { storage: R.size } },
+          volumeMode:  R.volumeMode
         }
       };
 
@@ -1068,24 +1068,24 @@ export default {
       }
 
       switch (R.source) {
-        case SOURCE_TYPE.ATTACH_VOLUME:
-          out.spec.storageClassName = R.storageClassName;
-          break;
-        case SOURCE_TYPE.NEW:
-          out.spec.storageClassName = R.storageClassName;
-          break;
-        case SOURCE_TYPE.IMAGE: {
-          const image = this.images.find((I) => R.image === I.id);
+      case SOURCE_TYPE.ATTACH_VOLUME:
+        out.spec.storageClassName = R.storageClassName;
+        break;
+      case SOURCE_TYPE.NEW:
+        out.spec.storageClassName = R.storageClassName;
+        break;
+      case SOURCE_TYPE.IMAGE: {
+        const image = this.images.find((I) => R.image === I.id);
 
-          if (image) {
-            out.spec.storageClassName = image.storageClassName;
-            out.metadata.annotations = { [HCI_ANNOTATIONS.IMAGE_ID]: image.id };
-          } else {
-            out.metadata.annotations = { [HCI_ANNOTATIONS.IMAGE_ID]: '' };
-          }
-
-          break;
+        if (image) {
+          out.spec.storageClassName = image.storageClassName;
+          out.metadata.annotations = { [HCI_ANNOTATIONS.IMAGE_ID]: image.id };
+        } else {
+          out.metadata.annotations = { [HCI_ANNOTATIONS.IMAGE_ID]: '' };
         }
+
+        break;
+      }
       }
 
       return out;
@@ -1278,7 +1278,7 @@ export default {
     },
 
     generateSecretName(name) {
-      return name ? `${name}-${randomStr(5).toLowerCase()}` : undefined;
+      return name ? `${ name }-${ randomStr(5).toLowerCase() }` : undefined;
     },
 
     getOwnerReferencesFromVM(resource) {
@@ -1310,9 +1310,9 @@ export default {
       if (!secret || this.needNewSecret) {
         secret = await this.$store.dispatch('harvester/create', {
           metadata: {
-            name: this.secretName,
-            namespace: this.value.metadata.namespace,
-            labels: { [HCI_ANNOTATIONS.CLOUD_INIT]: 'harvester' },
+            name:            this.secretName,
+            namespace:       this.value.metadata.namespace,
+            labels:          { [HCI_ANNOTATIONS.CLOUD_INIT]: 'harvester' },
             ownerReferences: this.getOwnerReferencesFromVM(vm)
           },
           type: SECRET
@@ -1347,9 +1347,9 @@ export default {
         if (!secretRef || this.needNewSecret) {
           secretRef = await this.$store.dispatch('harvester/create', {
             metadata: {
-              name: row.secretName,
-              namespace: vm.metadata.namespace,
-              labels: { [HCI_ANNOTATIONS.CLOUD_INIT]: 'harvester' },
+              name:            row.secretName,
+              namespace:       vm.metadata.namespace,
+              labels:          { [HCI_ANNOTATIONS.CLOUD_INIT]: 'harvester' },
               ownerReferences: this.getOwnerReferencesFromVM(vm)
             },
             type: SECRET
@@ -1364,7 +1364,7 @@ export default {
           for (const secretId of row.sshkeys) {
             const keypair = (this.$store.getters['harvester/all'](HCI.SSH) || []).find((s) => s.id === secretId);
 
-            secretRef.setData(`${keypair.metadata.namespace}-${keypair.metadata.name}`, keypair.spec.publicKey);
+            secretRef.setData(`${ keypair.metadata.namespace }-${ keypair.metadata.name }`, keypair.spec.publicKey);
           }
         }
 
@@ -1655,7 +1655,7 @@ export default {
         }
       },
       immediate: true,
-      deep: true
+      deep:      true
     },
 
     isWindows(val) {

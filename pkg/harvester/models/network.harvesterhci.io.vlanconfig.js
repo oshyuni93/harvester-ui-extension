@@ -1,7 +1,6 @@
 import { isEmpty } from 'lodash';
 
 import { set, clone } from '@shell/utils/object';
-import { insertAt } from '@shell/utils/array';
 import { HOSTNAME } from '@shell/config/labels-annotations';
 import { matching } from '@shell/utils/selector';
 import { NODE } from '@shell/config/types';
@@ -55,9 +54,10 @@ export default class HciVlanConfig extends HarvesterResource {
   }
 
   get _availableActions() {
-    let out = super._availableActions;
+    const out = super._availableActions;
 
     const toFilter = ['goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'migrate', 'viewEditYaml'];
+
     return out.filter( (A) => !toFilter.includes(A.action));
   }
 

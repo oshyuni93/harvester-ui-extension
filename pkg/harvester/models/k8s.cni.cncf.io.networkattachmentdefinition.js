@@ -100,8 +100,9 @@ export default class NetworkAttachmentDef extends SteveModel {
   }
 
   get availableActions() {
-    let out = super._availableActions;
+    const out = super._availableActions;
     const toFilter = ['goToEditYaml', 'goToViewYaml', 'goToViewConfig', 'download', 'downloadYaml', 'viewEditYaml'];
+
     return out.filter( (A) => !toFilter.includes(A.action));
   }
 }

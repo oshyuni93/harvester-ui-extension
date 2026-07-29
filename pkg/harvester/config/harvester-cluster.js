@@ -6,7 +6,6 @@ import {
   MANAGEMENT,
   PVC,
   NETWORK_ATTACHMENT,
-  MONITORING,
   LOGGING,
   STORAGE_CLASS,
   SECRET,
@@ -39,7 +38,6 @@ import {
 } from './table-headers';
 
 const TEMPLATE = HCI.VM_VERSION;
-const MONITORING_GROUP = 'Monitoring & Logging::Monitoring';
 const LOGGING_GROUP = 'Monitoring & Logging::Logging';
 
 export const PRODUCT_NAME = 'harvester';
@@ -88,6 +86,7 @@ export function init($plugin, store) {
       productNameKey:    'harvester.productLabel',
       getVersionInfo:    (store) => {
         const hasVersion = store.getters[`${ PRODUCT_NAME }/byId`]?.(HCI.SETTING, 'server-version');
+
         return hasVersion ? 'v2.0' : 'unknown';
       },
       afterLoginRoute:   home,
@@ -463,7 +462,7 @@ export function init($plugin, store) {
       // HCI.MIG_CONFIGURATION,
       // HCI.USB_DEVICE,
       // HCI.ADD_ONS,
-      HCI.SECRET,
+      // HCI.SECRET,
       // HCI.SETTING
     ],
     'advanced'

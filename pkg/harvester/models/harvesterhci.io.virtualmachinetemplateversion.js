@@ -17,6 +17,10 @@ export default class HciVmTemplateVersion extends HarvesterResource {
     const toFilter = ['goToClone', 'cloneYaml', 'goToViewConfig', 'goToEditYaml', 'goToViewYaml', 'download', 'downloadYaml'];
 
     out = out.filter((action) => {
+      if (action.action === 'promptRemove' || action.altAction === 'remove') {
+        action.bulkable = false;
+      }
+
       if (!toFilter.includes(action.action)) {
         return action;
       }

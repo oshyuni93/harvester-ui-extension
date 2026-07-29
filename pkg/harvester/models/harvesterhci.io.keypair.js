@@ -12,6 +12,7 @@ export default class HciKeypair extends HarvesterResource {
 
   get availableActions() {
     const toFilter = ['goToEditYaml', 'goToViewYaml', 'download', 'downloadYaml', 'viewEditYaml'];
+
     return super._availableActions.filter((action) => !toFilter.includes(action.action));
   }
 }

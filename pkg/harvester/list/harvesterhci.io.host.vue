@@ -224,13 +224,14 @@ export default {
       :namespaced="false"
       key-field="_key"
     >
+      <!--
       <template #cell:console="{row}">
         <div class="console-button">
           <button
             v-clean-tooltip="consoleTooltip(row)"
             type="button"
             class="mr-5 btn btn-sm role-primary"
-            :disabled="!row.consoleUrl"
+            :disabled="true"
             @click="goto(row)"
           >
             {{ t('harvester.host.console') }}
@@ -242,6 +243,7 @@ export default {
           ><i class="icon icon-info" /></a>
         </div>
       </template>
+      -->
     </ResourceTable>
   </div>
 </template>

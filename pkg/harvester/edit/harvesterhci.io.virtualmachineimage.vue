@@ -133,15 +133,6 @@ export default {
     },
 
     radioGroupOptions() {
-      if (this.value.volumeEncryptionFeatureEnabled) {
-        return [
-          DOWNLOAD,
-          UPLOAD,
-          ENCRYPT,
-          DECRYPT
-        ];
-      }
-
       return [
         DOWNLOAD,
         UPLOAD

@@ -100,6 +100,7 @@ export default class HciSetting extends HarvesterResource {
     if (this.id === 'server-version') {
       return 'v2.0';
     }
+
     return this.value || '';
   }
 

@@ -430,10 +430,6 @@ export default {
       return this.events.filter( (E) => ['Node'].includes(E.involvedObject.kind));
     },
 
-    imageEvents() {
-      return this.events.filter( (E) => ['VirtualMachineImage'].includes(E.involvedObject.kind));
-    },
-
     hasMetricsTabs() {
       return this.showClusterMetrics || this.showVmMetrics;
     },
@@ -691,7 +687,7 @@ export default {
             v-if="props.active"
             :detail-url="CLUSTER_METRICS_DETAIL_URL"
             :summary-url="CLUSTER_METRICS_SUMMARY_URL"
-            graph-height="825px"
+            graph-height="865px"
           />
         </template>
       </Tab>
@@ -776,32 +772,6 @@ export default {
         >
           <SortableTable
             :rows="volumeEvents"
-            :headers="eventHeaders"
-            key-field="id"
-            :search="false"
-            :table-actions="false"
-            :row-actions="false"
-            :paging="true"
-            :rows-per-page="10"
-            default-sort-by="date"
-          >
-            <template #cell:resource="{row, value}">
-              <div class="text-info">
-                {{ value }}
-              </div>
-              <div v-if="row.message">
-                {{ row.displayMessage }}
-              </div>
-            </template>
-          </SortableTable>
-        </Tab>
-        <Tab
-          name="image"
-          label="Images"
-          :weight="96"
-        >
-          <SortableTable
-            :rows="imageEvents"
             :headers="eventHeaders"
             key-field="id"
             :search="false"

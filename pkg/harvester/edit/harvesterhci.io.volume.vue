@@ -7,7 +7,6 @@ import ResourceTabs from '@shell/components/form/ResourceTabs';
 import LabeledSelect from '@shell/components/form/LabeledSelect';
 import { LabeledInput } from '@components/Form/LabeledInput';
 import NameNsDescription from '@shell/components/form/NameNsDescription';
-import Conditions from '@shell/components/form/Conditions';
 import { Banner } from '@components/Banner';
 import { allHash } from '@shell/utils/promise';
 import { get } from '@shell/utils/object';
@@ -40,8 +39,7 @@ export default {
     ResourceTabs,
     LabeledSelect,
     LabeledInput,
-    NameNsDescription,
-    Conditions
+    NameNsDescription
   },
 
   mixins: [CreateEditView],
@@ -538,6 +536,7 @@ export default {
           :mode="mode"
           class="mb-20"
         />
+        <!--
         <LabeledInput
           v-model:value="lastBackup"
           class="mb-20"
@@ -552,6 +551,7 @@ export default {
           :disabled="true"
           :label="t('harvester.volume.lastBackupAt')"
         />
+        -->
         <LabeledInput
           v-model:value="replicasNumber"
           class="mb-20"
@@ -596,6 +596,7 @@ export default {
           :label="t('nameNsDescription.name.label')"
         />
       </Tab>
+      <!--
       <Tab
         v-if="!isCreate"
         name="conditions"
@@ -605,6 +606,7 @@ export default {
       >
         <Conditions :value="value" />
       </Tab>
+      -->
     </ResourceTabs>
   </CruResource>
 </template>

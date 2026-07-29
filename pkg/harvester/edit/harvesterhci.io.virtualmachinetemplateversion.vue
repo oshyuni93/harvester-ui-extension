@@ -304,247 +304,247 @@ export default {
       </Tab>
 
       <template v-if="false">
-      <Tab
-        name="nodeScheduling"
-        :label="t('workload.container.titles.nodeScheduling')"
-        :weight="-3"
-      >
-        <template #default>
-          <NodeScheduling
+        <Tab
+          name="nodeScheduling"
+          :label="t('workload.container.titles.nodeScheduling')"
+          :weight="-3"
+        >
+          <template #default>
+            <NodeScheduling
+              :mode="mode"
+              :value="spec.template.spec"
+              :nodes="nodesIdOptions"
+            />
+          </template>
+        </Tab>
+
+        <Tab
+          :label="t('harvester.tab.vmScheduling')"
+          name="vmScheduling"
+          :weight="-4"
+        >
+          <template #default>
+            <PodAffinity
+              :mode="mode"
+              :value="spec.template.spec"
+              :nodes="nodes"
+              :all-namespaces-option-available="true"
+              :namespaces="filteredNamespaces"
+              :overwrite-labels="affinityLabels"
+            />
+          </template>
+        </Tab>
+
+        <Tab
+          name="labels"
+          :label="t('generic.labels')"
+          :weight="-9"
+        >
+          <Banner color="info">
+            <t k="harvester.virtualMachine.labels.banner" />
+          </Banner>
+          <KeyValue
+            key="labels"
+            :value="value.labels"
+            :add-label="t('labels.addLabel')"
             :mode="mode"
-            :value="spec.template.spec"
-            :nodes="nodesIdOptions"
+            :read-allowed="false"
+            :value-can-be-empty="true"
+            @update:value="value.setLabels($event)"
           />
-        </template>
-      </Tab>
+        </Tab>
 
-      <Tab
-        :label="t('harvester.tab.vmScheduling')"
-        name="vmScheduling"
-        :weight="-4"
-      >
-        <template #default>
-          <PodAffinity
+        <Tab
+          name="instanceLabel"
+          :label="t('harvester.tab.instanceLabel')"
+          :weight="-10"
+        >
+          <Banner color="info">
+            <t k="harvester.virtualMachine.instanceLabels.banner" />
+          </Banner>
+          <KeyValue
+            key="instance-labels"
+            :value="value.instanceLabels"
+            :protected-keys="value.systemLabels || []"
+            :toggle-filter="toggler"
+            :add-label="t('labels.addLabel')"
             :mode="mode"
-            :value="spec.template.spec"
-            :nodes="nodes"
-            :all-namespaces-option-available="true"
-            :namespaces="filteredNamespaces"
-            :overwrite-labels="affinityLabels"
+            :read-allowed="false"
+            :value-can-be-empty="true"
+            @update:value="value.setInstanceLabels($event)"
           />
-        </template>
-      </Tab>
-
-      <Tab
-        name="labels"
-        :label="t('generic.labels')"
-        :weight="-9"
-      >
-        <Banner color="info">
-          <t k="harvester.virtualMachine.labels.banner" />
-        </Banner>
-        <KeyValue
-          key="labels"
-          :value="value.labels"
-          :add-label="t('labels.addLabel')"
-          :mode="mode"
-          :read-allowed="false"
-          :value-can-be-empty="true"
-          @update:value="value.setLabels($event)"
-        />
-      </Tab>
-
-      <Tab
-        name="instanceLabel"
-        :label="t('harvester.tab.instanceLabel')"
-        :weight="-10"
-      >
-        <Banner color="info">
-          <t k="harvester.virtualMachine.instanceLabels.banner" />
-        </Banner>
-        <KeyValue
-          key="instance-labels"
-          :value="value.instanceLabels"
-          :protected-keys="value.systemLabels || []"
-          :toggle-filter="toggler"
-          :add-label="t('labels.addLabel')"
-          :mode="mode"
-          :read-allowed="false"
-          :value-can-be-empty="true"
-          @update:value="value.setInstanceLabels($event)"
-        />
-      </Tab>
-      <Tab
-        name="annotations"
-        :label="t('harvester.tab.annotations')"
-        :weight="-11"
-      >
-        <Banner color="info">
-          <t k="harvester.virtualMachine.annotations.banner" />
-        </Banner>
-        <KeyValue
-          key="annotations"
-          :value="value.annotations"
-          :protected-keys="value.systemAnnotations || []"
-          :toggle-filter="true"
-          :add-label="t('labels.addAnnotation')"
-          :mode="mode"
-          :read-allowed="false"
-          :value-can-be-empty="true"
-          @update:value="value.setAnnotations($event)"
-        />
-      </Tab>
-      <Tab
-        name="advanced"
-        :label="t('harvester.tab.advanced')"
-        :weight="-99"
-      >
-        <div class="row mb-20">
-          <div class="col span-6">
-            <LabeledSelect
-              v-model:value="runStrategy"
-              label-key="harvester.virtualMachine.runStrategy"
-              :options="runStrategies"
-              :mode="mode"
-            />
-          </div>
-
-          <div class="col span-6">
-            <LabeledSelect
-              v-model:value="osType"
-              label-key="harvester.virtualMachine.osType"
-              :mode="mode"
-              :options="OS"
-            />
-          </div>
-        </div>
-
-        <div class="row mb-20">
-          <div class="col span-6">
-            <LabeledSelect
-              v-model:value="maintenanceStrategy"
-              label-key="harvester.virtualMachine.maintenanceStrategy.label"
-              :options="maintenanceStrategies"
-              :get-option-label="getMaintenanceStrategyOptionLabel"
-              :mode="mode"
-            />
-          </div>
-          <div class="col span-6">
-            <Reserved
-              :reserved-memory="reservedMemory"
-              :mode="mode"
-              @updateReserved="updateReserved"
-            />
-          </div>
-        </div>
-        <div class="row mb-20">
-          <a
-            v-if="showAdvanced"
-            v-t="'harvester.generic.showMore'"
-            role="button"
-            @click="toggleAdvanced"
+        </Tab>
+        <Tab
+          name="annotations"
+          :label="t('harvester.tab.annotations')"
+          :weight="-11"
+        >
+          <Banner color="info">
+            <t k="harvester.virtualMachine.annotations.banner" />
+          </Banner>
+          <KeyValue
+            key="annotations"
+            :value="value.annotations"
+            :protected-keys="value.systemAnnotations || []"
+            :toggle-filter="true"
+            :add-label="t('labels.addAnnotation')"
+            :mode="mode"
+            :read-allowed="false"
+            :value-can-be-empty="true"
+            @update:value="value.setAnnotations($event)"
           />
-          <a
-            v-else
-            v-t="'harvester.generic.showMore'"
-            role="button"
-            @click="toggleAdvanced"
-          />
-        </div>
-
-        <div v-if="showAdvanced">
+        </Tab>
+        <Tab
+          name="advanced"
+          :label="t('harvester.tab.advanced')"
+          :weight="-99"
+        >
           <div class="row mb-20">
             <div class="col span-6">
-              <UnitInput
-                v-model:value="terminationGracePeriodSeconds"
-                :suffix="terminationGracePeriodSeconds == 1 ? 'Second' : 'Seconds'"
-                :label="t('harvester.virtualMachine.terminationGracePeriodSeconds.label')"
+              <LabeledSelect
+                v-model:value="runStrategy"
+                label-key="harvester.virtualMachine.runStrategy"
+                :options="runStrategies"
                 :mode="mode"
-                @change="updateTerminationGracePeriodSeconds"
+              />
+            </div>
+
+            <div class="col span-6">
+              <LabeledSelect
+                v-model:value="osType"
+                label-key="harvester.virtualMachine.osType"
+                :mode="mode"
+                :options="OS"
               />
             </div>
           </div>
-        </div>
 
-        <CloudConfig
-          ref="yamlEditor"
-          :mode="mode"
-          :user-script="userScript"
-          :namespace="templateValue.metadata.namespace"
-          :network-script="networkScript"
-          @updateUserData="updateUserData"
-          @updateNetworkData="updateNetworkData"
-        />
+          <div class="row mb-20">
+            <div class="col span-6">
+              <LabeledSelect
+                v-model:value="maintenanceStrategy"
+                label-key="harvester.virtualMachine.maintenanceStrategy.label"
+                :options="maintenanceStrategies"
+                :get-option-label="getMaintenanceStrategyOptionLabel"
+                :mode="mode"
+              />
+            </div>
+            <div class="col span-6">
+              <Reserved
+                :reserved-memory="reservedMemory"
+                :mode="mode"
+                @updateReserved="updateReserved"
+              />
+            </div>
+          </div>
+          <div class="row mb-20">
+            <a
+              v-if="showAdvanced"
+              v-t="'harvester.generic.showMore'"
+              role="button"
+              @click="toggleAdvanced"
+            />
+            <a
+              v-else
+              v-t="'harvester.generic.showMore'"
+              role="button"
+              @click="toggleAdvanced"
+            />
+          </div>
 
-        <div class="spacer"></div>
-        <Checkbox
-          v-if="value.cpuPinningFeatureEnabled"
-          v-model:value="cpuPinning"
-          class="check"
-          type="checkbox"
-          tooltip-key="harvester.virtualMachine.cpuPinning.tooltip"
-          label-key="harvester.virtualMachine.cpuPinning.label"
-          :mode="mode"
-        />
-        <Checkbox
-          v-model:value="installUSBTablet"
-          class="check"
-          type="checkbox"
-          :label="t('harvester.virtualMachine.enableUsb')"
-          :mode="mode"
-        />
+          <div v-if="showAdvanced">
+            <div class="row mb-20">
+              <div class="col span-6">
+                <UnitInput
+                  v-model:value="terminationGracePeriodSeconds"
+                  :suffix="terminationGracePeriodSeconds == 1 ? 'Second' : 'Seconds'"
+                  :label="t('harvester.virtualMachine.terminationGracePeriodSeconds.label')"
+                  :mode="mode"
+                  @change="updateTerminationGracePeriodSeconds"
+                />
+              </div>
+            </div>
+          </div>
 
-        <Checkbox
-          v-model:value="installAgent"
-          class="check"
-          type="checkbox"
-          label-key="harvester.virtualMachine.installAgent"
-          :mode="mode"
-        />
+          <CloudConfig
+            ref="yamlEditor"
+            :mode="mode"
+            :user-script="userScript"
+            :namespace="templateValue.metadata.namespace"
+            :network-script="networkScript"
+            @updateUserData="updateUserData"
+            @updateNetworkData="updateNetworkData"
+          />
 
-        <Checkbox
-          v-model:value="tpmEnabled"
-          class="check"
-          type="checkbox"
-          label-key="harvester.virtualMachine.advancedOptions.tpm"
-          :mode="mode"
-        />
+          <div class="spacer"></div>
+          <Checkbox
+            v-if="value.cpuPinningFeatureEnabled"
+            v-model:value="cpuPinning"
+            class="check"
+            type="checkbox"
+            tooltip-key="harvester.virtualMachine.cpuPinning.tooltip"
+            label-key="harvester.virtualMachine.cpuPinning.label"
+            :mode="mode"
+          />
+          <Checkbox
+            v-model:value="installUSBTablet"
+            class="check"
+            type="checkbox"
+            :label="t('harvester.virtualMachine.enableUsb')"
+            :mode="mode"
+          />
 
-        <Checkbox
-          v-if="value.tpmPersistentStateFeatureEnabled && tpmEnabled"
-          v-model:value="tpmPersistentStateEnabled"
-          class="check"
-          type="checkbox"
-          :label="t('harvester.virtualMachine.advancedOptions.tpmPersistentState')"
-          :mode="mode"
-        />
+          <Checkbox
+            v-model:value="installAgent"
+            class="check"
+            type="checkbox"
+            label-key="harvester.virtualMachine.installAgent"
+            :mode="mode"
+          />
 
-        <Checkbox
-          v-model:value="efiEnabled"
-          class="check"
-          type="checkbox"
-          :label="t('harvester.virtualMachine.advancedOptions.efiEnabled')"
-          :mode="mode"
-        />
+          <Checkbox
+            v-model:value="tpmEnabled"
+            class="check"
+            type="checkbox"
+            label-key="harvester.virtualMachine.advancedOptions.tpm"
+            :mode="mode"
+          />
 
-        <Checkbox
-          v-if="value.efiPersistentStateFeatureEnabled && efiEnabled"
-          v-model:value="efiPersistentStateEnabled"
-          class="check"
-          type="checkbox"
-          :label="t('harvester.virtualMachine.advancedOptions.efiPersistentState')"
-          :mode="mode"
-        />
+          <Checkbox
+            v-if="value.tpmPersistentStateFeatureEnabled && tpmEnabled"
+            v-model:value="tpmPersistentStateEnabled"
+            class="check"
+            type="checkbox"
+            :label="t('harvester.virtualMachine.advancedOptions.tpmPersistentState')"
+            :mode="mode"
+          />
 
-        <Checkbox
-          v-if="efiEnabled"
-          v-model:value="secureBoot"
-          class="check"
-          type="checkbox"
-          :label="t('harvester.virtualMachine.advancedOptions.secureBoot')"
-          :mode="mode"
-        />
-      </Tab>
+          <Checkbox
+            v-model:value="efiEnabled"
+            class="check"
+            type="checkbox"
+            :label="t('harvester.virtualMachine.advancedOptions.efiEnabled')"
+            :mode="mode"
+          />
+
+          <Checkbox
+            v-if="value.efiPersistentStateFeatureEnabled && efiEnabled"
+            v-model:value="efiPersistentStateEnabled"
+            class="check"
+            type="checkbox"
+            :label="t('harvester.virtualMachine.advancedOptions.efiPersistentState')"
+            :mode="mode"
+          />
+
+          <Checkbox
+            v-if="efiEnabled"
+            v-model:value="secureBoot"
+            class="check"
+            type="checkbox"
+            :label="t('harvester.virtualMachine.advancedOptions.secureBoot')"
+            :mode="mode"
+          />
+        </Tab>
       </template>
     </Tabbed>
   </CruResource>

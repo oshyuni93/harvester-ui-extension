@@ -38,7 +38,7 @@ export default {
     if (!hash.uiFaviconSetting.value) {
       hash.uiFaviconSetting.value = '/favicon.ico';
     }
-    
+
     Object.assign(this, hash);
     if (hash.uiLogoDarkSetting.value) {
       try {
