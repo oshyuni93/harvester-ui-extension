@@ -228,7 +228,7 @@ export default {
 
     onImageChange() {
       const imageResource = this.$store.getters['harvester/all'](HCI.IMAGE)?.find( (I) => this.value.image === I.id);
-      const isIsoImage = /iso$/i.test(imageResource?.imageSuffix);
+      const isIsoImage = /iso$/i.test(imageResource?.imageSuffix) || /iso/i.test(imageResource?.spec?.displayName) || /iso/i.test(imageResource?.metadata?.name);
       const imageSize = Math.max(imageResource?.status?.size, imageResource?.status?.virtualSize);
 
       if (isIsoImage) {

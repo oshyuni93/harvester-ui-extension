@@ -14361,8 +14361,68 @@ index 90641fb..b2e2f61 100644
      const link = document.createElement('link');
  
      link.hid = 'icon';
+diff --git a/node_modules/@rancher/shell/edit/logging-flow/Match.vue b/node_modules/@rancher/shell/edit/logging-flow/Match.vue
+index 60c81cd..5c9b96a 100644
+--- a/node_modules/@rancher/shell/edit/logging-flow/Match.vue
++++ b/node_modules/@rancher/shell/edit/logging-flow/Match.vue
+@@ -74,6 +74,7 @@ export default {
+       <div class="spacer" />
+     </template>
+ 
++    <!--
+     <h3>
+       {{ value.select ? t('logging.flow.matches.nodes.title.include') : t('logging.flow.matches.nodes.title.exclude') }}
+     </h3>
+@@ -89,10 +90,12 @@ export default {
+           :taggable="true"
+           :clearable="true"
+           :close-on-select="false"
++          :disabled="true"
+           :reduce="(e) => e.value"
+         />
+       </div>
+     </div>
++    -->
+     <div v-if="!isHarvester">
+       <div class="spacer" />
+       <h3>
+diff --git a/node_modules/@rancher/shell/edit/logging-flow/index.vue b/node_modules/@rancher/shell/edit/logging-flow/index.vue
+index 4423109..82d6d0d 100644
+--- a/node_modules/@rancher/shell/edit/logging-flow/index.vue
++++ b/node_modules/@rancher/shell/edit/logging-flow/index.vue
+@@ -428,6 +428,7 @@ export default {
+             :label="t('generic.type')"
+           />
+         </div>
++        <!--
+         <ArrayListGrouped
+           v-model:value="matches"
+           :add-label="t('ingress.rules.addRule')"
+@@ -450,6 +451,7 @@ export default {
+             <button
+               class="btn role-tertiary add"
+               type="button"
++              :disabled="true"
+               @click="addMatch(true)"
+             >
+               {{ t('logging.flow.matches.addSelect') }}
+@@ -457,12 +459,14 @@ export default {
+             <button
+               class="btn role-tertiary add"
+               type="button"
++              :disabled="true"
+               @click="addMatch(false)"
+             >
+               {{ t('logging.flow.matches.addExclude') }}
+             </button>
+           </template>
+         </ArrayListGrouped>
++        -->
+       </Tab>
+ 
+       <Tab
 diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
-index 2fa9f5a..5f5952c 100644
+index 2fa9f5a..1f4178b 100644
 --- a/node_modules/@rancher/shell/pages/auth/login.vue
 +++ b/node_modules/@rancher/shell/pages/auth/login.vue
 @@ -18,8 +18,7 @@ import { sortBy } from '@shell/utils/sort';
@@ -14476,6 +14536,15 @@ index 2fa9f5a..5f5952c 100644
    },
  
    async fetch() {
+@@ -163,7 +218,7 @@ export default {
+     const username = cookie || '';
+ 
+     this.username = username;
+-    this.remember = !!username;
++    this.remember = false;
+ 
+     const { firstLoginSetting } = await this.loadInitialSettings();
+     const { value } = await this.$store.dispatch('management/find', { type: MANAGEMENT.SETTING, id: SETTING.BANNERS });
 @@ -173,14 +228,13 @@ export default {
      const hasOthers = hasLocal && !!providers.find((x) => x !== 'local');
  

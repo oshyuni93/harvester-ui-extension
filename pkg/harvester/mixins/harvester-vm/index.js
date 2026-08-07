@@ -761,6 +761,26 @@ export default {
       const specDisks = this.spec?.template?.spec?.domain?.devices?.disks;
       const mergedDisks = this.mergeDeviceList(specDisks, disks);
 
+      mergedDisks.forEach((d) => {
+        if (d.cdrom) {
+          delete d.disk;
+          delete d.floppy;
+          delete d.lun;
+        } else if (d.disk) {
+          delete d.cdrom;
+          delete d.floppy;
+          delete d.lun;
+        } else if (d.floppy) {
+          delete d.disk;
+          delete d.cdrom;
+          delete d.lun;
+        } else if (d.lun) {
+          delete d.disk;
+          delete d.cdrom;
+          delete d.floppy;
+        }
+      });
+
       let spec = {
         ...this.spec,
         runStrategy: this.runStrategy,
@@ -1583,7 +1603,27 @@ export default {
         const specDevice = specDeviceMap.get(device.name);
 
         if (specDevice) {
-          return { ...specDevice, ...device };
+          const merged = { ...specDevice, ...device };
+
+          if (device.cdrom) {
+            delete merged.disk;
+            delete merged.floppy;
+            delete merged.lun;
+          } else if (device.disk) {
+            delete merged.cdrom;
+            delete merged.floppy;
+            delete merged.lun;
+          } else if (device.floppy) {
+            delete merged.disk;
+            delete merged.cdrom;
+            delete merged.lun;
+          } else if (device.lun) {
+            delete merged.disk;
+            delete merged.cdrom;
+            delete merged.floppy;
+          }
+
+          return merged;
         }
 
         return device;

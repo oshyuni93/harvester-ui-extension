@@ -23,3 +23,12 @@ export default {
 };
 
 </script>
+
+<style lang="scss" scoped>
+:deep() {
+  button.add {
+    display: none !important;
+  }
+}
+</style>
+

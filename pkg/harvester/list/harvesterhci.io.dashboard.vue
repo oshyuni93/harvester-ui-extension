@@ -685,6 +685,7 @@ export default {
         <template #default="props">
           <DashboardMetrics
             v-if="props.active"
+            class="cluster-metrics"
             :detail-url="CLUSTER_METRICS_DETAIL_URL"
             :summary-url="CLUSTER_METRICS_SUMMARY_URL"
             graph-height="865px"
@@ -814,5 +815,13 @@ export default {
 
   .events {
     margin-top: 30px;
+  }
+
+  .cluster-metrics {
+    & :deep() {
+      .external-link {
+        display: none !important;
+      }
+    }
   }
 </style>
