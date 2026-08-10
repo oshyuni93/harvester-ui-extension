@@ -50,4 +50,4 @@ jobs:
           file: ./Dockerfile.example # Dockerfile you created
           push: true
           tags: |
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1.7.1-gsauth
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v1.7.1-gsauth-1
