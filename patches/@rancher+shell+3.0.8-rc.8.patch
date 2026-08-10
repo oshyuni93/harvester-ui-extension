@@ -14422,7 +14422,7 @@ index 4423109..82d6d0d 100644
  
        <Tab
 diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
-index 2fa9f5a..321f71c 100644
+index 2fa9f5a..865768f 100644
 --- a/node_modules/@rancher/shell/pages/auth/login.vue
 +++ b/node_modules/@rancher/shell/pages/auth/login.vue
 @@ -18,8 +18,7 @@ import { sortBy } from '@shell/utils/sort';
@@ -14708,7 +14708,7 @@ index 2fa9f5a..321f71c 100644
          }
  
          if ( this.remember ) {
-@@ -313,27 +447,26 @@ export default {
+@@ -313,27 +447,23 @@ export default {
            this.$store.commit('cookies/remove', { key: USERNAME });
          }
  
@@ -14725,9 +14725,6 @@ index 2fa9f5a..321f71c 100644
          });
  
 -        if (this.firstLogin || user[0]?.mustChangePassword) {
-+        // 버튼 성공 처리 후 페이지 이동
-+        buttonCb(true);
-+
 +        if (this.firstLogin || mgmtUser?.mustChangePassword) {
            this.$store.dispatch('auth/setInitialPass', this.password);
            this.$router.push({ name: 'auth-setup' });
@@ -14747,7 +14744,7 @@ index 2fa9f5a..321f71c 100644
        }
      },
    }
-@@ -375,10 +508,23 @@ export default {
+@@ -375,10 +505,23 @@ export default {
          <div
            class="login-messages"
            data-testid="login__messages"
@@ -14773,7 +14770,7 @@ index 2fa9f5a..321f71c 100644
              :label="errorToDisplay"
              color="error"
            />
-@@ -405,41 +551,6 @@ export default {
+@@ -405,41 +548,6 @@ export default {
              k="setup.defaultPassword.intro"
              :raw="true"
            />
@@ -14815,7 +14812,7 @@ index 2fa9f5a..321f71c 100644
            <CopyCode>
              {{ kubectlCmd }}
            </CopyCode>
-@@ -483,6 +594,7 @@ export default {
+@@ -483,6 +591,7 @@ export default {
                    data-testid="local-login-username"
                    :label="t('login.username')"
                    autocomplete="username"
@@ -14823,7 +14820,7 @@ index 2fa9f5a..321f71c 100644
                  />
                </div>
                <div class="">
-@@ -492,6 +604,7 @@ export default {
+@@ -492,6 +601,7 @@ export default {
                    data-testid="local-login-password"
                    :label="t('login.password')"
                    autocomplete="current-password"
@@ -14831,7 +14828,7 @@ index 2fa9f5a..321f71c 100644
                  />
                </div>
              </div>
-@@ -505,6 +618,7 @@ export default {
+@@ -505,6 +615,7 @@ export default {
                    :waiting-label="t('login.loggingIn')"
                    :success-label="t('login.loggedIn')"
                    :error-label="t('asyncButton.default.error')"
@@ -14839,7 +14836,7 @@ index 2fa9f5a..321f71c 100644
                    @click="loginLocal"
                  />
                  <div
-@@ -568,7 +682,7 @@ export default {
+@@ -568,7 +679,7 @@ export default {
  <style lang="scss" scoped>
    .login {
      overflow: hidden;
