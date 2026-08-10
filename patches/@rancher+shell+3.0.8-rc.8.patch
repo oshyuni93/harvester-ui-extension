@@ -14422,7 +14422,7 @@ index 4423109..82d6d0d 100644
  
        <Tab
 diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
-index 2fa9f5a..1f4178b 100644
+index 2fa9f5a..865768f 100644
 --- a/node_modules/@rancher/shell/pages/auth/login.vue
 +++ b/node_modules/@rancher/shell/pages/auth/login.vue
 @@ -18,8 +18,7 @@ import { sortBy } from '@shell/utils/sort';
@@ -14536,15 +14536,6 @@ index 2fa9f5a..1f4178b 100644
    },
  
    async fetch() {
-@@ -163,7 +218,7 @@ export default {
-     const username = cookie || '';
- 
-     this.username = username;
--    this.remember = !!username;
-+    this.remember = false;
- 
-     const { firstLoginSetting } = await this.loadInitialSettings();
-     const { value } = await this.$store.dispatch('management/find', { type: MANAGEMENT.SETTING, id: SETTING.BANNERS });
 @@ -173,14 +228,13 @@ export default {
      const hasOthers = hasLocal && !!providers.find((x) => x !== 'local');
  
@@ -14669,7 +14660,7 @@ index 2fa9f5a..1f4178b 100644
        try {
          await this.$store.dispatch('auth/login', {
            provider: 'local',
-@@ -287,14 +393,39 @@ export default {
+@@ -287,14 +393,42 @@ export default {
              password: this.password
            }
          });
@@ -14689,9 +14680,12 @@ index 2fa9f5a..1f4178b 100644
 -          opt:  { url: '/v3/users?me=true', load: _MULTI }
 +      // ── Step 2: 인증 성공 후 후속 처리 (실패해도 카운트 증가 없음) ──
 +      try {
-+        // 로그인 성공 시 잠금 상태 초기화
++        // 로그인 성공 시 잠금 상태 및 에러 메시지 초기화
 +        this.failCount = 0;
 +        this.lockUntil = null;
++        this.err = null;          // 이전 에러 메시지 초기화
++        this.timedOut = null;
++        this.loggedOut = null;
 +        this.clearLockoutTimer();
 +        sessionStorage.removeItem(STORAGE_KEY);
 +
@@ -14714,7 +14708,7 @@ index 2fa9f5a..1f4178b 100644
          }
  
          if ( this.remember ) {
-@@ -313,27 +444,23 @@ export default {
+@@ -313,27 +447,23 @@ export default {
            this.$store.commit('cookies/remove', { key: USERNAME });
          }
  
@@ -14750,7 +14744,7 @@ index 2fa9f5a..1f4178b 100644
        }
      },
    }
-@@ -375,10 +502,23 @@ export default {
+@@ -375,10 +505,23 @@ export default {
          <div
            class="login-messages"
            data-testid="login__messages"
@@ -14776,7 +14770,7 @@ index 2fa9f5a..1f4178b 100644
              :label="errorToDisplay"
              color="error"
            />
-@@ -405,41 +545,6 @@ export default {
+@@ -405,41 +548,6 @@ export default {
              k="setup.defaultPassword.intro"
              :raw="true"
            />
@@ -14818,7 +14812,7 @@ index 2fa9f5a..1f4178b 100644
            <CopyCode>
              {{ kubectlCmd }}
            </CopyCode>
-@@ -483,6 +588,7 @@ export default {
+@@ -483,6 +591,7 @@ export default {
                    data-testid="local-login-username"
                    :label="t('login.username')"
                    autocomplete="username"
@@ -14826,7 +14820,7 @@ index 2fa9f5a..1f4178b 100644
                  />
                </div>
                <div class="">
-@@ -492,6 +598,7 @@ export default {
+@@ -492,6 +601,7 @@ export default {
                    data-testid="local-login-password"
                    :label="t('login.password')"
                    autocomplete="current-password"
@@ -14834,7 +14828,7 @@ index 2fa9f5a..1f4178b 100644
                  />
                </div>
              </div>
-@@ -505,6 +612,7 @@ export default {
+@@ -505,6 +615,7 @@ export default {
                    :waiting-label="t('login.loggingIn')"
                    :success-label="t('login.loggedIn')"
                    :error-label="t('asyncButton.default.error')"
@@ -14842,7 +14836,7 @@ index 2fa9f5a..1f4178b 100644
                    @click="loginLocal"
                  />
                  <div
-@@ -568,7 +676,7 @@ export default {
+@@ -568,7 +679,7 @@ export default {
  <style lang="scss" scoped>
    .login {
      overflow: hidden;
