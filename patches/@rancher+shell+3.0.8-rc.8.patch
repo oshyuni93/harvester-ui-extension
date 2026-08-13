@@ -14306,6 +14306,94 @@ index 0000000..e363e4f
 +      unavailable: 사용불가
 +  tab:
 +    title: 오토스케일러
+diff --git a/node_modules/@rancher/shell/components/form/ChangePassword.vue b/node_modules/@rancher/shell/components/form/ChangePassword.vue
+index bde1cb6..140f589 100644
+--- a/node_modules/@rancher/shell/components/form/ChangePassword.vue
++++ b/node_modules/@rancher/shell/components/form/ChangePassword.vue
+@@ -5,6 +5,9 @@ import { Checkbox } from '@components/Form/Checkbox';
+ import Password from '@shell/components/form/Password';
+ import { NORMAN } from '@shell/config/types';
+ import { _CREATE, _EDIT } from '@shell/config/query-params';
++import { translateErrorMessage } from '@shell/utils/error';
++
++const FORBIDDEN_CHARS = ['#', '$', '"', "'", '\\', ';', '&'];
+ 
+ // Component handles three use cases
+ // 1) isChange - Current user is changing their own password
+@@ -178,16 +181,29 @@ export default {
+   },
+ 
+   methods: {
++    hasForbiddenChars(val) {
++      if (!val) return false;
++
++      return FORBIDDEN_CHARS.some(char => val.includes(char));
++    },
++
+     passwordsMatch() {
+       const match = this.passwordNew === this.passwordConfirm;
++      const errors = [];
++
++      if (!this.isRandomGenerated && this.hasForbiddenChars(this.passwordNew)) {
++        errors.push('비밀번호에 금지된 특수문자(#, $, ", \', \\, ;, &)가 포함되어 있습니다.');
++      } else if (this.passwordConfirmBlurred && !match) {
++        errors.push(this.t('changePassword.errors.mismatchedPassword'));
++      }
+ 
+-      this.errorMessages = this.passwordConfirmBlurred && !match ? [this.t('changePassword.errors.mismatchedPassword')] : [];
++      this.errorMessages = errors;
+ 
+-      return match;
++      return match && errors.length === 0;
+     },
+ 
+     baseIsUserGenPasswordValid() {
+-      return this.passwordsMatch() && !!this.passwordNew;
++      return this.passwordsMatch() && !this.hasForbiddenChars(this.passwordNew) && !!this.passwordNew;
+     },
+ 
+     isValid() {
+@@ -259,7 +275,9 @@ export default {
+           },
+         });
+       } catch (err) {
+-        this.errorMessages = [err.message || this.t('changePassword.errors.failedToChange')];
++        const msg = err.message || this.t('changePassword.errors.failedToChange');
++
++        this.errorMessages = [translateErrorMessage(msg)];
+         throw err;
+       }
+     },
+@@ -392,6 +410,12 @@ export default {
+             />
+           </div>
+         </div>
++        <div
++          v-if="!isRandomGenerated"
++          class="text-label text-small mt-5 mb-10"
++        >
++          ※ 사용 금지 특수문자: #, $, ", ', \, ;, &amp;
++        </div>
+       </div>
+       <Checkbox
+         v-if="isChange"
+@@ -427,12 +451,14 @@ export default {
+ 
+     &.change {
+       .form .fields {
+-        height: 240px;
++        min-height: 240px;
++        height: auto;
+       }
+     }
+ 
+     &.create, &.edit {
+-      height: 185px;
++      min-height: 185px;
++      height: auto;
+       .form {
+         .fields {
+           display: flex;
 diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
 index 90641fb..b2e2f61 100644
 --- a/node_modules/@rancher/shell/config/private-label.js
@@ -14422,7 +14510,7 @@ index 4423109..82d6d0d 100644
  
        <Tab
 diff --git a/node_modules/@rancher/shell/pages/auth/login.vue b/node_modules/@rancher/shell/pages/auth/login.vue
-index 2fa9f5a..865768f 100644
+index 2fa9f5a..d80454b 100644
 --- a/node_modules/@rancher/shell/pages/auth/login.vue
 +++ b/node_modules/@rancher/shell/pages/auth/login.vue
 @@ -18,8 +18,7 @@ import { sortBy } from '@shell/utils/sort';
@@ -14435,21 +14523,22 @@ index 2fa9f5a..865768f 100644
  import { SETTING } from '@shell/config/settings';
  import { LOGIN_ERRORS } from '@shell/store/auth';
  import {
-@@ -34,6 +33,13 @@ import { HARVESTER_NAME as HARVESTER } from '@shell/config/features';
+@@ -34,6 +33,14 @@ import { HARVESTER_NAME as HARVESTER } from '@shell/config/features';
  import TabTitle from '@shell/components/TabTitle.vue';
  import { getBrandMeta } from '@shell/utils/brand';
  
 +// ─────────────────────────────────────────────
 +// 로그인 잠금 설정값 (필요 시 수정)
 +// ─────────────────────────────────────────────
-+const MAX_FAIL_COUNT  = 5;          // 최대 실패 허용 횟수
-+const LOCKOUT_MINUTES = 3;          // 잠금 지속 시간 (분)
-+const STORAGE_KEY     = 'login_lockout'; // sessionStorage 키
++const MAX_FAIL_COUNT       = 5;  // 최대 실패 허용 횟수
++const LOCKOUT_MINUTES      = 3;  // 잠금 지속 시간 (분)
++const FAILURE_WINDOW_MINUTES = 10; // 실패 횟수 합산 시간 창 (분)
++const STORAGE_KEY          = 'login_lockout'; // localStorage 키 (동일 브라우저의 모든 탭에서 공유)
 +
  export default {
    name:       'Login',
    components: {
-@@ -41,6 +47,22 @@ export default {
+@@ -41,6 +48,27 @@ export default {
    },
  
    data() {
@@ -14458,21 +14547,26 @@ index 2fa9f5a..865768f 100644
 +    let lockUntil  = null;
 +
 +    try {
-+      const stored = JSON.parse(sessionStorage.getItem(STORAGE_KEY) || '{}');
++      const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
 +
 +      if (stored.lockUntil && Date.now() < stored.lockUntil) {
++        // 이미 잠긴 상태: 새 탭도 즉시 잠금 처리
 +        failCount = stored.failCount || MAX_FAIL_COUNT;
 +        lockUntil = stored.lockUntil;
++      } else if (stored.attemptWindowUntil && Date.now() < stored.attemptWindowUntil) {
++        // 잠기기 전의 실패 횟수는 내부 합산에만 사용한다.
++        // 새 탭에서는 로그인 시도 전 경고 메시지를 표시하지 않는다.
++        failCount = 0;
 +      } else {
-+        // 잠금 만료 시 초기화
-+        sessionStorage.removeItem(STORAGE_KEY);
++        // 잠금 또는 실패 횟수 합산 시간이 만료된 경우 초기화
++        localStorage.removeItem(STORAGE_KEY);
 +      }
-+    } catch (e) { /* sessionStorage 접근 불가 환경 무시 */ }
++    } catch (e) { /* localStorage 접근 불가 환경 무시 */ }
 +
      return {
        username: '',
        remember: false,
-@@ -60,7 +82,13 @@ export default {
+@@ -60,7 +88,13 @@ export default {
        providerComponents: [],
        customLoginError:   {},
        firstLogin:         false,
@@ -14487,7 +14581,7 @@ index 2fa9f5a..865768f 100644
      };
    },
  
-@@ -137,9 +165,7 @@ export default {
+@@ -137,9 +171,7 @@ export default {
      },
  
      customizations() {
@@ -14498,7 +14592,7 @@ index 2fa9f5a..865768f 100644
        const login = brandMeta?.login || {};
  
        return {
-@@ -155,7 +181,36 @@ export default {
+@@ -155,7 +187,42 @@ export default {
  
      brandLogo() {
        return this.customizations.logo;
@@ -14530,13 +14624,19 @@ index 2fa9f5a..865768f 100644
 +    },
 +  },
 +
-+  // ── 컴포넌트 소멸 시 인터벌 정리 ──
++  mounted() {
++    // 다른 탭에서 설정·해제한 잠금 상태를 현재 탭에도 즉시 반영
++    window.addEventListener('storage', this.handleLockoutStorage);
++  },
++
++  // ── 컴포넌트 소멸 시 인터벌 및 이벤트 리스너 정리 ──
 +  beforeUnmount() {
 +    this.clearLockoutTimer();
++    window.removeEventListener('storage', this.handleLockoutStorage);
    },
  
    async fetch() {
-@@ -173,14 +228,13 @@ export default {
+@@ -173,14 +240,13 @@ export default {
      const hasOthers = hasLocal && !!providers.find((x) => x !== 'local');
  
      if ( hasLocal ) {
@@ -14552,7 +14652,7 @@ index 2fa9f5a..865768f 100644
      this.customLoginError = JSON.parse(value).loginError;
      this.firstLogin = firstLoginSetting?.value === 'true';
      this.username = this.firstLogin ? 'admin' : this.username;
-@@ -192,21 +246,22 @@ export default {
+@@ -192,21 +258,22 @@ export default {
      this.$nextTick(() => {
        this.focusSomething();
      });
@@ -14579,7 +14679,7 @@ index 2fa9f5a..865768f 100644
          firstLoginSetting = await this.$store.dispatch('rancher/find', {
            type: NORMAN.SETTING,
            id:   SETTING.FIRST_LOGIN,
-@@ -234,9 +289,7 @@ export default {
+@@ -234,9 +301,7 @@ export default {
          setBrand(brand.value);
        }
  
@@ -14590,7 +14690,7 @@ index 2fa9f5a..865768f 100644
      },
  
      displayName(provider) {
-@@ -253,7 +306,6 @@ export default {
+@@ -253,7 +318,6 @@ export default {
  
      focusSomething() {
        if ( !this.showLocal ) {
@@ -14598,10 +14698,46 @@ index 2fa9f5a..865768f 100644
          return;
        }
  
-@@ -278,7 +330,61 @@ export default {
+@@ -278,7 +342,111 @@ export default {
        this.err = err;
      },
  
++    // ── 다른 탭에서 변경된 잠금 상태 동기화 ──
++    handleLockoutStorage(event) {
++      if (event.key !== STORAGE_KEY) {
++        return;
++      }
++
++      try {
++        const stored = JSON.parse(event.newValue || '{}');
++
++        if (stored.lockUntil && Date.now() < stored.lockUntil) {
++          // 다른 탭에서 잠금 발생: 즉시 현재 탭도 잠금
++          this.failCount = stored.failCount || MAX_FAIL_COUNT;
++          this.lockUntil = stored.lockUntil;
++          this.startLockoutTimer();
++        } else if (stored.attemptWindowUntil && Date.now() < stored.attemptWindowUntil) {
++          // 잠기기 전 실패 횟수는 내부 합산에만 사용한다.
++          // 다른 탭에는 로그인 시도 전 경고를 노출하지 않는다.
++          this.clearLockoutTimer();
++          this.failCount = 0;
++          this.lockUntil = null;
++          this.remainingSeconds = 0;
++        } else {
++          this.clearLockoutTimer();
++          this.failCount = 0;
++          this.lockUntil = null;
++          this.remainingSeconds = 0;
++        }
++      } catch (e) {
++        // localStorage 데이터가 올바르지 않으면 현재 탭의 잠금 상태를 초기화
++        this.clearLockoutTimer();
++        this.failCount = 0;
++        this.lockUntil = null;
++        this.remainingSeconds = 0;
++      }
++    },
++
 +    // ── 잠금 카운트다운 타이머 시작 ──
 +    startLockoutTimer() {
 +      this.clearLockoutTimer();
@@ -14616,7 +14752,7 @@ index 2fa9f5a..865768f 100644
 +          this.failCount  = 0;
 +          this.lockUntil  = null;
 +          this.remainingSeconds = 0;
-+          sessionStorage.removeItem(STORAGE_KEY);
++          localStorage.removeItem(STORAGE_KEY);
 +        }
 +      }, 1000);
 +    },
@@ -14629,23 +14765,37 @@ index 2fa9f5a..865768f 100644
 +      }
 +    },
 +
-+    // ── 로그인 실패 처리 ──
++    // ── 로그인 실패 처리: 동일 브라우저의 모든 탭에서 실패 횟수를 합산 ──
 +    handleLoginFailure() {
-+      this.failCount++;
++      const now = Date.now();
++      let stored = {};
++
++      try {
++        stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
++      } catch (e) { /* localStorage 접근 불가 시 현재 탭 값만 사용 */ }
++
++      // 기존 실패 기록이 10분 내에 있으면 해당 횟수부터 누적
++      const previousCount = stored.attemptWindowUntil && now < stored.attemptWindowUntil
++        ? (stored.failCount || 0)
++        : 0;
++
++      this.failCount = previousCount + 1;
++      const state = {
++        failCount:          this.failCount,
++        attemptWindowUntil: now + FAILURE_WINDOW_MINUTES * 60 * 1000,
++      };
 +
 +      if (this.failCount >= MAX_FAIL_COUNT) {
 +        // 잠금 설정
-+        this.lockUntil = Date.now() + LOCKOUT_MINUTES * 60 * 1000;
-+
-+        try {
-+          sessionStorage.setItem(STORAGE_KEY, JSON.stringify({
-+            failCount: this.failCount,
-+            lockUntil: this.lockUntil,
-+          }));
-+        } catch (e) { /* 무시 */ }
-+
++        this.lockUntil = now + LOCKOUT_MINUTES * 60 * 1000;
++        state.lockUntil = this.lockUntil;
 +        this.startLockoutTimer();
 +      }
++
++      try {
++        // 실패할 때마다 저장하여 다른 탭에서도 횟수가 합산되도록 함
++        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
++      } catch (e) { /* 무시 */ }
 +    },
 +
      async loginLocal(buttonCb) {
@@ -14660,7 +14810,7 @@ index 2fa9f5a..865768f 100644
        try {
          await this.$store.dispatch('auth/login', {
            provider: 'local',
-@@ -287,14 +393,42 @@ export default {
+@@ -287,14 +455,42 @@ export default {
              password: this.password
            }
          });
@@ -14671,13 +14821,13 @@ index 2fa9f5a..865768f 100644
 +        this.timedOut = null;
 +        this.loggedOut = null;
 +        buttonCb(false);
-+
-+        return;
-+      }
  
 -        const user = await this.$store.dispatch('rancher/findAll', {
 -          type: NORMAN.USER,
 -          opt:  { url: '/v3/users?me=true', load: _MULTI }
++        return;
++      }
++
 +      // ── Step 2: 인증 성공 후 후속 처리 (실패해도 카운트 증가 없음) ──
 +      try {
 +        // 로그인 성공 시 잠금 상태 및 에러 메시지 초기화
@@ -14687,7 +14837,7 @@ index 2fa9f5a..865768f 100644
 +        this.timedOut = null;
 +        this.loggedOut = null;
 +        this.clearLockoutTimer();
-+        sessionStorage.removeItem(STORAGE_KEY);
++        localStorage.removeItem(STORAGE_KEY);
 +
 +        let mgmtUser;
 +        const selfUser = await this.$store.dispatch('management/request', {
@@ -14708,7 +14858,7 @@ index 2fa9f5a..865768f 100644
          }
  
          if ( this.remember ) {
-@@ -313,27 +447,23 @@ export default {
+@@ -313,27 +509,23 @@ export default {
            this.$store.commit('cookies/remove', { key: USERNAME });
          }
  
@@ -14744,7 +14894,7 @@ index 2fa9f5a..865768f 100644
        }
      },
    }
-@@ -375,10 +505,23 @@ export default {
+@@ -375,10 +567,23 @@ export default {
          <div
            class="login-messages"
            data-testid="login__messages"
@@ -14770,7 +14920,7 @@ index 2fa9f5a..865768f 100644
              :label="errorToDisplay"
              color="error"
            />
-@@ -405,41 +548,6 @@ export default {
+@@ -405,41 +610,6 @@ export default {
              k="setup.defaultPassword.intro"
              :raw="true"
            />
@@ -14812,7 +14962,7 @@ index 2fa9f5a..865768f 100644
            <CopyCode>
              {{ kubectlCmd }}
            </CopyCode>
-@@ -483,6 +591,7 @@ export default {
+@@ -483,6 +653,7 @@ export default {
                    data-testid="local-login-username"
                    :label="t('login.username')"
                    autocomplete="username"
@@ -14820,7 +14970,7 @@ index 2fa9f5a..865768f 100644
                  />
                </div>
                <div class="">
-@@ -492,6 +601,7 @@ export default {
+@@ -492,6 +663,7 @@ export default {
                    data-testid="local-login-password"
                    :label="t('login.password')"
                    autocomplete="current-password"
@@ -14828,7 +14978,7 @@ index 2fa9f5a..865768f 100644
                  />
                </div>
              </div>
-@@ -505,6 +615,7 @@ export default {
+@@ -505,6 +677,7 @@ export default {
                    :waiting-label="t('login.loggingIn')"
                    :success-label="t('login.loggedIn')"
                    :error-label="t('asyncButton.default.error')"
@@ -14836,7 +14986,7 @@ index 2fa9f5a..865768f 100644
                    @click="loginLocal"
                  />
                  <div
-@@ -568,7 +679,7 @@ export default {
+@@ -568,7 +741,7 @@ export default {
  <style lang="scss" scoped>
    .login {
      overflow: hidden;
@@ -14845,6 +14995,111 @@ index 2fa9f5a..865768f 100644
  
      .row {
        align-items: center;
+diff --git a/node_modules/@rancher/shell/pages/auth/setup.vue b/node_modules/@rancher/shell/pages/auth/setup.vue
+index 30807b0..83901b8 100644
+--- a/node_modules/@rancher/shell/pages/auth/setup.vue
++++ b/node_modules/@rancher/shell/pages/auth/setup.vue
+@@ -11,7 +11,7 @@ import { getVendor, getProduct, setVendor } from '@shell/config/private-label';
+ import { RadioGroup } from '@components/Form/Radio';
+ import { setSetting } from '@shell/utils/settings';
+ import { SETTING } from '@shell/config/settings';
+-import { exceptionToErrorsArray } from '@shell/utils/error';
++import { exceptionToErrorsArray, translateErrorMessage } from '@shell/utils/error';
+ import Password from '@shell/components/form/Password';
+ import { applyProducts } from '@shell/store/type-map';
+ import BrandImage from '@shell/components/BrandImage';
+@@ -22,6 +22,8 @@ import isUrl from 'is-url';
+ import { isLocalhost } from '@shell/utils/validators/setting';
+ import Loading from '@shell/components/Loading';
+ 
++const FORBIDDEN_CHARS = ['#', '$', '"', "'", '\\', ';', '&'];
++
+ const calcIsFirstLogin = (store) => {
+   const firstLoginSetting = store.getters['management/byId'](MANAGEMENT.SETTING, SETTING.FIRST_LOGIN);
+ 
+@@ -167,7 +169,7 @@ export default {
+         }
+ 
+         if ( !this.useRandom ) {
+-          if ( !this.password || this.password !== this.confirm ) {
++          if ( !this.password || this.password !== this.confirm || this.hasForbiddenChars(this.password) ) {
+             return false;
+           }
+         }
+@@ -205,6 +207,12 @@ export default {
+   },
+ 
+   methods: {
++    hasForbiddenChars(val) {
++      if (!val) return false;
++
++      return FORBIDDEN_CHARS.some(char => val.includes(char));
++    },
++
+     async save(buttonCb) {
+       const promises = [];
+ 
+@@ -213,6 +221,13 @@ export default {
+         await this.$store.dispatch('loadManagement');
+ 
+         if ( this.mustChangePassword ) {
++          if (!this.useRandom && this.hasForbiddenChars(this.password)) {
++            buttonCb(false);
++            this.errors = ['비밀번호에 금지된 특수문자(#, $, ", \', \\, ;, &)가 포함되어 있습니다.'];
++
++            return;
++          }
++
+           await this.$store.dispatch('rancher/request', {
+             url:    '/v3/users?action=changepassword',
+             method: 'post',
+@@ -247,7 +262,9 @@ export default {
+       } catch (err) {
+         console.error(err) ; // eslint-disable-line no-console
+         buttonCb(false);
+-        this.errors = exceptionToErrorsArray(err);
++        const rawErrors = exceptionToErrorsArray(err);
++
++        this.errors = rawErrors.map(e => translateErrorMessage(e));
+       }
+     },
+ 
+@@ -347,14 +364,27 @@ export default {
+                 :required="true"
+               />
+             </div>
+-            <Password
+-              v-show="!useRandom"
+-              v-model:value.trim="confirm"
+-              autocomplete="new-password"
+-              data-testid="setup-password-confirm"
+-              :label="t('setup.confirmPassword')"
+-              :required="true"
+-            />
++            <div
++              v-if="!useRandom"
++              class="mb-20"
++            >
++              <Password
++                v-model:value.trim="confirm"
++                autocomplete="new-password"
++                data-testid="setup-password-confirm"
++                :label="t('setup.confirmPassword')"
++                :required="true"
++              />
++              <div class="text-label text-small mt-5">
++                ※ 사용 금지 특수문자: #, $, ", ', \, ;, &amp;
++              </div>
++              <Banner
++                v-if="hasForbiddenChars(password)"
++                color="error"
++                label="비밀번호에 금지된 특수문자(#, $, &quot;, ', \, ;, &amp;)가 포함되어 있습니다."
++                class="mt-10 mb-10"
++              />
++            </div>
+           </template>
+ 
+           <template v-if="isFirstLogin">
 diff --git a/node_modules/@rancher/shell/pages/prefs.vue b/node_modules/@rancher/shell/pages/prefs.vue
 index ae4b7eb..41dfa71 100644
 --- a/node_modules/@rancher/shell/pages/prefs.vue
@@ -15507,3 +15762,76 @@ index d86783c..adb172c 100644
      }
    }
  };
+diff --git a/node_modules/@rancher/shell/utils/error.js b/node_modules/@rancher/shell/utils/error.js
+index 020f0ea..4949e0b 100644
+--- a/node_modules/@rancher/shell/utils/error.js
++++ b/node_modules/@rancher/shell/utils/error.js
+@@ -87,22 +87,63 @@ export function stringify(err) {
+   return str;
+ }
+ 
++export function translateErrorMessage(err) {
++  if (!err) return err;
++
++  let messageStr = '';
++
++  if (typeof err === 'string') {
++    messageStr = err;
++  } else if (typeof err === 'object') {
++    if (typeof err.message === 'string') {
++      messageStr = err.message;
++    } else if (typeof err.detail === 'string') {
++      messageStr = err.detail;
++    } else if (typeof err.response?.data?.message === 'string') {
++      messageStr = err.response.data.message;
++    } else {
++      try {
++        messageStr = String(err);
++      } catch {
++        messageStr = '';
++      }
++    }
++  }
++
++  if (messageStr) {
++    const match = messageStr.match(/password must be at least (\d+) characters/i);
++
++    if (match) {
++      return `비밀번호는 최소 ${ match[1] }자 이상이어야 합니다.`;
++    }
++    if (/password/i.test(messageStr) && /at least/i.test(messageStr)) {
++      return '비밀번호는 최소 12자 이상이어야 합니다.';
++    }
++  }
++
++  return err;
++}
++
+ export function exceptionToErrorsArray(err) {
++  let res;
++
+   if ( err?.response?.data ) {
+     const body = err.response.data;
+ 
+     if ( body && body.message ) {
+-      return [body.message];
++      res = [body.message];
+     } else {
+-      return [err];
++      res = [err];
+     }
+   } else if (err.status && err.message) {
+-    return [err.message];
++    res = [err.message];
+   } else if ( isArray(err) ) {
+-    return err;
++    res = err;
+   } else {
+-    return [err];
++    res = [err];
+   }
++
++  return res.map(e => translateErrorMessage(e));
+ }
+ 
+ /**
