@@ -1,12 +1,15 @@
 FROM node:24-alpine AS builder
 
+# git 및 필수 빌드 도구 설치
+RUN apk add --no-cache git bash
+
 WORKDIR /src
 
 COPY . .
 
 # build-embedded 스크립트 실행 (latest-embedded 및 latest.tar.gz 생성)
 ENV NODE_OPTIONS="--max-old-space-size=8192"
-RUN apk add --no-cache bash && bash scripts/build-embedded
+RUN bash scripts/build-embedded
 
 FROM rancher/harvester:v1.8.1
 WORKDIR /var/lib/harvester
