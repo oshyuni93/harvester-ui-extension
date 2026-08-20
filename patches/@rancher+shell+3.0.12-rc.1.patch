@@ -1,0 +1,127 @@
+diff --git a/node_modules/@rancher/shell/assets/brand/harvester/favicon.png b/node_modules/@rancher/shell/assets/brand/harvester/favicon.png
+index d2b5eb3..e45f919 100644
+Binary files a/node_modules/@rancher/shell/assets/brand/harvester/favicon.png and b/node_modules/@rancher/shell/assets/brand/harvester/favicon.png differ
+diff --git a/node_modules/@rancher/shell/assets/csp/favicon.png b/node_modules/@rancher/shell/assets/csp/favicon.png
+index e69de29..2afa47d 100644
+Binary files a/node_modules/@rancher/shell/assets/csp/favicon.png and b/node_modules/@rancher/shell/assets/csp/favicon.png differ
+diff --git a/node_modules/@rancher/shell/assets/harvester/favicon.png b/node_modules/@rancher/shell/assets/harvester/favicon.png
+index e69de29..e45f919 100644
+Binary files a/node_modules/@rancher/shell/assets/harvester/favicon.png and b/node_modules/@rancher/shell/assets/harvester/favicon.png differ
+diff --git a/node_modules/@rancher/shell/assets/images/pl/harvester.png b/node_modules/@rancher/shell/assets/images/pl/harvester.png
+index d2b5eb3..e45f919 100644
+Binary files a/node_modules/@rancher/shell/assets/images/pl/harvester.png and b/node_modules/@rancher/shell/assets/images/pl/harvester.png differ
+diff --git a/node_modules/@rancher/shell/assets/suse/favicon.png b/node_modules/@rancher/shell/assets/suse/favicon.png
+index e69de29..ca8d917 100644
+Binary files a/node_modules/@rancher/shell/assets/suse/favicon.png and b/node_modules/@rancher/shell/assets/suse/favicon.png differ
+diff --git a/node_modules/@rancher/shell/components/nav/Header.vue b/node_modules/@rancher/shell/components/nav/Header.vue
+index 8579b6e..c086d56 100644
+--- a/node_modules/@rancher/shell/components/nav/Header.vue
++++ b/node_modules/@rancher/shell/components/nav/Header.vue
+@@ -583,6 +583,29 @@ export default {
+         <NamespaceFilter v-if="clusterReady && currentProduct && (currentProduct.showNamespaceFilter || isExplorer)" />
+         <WorkspaceSwitcher v-else-if="clusterReady && currentProduct && currentProduct.showWorkspaceSwitcher && showWorkspaceSwitcher" />
+       </div>
++
++      <div class="header-buttons" style="margin-left: 10px;">
++        <!--
++        <a
++          href="http://localhost:8000/" 
++          target="_blank"
++          class="btn header-btn role-tertiary"
++          style="display: flex; align-items: center; text-decoration: none; font-weight: 500;"
++        >
++          Docs
++          <i class="icon icon-external-link" style="margin-left: 5px; font-size: 14px;" />
++        </a>
++        -->
++        <a
++          href="/dashboard/docs/index.html" 
++          target="_blank"
++          class="btn header-btn role-tertiary"
++          style="display: flex; align-items: center; text-decoration: none; font-weight: 500;"
++        >
++          Docs
++        </a>
++      </div>
++      
+       <div
+         v-if="currentCluster && !simple"
+         class="header-buttons"
+diff --git a/node_modules/@rancher/shell/config/private-label.js b/node_modules/@rancher/shell/config/private-label.js
+index c9cb8ff..95f0ba5 100644
+--- a/node_modules/@rancher/shell/config/private-label.js
++++ b/node_modules/@rancher/shell/config/private-label.js
+@@ -5,13 +5,13 @@ import { requireAsset } from '@shell/utils/require-asset';
+ export const ANY = 0;
+ export const STANDARD = 1;
+ export const CUSTOM = 2;
+-export const DOCS_BASE = `https://ranchermanager.docs.rancher.com/v${ CURRENT_RANCHER_VERSION }`;
++export const DOCS_BASE = `https://ranchermanager.docs.rancher.com/v${CURRENT_RANCHER_VERSION}`;
+ 
+-const STANDARD_VENDOR = 'Rancher';
++const STANDARD_VENDOR = 'Infinitystack';
+ const STANDARD_PRODUCT = 'Explorer';
+ const CUSTOM_VENDOR = {
+   suse: 'Rancher Prime',
+-  csp:  'SUSE Rancher'
++  csp: 'SUSE Rancher'
+ };
+ 
+ let mode = STANDARD;
+@@ -51,7 +51,7 @@ export function isStandard() {
+ }
+ 
+ export function matches(pl) {
+-  if ( pl === ANY ) {
++  if (pl === ANY) {
+     return true;
+   }
+ 
+@@ -59,7 +59,10 @@ export function matches(pl) {
+ }
+ 
+ export function getVendor() {
+-  if ( vendor === SETTING.PL_RANCHER_VALUE ) {
++  if (vendor === 'Harvester')
++    return STANDARD_VENDOR;
++
++  if (vendor === SETTING.PL_RANCHER_VALUE) {
+     // Custom vendor override based on brand
+     if (brand && CUSTOM_VENDOR[brand]) {
+       return CUSTOM_VENDOR[brand];
+@@ -78,10 +81,10 @@ export function getProduct() {
+ export function setTitle() {
+   const v = getVendor();
+ 
+-  if (v === 'Harvester') {
++  if (v === 'Infinitystack' || v === 'Harvester') {
+     const ico = requireAsset(`~shell/assets/images/pl/harvester.png`);
+ 
+-    document.title = 'Harvester';
++    document.title = 'Infinitystack';
+     const link = document.createElement('link');
+ 
+     link.hid = 'icon';
+diff --git a/node_modules/@rancher/shell/public/index.html b/node_modules/@rancher/shell/public/index.html
+index b3c58dc..59a74da 100644
+--- a/node_modules/@rancher/shell/public/index.html
++++ b/node_modules/@rancher/shell/public/index.html
+@@ -6,7 +6,7 @@
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+     <link rel="shortcut icon" type="image/x-icon" href="/favicon.png">
+-    <title>Rancher</title>
++    <title>Infinitystack</title>
+ </head>
+ 
+ <body>
+diff --git a/node_modules/@rancher/shell/static/favicon.ico b/node_modules/@rancher/shell/static/favicon.ico
+old mode 100755
+new mode 100644
+index 09b2909..2da0d95
+Binary files a/node_modules/@rancher/shell/static/favicon.ico and b/node_modules/@rancher/shell/static/favicon.ico differ
+diff --git a/node_modules/@rancher/shell/static/favicon.png b/node_modules/@rancher/shell/static/favicon.png
+old mode 100755
+new mode 100644
+index c200f59..e45f919
+Binary files a/node_modules/@rancher/shell/static/favicon.png and b/node_modules/@rancher/shell/static/favicon.png differ

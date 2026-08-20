@@ -1,0 +1,49 @@
+name: "[PR Management] Request Backport via Mergify"
+
+on:
+  pull_request_target:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  comment-backport:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.base_ref }}
+
+      - name: Post Mergify backport command
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          pr_number=${{ github.event.pull_request.number }}
+          repo="${{ github.repository }}"
+
+          labels_json='${{ toJson(github.event.pull_request.labels.*.name) }}'
+          labels=$(echo "$labels_json" | jq -r '.[] // empty')
+
+          echo "Labels on PR: $labels"
+
+          matches=$(echo "$labels" | grep -oE '^require backport/v[0-9]+\.[0-9]+$' || true)
+
+          if [[ -z "$matches" ]]; then
+            echo "No back‑port labels found — skipping."
+            exit 0
+          fi
+
+          branches=$(echo "$matches" \
+            | sed -E 's/^require backport\/v/release-harvester-v/' \
+            | sort -u | tr '\n' ' ')
+          branches=${branches%% }
+
+          cmd="@Mergifyio backport $branches"
+          echo "Posting Mergify command: $cmd"
+          gh pr comment "$pr_number" --repo "$repo" --body "$cmd"
