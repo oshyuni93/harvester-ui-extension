@@ -10,8 +10,8 @@ import { OS } from './index';
 
 export const QGA_JSON = {
   package_update: true,
-  packages:       ['qemu-guest-agent'],
-  runcmd:         [
+  packages: ['qemu-guest-agent'],
+  runcmd: [
     [
       'systemctl',
       'enable',
@@ -24,16 +24,37 @@ export const QGA_JSON = {
 export const QGA_MAP = { default: 'qemu-guest-agent.service' };
 
 export const USB_TABLET = [{
-  bus:  'usb',
+  bus: 'usb',
   name: 'tablet',
   type: 'tablet'
 }];
 
 export const SSH_EXISTING_TYPE = {
-  EXISTING_ALL:             'EXISTING_ALL',
+  EXISTING_ALL: 'EXISTING_ALL',
   EXISTING_ONLY_ANNOTATION: 'EXISTING_ANNOTATION',
-  EXISTING_ONLY_CLOUD:      'EXISTING_CLOUD',
+  EXISTING_ONLY_CLOUD: 'EXISTING_CLOUD',
 };
+
+// 네트워크 인터페이스 이름 추출 함수
+export function getInterfaceNamesFromSpec(spec) {
+  const interfaces = spec?.template?.spec?.domain?.devices?.interfaces || [];
+
+  return interfaces.map((i) => i.name);
+}
+
+// cloud-init network 섹션 생성 함수
+export function buildNetworkConfig(interfaceNames = ['eth0']) {
+  const ethernets = {};
+
+  interfaceNames.forEach((name) => {
+    ethernets[name] = { dhcp4: true, dhcp6: false };
+  });
+
+  return {
+    version: 2,
+    ethernets,
+  };
+}
 
 export default {
   methods: {
@@ -65,9 +86,9 @@ export default {
 
     getSSHValue(id) {
       const inStore = this.$store.getters['currentProduct'].inStore;
-      const sshs = this.$store.getters[`${ inStore }/all`](HCI.SSH) || [];
+      const sshs = this.$store.getters[`${inStore}/all`](HCI.SSH) || [];
 
-      return sshs.find( (O) => O.id === id)?.spec?.publicKey || undefined;
+      return sshs.find((O) => O.id === id)?.spec?.publicKey || undefined;
     },
 
     getOsType(vm) {
@@ -117,7 +138,7 @@ export default {
         return oldValue;
       }
 
-      return dataFormat?.packages?.includes('qemu-guest-agent') && !!dataFormat?.runcmd?.find( (S) => Array.isArray(S) && S.join('-') === _QGA_JSON.runcmd[0].join('-'));
+      return dataFormat?.packages?.includes('qemu-guest-agent') && !!dataFormat?.runcmd?.find((S) => Array.isArray(S) && S.join('-') === _QGA_JSON.runcmd[0].join('-'));
     },
 
     isInstallUSBTablet(spec) {
@@ -161,7 +182,7 @@ export default {
       let userData = secret?.decodedData?.userdata;
       let networkData = secret?.decodedData?.networkdata;
 
-      const cloudInitNoCloud = spec?.template?.spec?.volumes?.find( (V) => {
+      const cloudInitNoCloud = spec?.template?.spec?.volumes?.find((V) => {
         return V.name === 'cloudinitdisk';
       })?.cloudInitNoCloud || {};
 
@@ -180,11 +201,11 @@ export default {
     },
 
     getSecret(spec) {
-      const cloudInitNoCloud = spec?.template?.spec?.volumes?.find( (V) => {
+      const cloudInitNoCloud = spec?.template?.spec?.volumes?.find((V) => {
         return V.name === 'cloudinitdisk';
       })?.cloudInitNoCloud || {};
       const inStore = this.$store.getters['currentProduct'].inStore;
-      const secrets = this.$store.getters[`${ inStore }/all`](SECRET) || [];
+      const secrets = this.$store.getters[`${inStore}/all`](SECRET) || [];
 
       const secretName = cloudInitNoCloud?.secretRef?.name || cloudInitNoCloud?.networkDataSecretRef?.name;
 
@@ -195,7 +216,7 @@ export default {
 
     getAccessCredentials(spec) {
       const inStore = this.$store.getters['currentProduct'].inStore;
-      const secrets = this.$store.getters[`${ inStore }/all`](SECRET) || [];
+      const secrets = this.$store.getters[`${inStore}/all`](SECRET) || [];
       const credentials = spec?.template?.spec?.accessCredentials || [];
       const annotations = JSON.parse(spec.template.metadata?.annotations?.[HCI_ANNOTATIONS.DYNAMIC_SSHKEYS_NAMES] || '[]');
 
@@ -272,14 +293,14 @@ export default {
       let out = [];
 
       const inStore = this.$store.getters['currentProduct'].inStore;
-      const allSSHs = this.$store.getters[`${ inStore }/all`](HCI.SSH) || [];
+      const allSSHs = this.$store.getters[`${inStore}/all`](HCI.SSH) || [];
 
       out = (keys || []).map((id) => {
         const hasSSHResource = allSSHs.find((ssh) => ssh.id === id);
 
         if (hasSSHResource) {
           return {
-            id:   hasSSHResource.id,
+            id: hasSSHResource.id,
             data: hasSSHResource,
             type: SSH_EXISTING_TYPE.EXISTING_ALL
           };
@@ -294,18 +315,18 @@ export default {
 
       const _userDataSSH = this.getSSHFromUserData(userData);
 
-      _userDataSSH.map( (sshValue) => {
+      _userDataSSH.map((sshValue) => {
         const hasSSHResource = allSSHs.find((ssh) => this.compareSSHValue(sshValue, ssh.spec?.publicKey));
 
         if (hasSSHResource && !out.find((O) => O.id === hasSSHResource.id)) {
           out.push({
-            id:   hasSSHResource.id,
+            id: hasSSHResource.id,
             data: hasSSHResource,
             type: SSH_EXISTING_TYPE.EXISTING_ALL
           });
         } else if (!hasSSHResource) {
           out.push({
-            id:   'Unknown',
+            id: 'Unknown',
             data: sshValue,
             type: SSH_EXISTING_TYPE.EXISTING_ONLY_CLOUD
           });
