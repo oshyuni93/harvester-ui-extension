@@ -1,0 +1,108 @@
+site_name: Infinitystack 사용자 가이드
+site_description: Infinitystack HCI 사용자 가이드 - 연결과 혁신의 순간
+site_author: BGROUND 기술연구소
+copyright: Copyright 2025. BGROUND Co.,Ltd. All rights reserved.
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  language: ko
+  favicon: images/favicon.png
+  logo: images/logo-white.png
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-7
+        name: 다크 모드로 전환
+    - scheme: slate
+      primary: indigo
+      accent: blue
+      toggle:
+        icon: material/brightness-4
+        name: 라이트 모드로 전환
+  font:
+    text: Noto Sans KR
+    code: Roboto Mono
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+    - toc.integrate
+  icon:
+    repo: fontawesome/brands/github
+
+extra:
+  social:
+    - icon: fontawesome/solid/globe
+      link: https://www.bground.ai
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji
+  - tables
+  - toc:
+      permalink: true
+  - attr_list
+
+nav:
+  - 홈: index.md
+  - 1. 로그인: 01_login/index.md
+  - 2. 사용자정의:  02_custom/index.md
+  - 3. 네트워크:
+      - 개요: 03_network/index.md
+      - VM 네트워크 구성: 03_network/vlan.md
+      - Storage 네트워크 구성: 03_network/storage_network.md
+      - Static IP 할당: 03_network/static_ip.md
+  - 4. 이미지: 04_image/index.md
+  - 5. SSH 키: 05_ssh/index.md
+  - 6. 가상머신:
+      - 개요: 06_vm/index.md
+      - VM 생성: 06_vm/create.md
+      - Static IP 할당: 06_vm/static_ip.md
+      - 볼륨 추가 및 마운트: 06_vm/volume.md
+      - 스냅샷 및 백업: 06_vm/snapshot_backup.md
+  - 7. 볼륨: 07_volume/index.md
+  - 8. 로드밸런서: 
+      - 개요: 08_lb/index.md
+      - IP 풀 구성: 08_lb/ip_pool.md
+      - 로드밸런서 생성: 08_lb/create.md
+  - 9. 백업: 
+      - 개요: 09_backup/index.md
+      - 백업 서버 구축: 09_backup/setup.md
+      - 백업 설정 및 복원: 09_backup/config.md
+  - 10. Windows:
+      - 개요: 10_windows_vm/index.md
+      - 이미지 관리:
+          - ISO 이미지 등록: 10_windows_vm/image_register.md
+          - 이미지 상태 점검: 10_windows_vm/image_status.md
+      - ISO 기반 VM 생성:
+          - 개요: 10_windows_vm/iso_vm_overview.md
+          - 기본 정보 설정: 10_windows_vm/iso_vm_basic.md
+          - 볼륨 및 네트워크 설정: 10_windows_vm/iso_vm_network.md
+          - Windows OS 설치: 10_windows_vm/iso_vm_install.md
+          - qemu-ga 수동 설치: 10_windows_vm/iso_vm_qemuga.md
+          - 원격 접속 설정: 10_windows_vm/iso_vm_remote.md
+          - VM 재시작: 10_windows_vm/iso_vm_restart.md
+      - QCOW 기반 VM 생성:
+          - 개요: 10_windows_vm/qcow_vm_overview.md
+          - VM 생성: 10_windows_vm/qcow_vm_create.md
+          - Console 접속: 10_windows_vm/qcow_vm_console.md

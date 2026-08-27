@@ -1,0 +1,41 @@
+FROM node:24-alpine AS builder
+
+# git 및 필수 빌드 도구 설치
+RUN apk add --no-cache git bash
+
+WORKDIR /src
+
+COPY . .
+
+# build-embedded 스크립트 실행 (latest-embedded 및 latest.tar.gz 생성)
+ENV NODE_OPTIONS="--max-old-space-size=8192"
+RUN bash scripts/build-embedded
+
+FROM rancher/harvester:v1.8.2
+WORKDIR /var/lib/harvester
+
+# 빌더에서 생성된 v1.8.2.tar.gz를 복사하고 압축 해제
+COPY --from=builder /src/dist/latest.tar.gz /tmp/v1.8.2.tar.gz
+
+# 기존 UI 파일을 삭제하고, 새로 빌드된 UI 파일의 압축을 해제합니다.
+RUN rm -rf /usr/share/harvester/harvester/fonts \
+    /usr/share/harvester/harvester/img \
+    /usr/share/harvester/harvester/js \
+    /usr/share/harvester/harvester/favicon.ico \
+    /usr/share/harvester/harvester/favicon.png \
+    /usr/share/harvester/harvester/docs \
+    /usr/share/harvester/harvester/index.html \
+    /usr/share/harvester/harvester/loading-indicator.html && \
+    tar -xzf /tmp/v1.8.1.tar.gz -C /usr/share/harvester/harvester --strip-components=2 && \
+    rm /tmp/v1.8.1.tar.gz
+
+# 원하는 favicon을 직접 덮어쓰기
+COPY custom-static/favicon.ico /usr/share/harvester/harvester/favicon.ico
+COPY custom-static/favicon.png /usr/share/harvester/harvester/favicon.png
+COPY custom-static/docs      /usr/share/harvester/harvester/docs/
+
+# img 폴더 내 해시가 붙은 favicon과 harvester 파일명을 찾아서 custom-static 파일로 덮어쓰기
+RUN find /usr/share/harvester/harvester/img -name "favicon.*.png" -exec cp /usr/share/harvester/harvester/favicon.png {} \; 2>/dev/null || true; \
+    find /usr/share/harvester/harvester/img -name "harvester.*.png" -exec cp /usr/share/harvester/harvester/harvester.png {} \; 2>/dev/null || true
+
+ENV RANCHER_ENV="harvester"
