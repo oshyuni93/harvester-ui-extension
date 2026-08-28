@@ -26,8 +26,8 @@ RUN rm -rf /usr/share/harvester/harvester/fonts \
     /usr/share/harvester/harvester/docs \
     /usr/share/harvester/harvester/index.html \
     /usr/share/harvester/harvester/loading-indicator.html && \
-    tar -xzf /tmp/v1.8.1.tar.gz -C /usr/share/harvester/harvester --strip-components=2 && \
-    rm /tmp/v1.8.1.tar.gz
+    tar -xzf /tmp/v1.8.2.tar.gz -C /usr/share/harvester/harvester --strip-components=2 && \
+    rm /tmp/v1.8.2.tar.gz
 
 # 원하는 favicon을 직접 덮어쓰기
 COPY custom-static/favicon.ico /usr/share/harvester/harvester/favicon.ico
