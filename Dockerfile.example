@@ -36,6 +36,6 @@ COPY custom-static/docs      /usr/share/harvester/harvester/docs/
 
 # img 폴더 내 해시가 붙은 favicon과 harvester 파일명을 찾아서 custom-static 파일로 덮어쓰기
 RUN find /usr/share/harvester/harvester/img -name "favicon.*.png" -exec cp /usr/share/harvester/harvester/favicon.png {} \; 2>/dev/null || true; \
-    find /usr/share/harvester/harvester/img -name "harvester.*.png" -exec cp /usr/share/harvester/harvester/harvester.png {} \; 2>/dev/null || true
+    find /usr/share/harvester/harvester/img -name "harvester.*.png" -exec cp /usr/share/harvester/harvester/favicon.png {} \; 2>/dev/null || true
 
 ENV RANCHER_ENV="harvester"
