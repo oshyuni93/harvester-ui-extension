@@ -34,8 +34,8 @@ COPY custom-static/favicon.ico /usr/share/harvester/harvester/favicon.ico
 COPY custom-static/favicon.png /usr/share/harvester/harvester/favicon.png
 COPY custom-static/docs      /usr/share/harvester/harvester/docs/
 
-# img 폴더 내 해시가 붙은 favicon과 harvester 파일명을 찾아서 custom-static 파일로 덮어쓰기
-RUN find /usr/share/harvester/harvester/img -name "favicon.*.png" -exec cp /usr/share/harvester/harvester/favicon.png {} \; 2>/dev/null || true; \
-    find /usr/share/harvester/harvester/img -name "harvester.*.png" -exec cp /usr/share/harvester/harvester/favicon.png {} \; 2>/dev/null || true
+# img/favicon.png 파일 하나로 favicon.*.png 및 harvester.*.png 파일들을 모두 덮어쓰기
+RUN find /usr/share/harvester/harvester/img -type f -name "favicon.*.png" ! -name "favicon.png" -exec cp -f /usr/share/harvester/harvester/img/favicon.png {} \; ; \
+    find /usr/share/harvester/harvester/img -type f -name "harvester.*.png" -exec cp -f /usr/share/harvester/harvester/img/favicon.png {} \;
 
 ENV RANCHER_ENV="harvester"
