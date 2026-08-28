@@ -2944,7 +2944,7 @@ index 7d5d527..08ec4c9 100644
 +  <path class="cls-4" d="M274.37,111.15c-.39-1.06-.65-2.15-.68-3.29-.12-4.34,1.46-6.49,5.62-7.82,5.71-1.83,10.48-5.02,14.04-9.94,2.62-3.61,4.89-7.45,7.42-11.12.2-.3.4-.59.6-.89,6.61-9.54,17.94-11.15,27.11-3.9,3.54,2.8,6.21,6.37,9.01,9.83,1.26,1.55,2.56,3.07,3.81,4.62,2.31,2.87,5.39,3.75,8.9,3.48,3.07-.24,5.46.88,7.38,3.25.89,1.1,1.09,2.4,1.39,3.69,4.7,27.47-79.81,26.47-84.6,12.1Z"/>
  </svg>
 diff --git a/node_modules/@rancher/shell/assets/images/pl/harvester.png b/node_modules/@rancher/shell/assets/images/pl/harvester.png
-index d2b5eb3..e45f919 100644
+index d2b5eb3..3efb078 100644
 Binary files a/node_modules/@rancher/shell/assets/images/pl/harvester.png and b/node_modules/@rancher/shell/assets/images/pl/harvester.png differ
 diff --git a/node_modules/@rancher/shell/assets/images/pl/harvester.svg b/node_modules/@rancher/shell/assets/images/pl/harvester.svg
 index 42b37c1..d95ab95 100644
@@ -14716,16 +14716,6 @@ index b3c58dc..59a74da 100644
  </head>
  
  <body>
-diff --git a/node_modules/@rancher/shell/static/favicon.ico b/node_modules/@rancher/shell/static/favicon.ico
-old mode 100755
-new mode 100644
-index 09b2909..2da0d95
-Binary files a/node_modules/@rancher/shell/static/favicon.ico and b/node_modules/@rancher/shell/static/favicon.ico differ
-diff --git a/node_modules/@rancher/shell/static/favicon.png b/node_modules/@rancher/shell/static/favicon.png
-old mode 100755
-new mode 100644
-index c200f59..e45f919
-Binary files a/node_modules/@rancher/shell/static/favicon.png and b/node_modules/@rancher/shell/static/favicon.png differ
 diff --git a/node_modules/@rancher/shell/store/i18n.js b/node_modules/@rancher/shell/store/i18n.js
 index bbea6f6..bc0a652 100644
 --- a/node_modules/@rancher/shell/store/i18n.js
