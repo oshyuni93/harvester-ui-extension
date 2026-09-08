@@ -48,8 +48,39 @@ export default {
   />
 </template>
 
-<style>
-HTML, BODY, MAIN, #__nuxt, #__layout, #app, .vm-console, .vm-console > DIV, .vm-console > DIV > DIV {
-  height: 100%;
+<style lang="scss" scoped>
+.novnc-wrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: #141419;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  :deep(#app),
+  :deep(.vm-console) {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #141419;
+  }
+
+  :deep(.combination-keys) {
+    flex: 0 0 34px;
+    height: 34px;
+  }
+
+  :deep(.novnc-console),
+  :deep(.novnc-view) {
+    flex: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+  }
 }
 </style>

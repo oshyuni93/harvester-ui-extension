@@ -376,7 +376,8 @@ export default {
   .vm-console {
     height: 100%;
     display: grid;
-    grid-template-rows: 30px auto;
+    grid-template-rows: 30px 1fr;
+    background-color: #141419;
   }
 
   .combination-keys {

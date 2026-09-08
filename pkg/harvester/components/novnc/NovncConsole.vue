@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="novnc-console">
     <div v-if="connected && disconnected">
       <main class="main-layout error">
         <div class="text-center">
@@ -28,6 +28,7 @@
     </div>
     <div
       ref="view"
+      class="novnc-view"
     />
   </div>
 </template>
@@ -72,6 +73,8 @@ export default {
   methods: {
     connect() {
       const rfb = new RFB(this.$refs.view, this.url);
+
+      rfb.scaleViewport = true;
 
       rfb.addEventListener('connect', () => {
         this.clearTimeout();
@@ -133,6 +136,33 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .novnc-console {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: #000;
+  }
+
+  .novnc-view {
+    height: 100%;
+    width: 100%;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    :deep(div) {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   .error {
     overflow: hidden;
 
