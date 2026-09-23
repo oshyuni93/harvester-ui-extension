@@ -137,8 +137,8 @@ export default {
 
 <style lang="scss" scoped>
   .novnc-console {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     display: flex;
     flex-direction: column;
     flex: 1;

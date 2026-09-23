@@ -374,7 +374,7 @@ export default {
 
 <style lang="scss" scoped>
   .vm-console {
-    height: 100%;
+    height: 90%;
     display: grid;
     grid-template-rows: 30px 1fr;
     background-color: #141419;
