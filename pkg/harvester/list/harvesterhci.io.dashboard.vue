@@ -109,6 +109,7 @@ const RESOURCES = [{
 const CLUSTER_METRICS_DETAIL_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/rancher-cluster-nodes-1/rancher-cluster-nodes?orgId=1';
 const CLUSTER_METRICS_SUMMARY_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/rancher-cluster-1/rancher-cluster?orgId=1';
 const VM_DASHBOARD_METRICS_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/harvester-vm-dashboard-1/vm-dashboard?orgId=1';
+const GPU_DASHBOARD_METRICS_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/Oxed_c6Wz/nvidia-dcgm-exporter-dashboard?orgId=1';
 
 const MONITORING_ID = 'cattle-monitoring-system/rancher-monitoring';
 
@@ -141,6 +142,7 @@ export default {
       metric:           this.fetchClusterResources(METRIC.NODE),
       longhornNodes:    this.fetchClusterResources(LONGHORN.NODES),
       longhornSettings: this.fetchClusterResources(LONGHORN.SETTINGS),
+      pciDevices:       this.fetchClusterResources(HCI.PCI_DEVICE),
       _pods:            this.$store.dispatch('harvester/findAll', { type: POD }),
     };
 
@@ -175,6 +177,12 @@ export default {
       this,
       'showVmMetrics',
       'Determine vm metrics'
+    );
+    setPromiseResult(
+      allDashboardsExist(this.$store, this.currentCluster.id, [GPU_DASHBOARD_METRICS_URL], 'harvester'),
+      this,
+      'showGpuMetrics',
+      'Determine gpu dashboard metrics'
     );
 
     const addons = this.$store.getters[`${ inStore }/all`](HCI.ADD_ONS);
@@ -227,8 +235,11 @@ export default {
       VM_DASHBOARD_METRICS_URL,
       CLUSTER_METRICS_SUMMARY_URL,
       CLUSTER_METRICS_DETAIL_URL,
+      GPU_DASHBOARD_METRICS_URL,
+      pciDevices:             [],
       showClusterMetrics:     false,
       showVmMetrics:          false,
+      showGpuMetrics:         false,
       enabledMonitoringAddon: false,
       hasLonghornSchema:      false,
     };
@@ -434,8 +445,66 @@ export default {
       return this.events.filter( (E) => ['VirtualMachineImage'].includes(E.involvedObject.kind));
     },
 
+    gpuPciDevices() {
+      const pciDevices = this.pciDevices || [];
+
+      return pciDevices.filter((d) => {
+        const desc = (d.status?.description || d.spec?.description || '').toLowerCase();
+        const vendor = (d.status?.vendorId || d.spec?.vendorId || '').toLowerCase();
+        const name = (d.metadata?.name || '').toLowerCase();
+
+        return desc.includes('nvidia') || desc.includes('gpu') || desc.includes('ga100') || vendor === '10de' || name.includes('nvidia');
+      });
+    },
+
+    hasGpuDevices() {
+      if (this.gpuPciDevices.length > 0) {
+        return true;
+      }
+
+      return (this.vms || []).some((vm) => {
+        const hostDevices = vm.spec?.template?.spec?.domain?.devices?.hostDevices || [];
+
+        return hostDevices.some((d) => {
+          const dev = (d.deviceName || '').toLowerCase();
+
+          return dev.includes('nvidia') || dev.includes('gpu') || dev.includes('ga100');
+        });
+      });
+    },
+
+    gpuTotal() {
+      return this.gpuPciDevices.length || 1;
+    },
+
+    gpuAllocated() {
+      let count = 0;
+
+      (this.vms || []).forEach((vm) => {
+        const hostDevices = vm.spec?.template?.spec?.domain?.devices?.hostDevices || [];
+
+        hostDevices.forEach((d) => {
+          const dev = (d.deviceName || '').toLowerCase();
+
+          if (dev.includes('nvidia') || dev.includes('gpu') || dev.includes('ga100')) {
+            count++;
+          }
+        });
+      });
+
+      return count;
+    },
+
+    gpuGauge() {
+      return {
+        total:  this.gpuTotal,
+        useful: this.gpuAllocated,
+        units:  'GPUs'
+      };
+    },
+
     hasMetricsTabs() {
-      return this.showClusterMetrics || this.showVmMetrics;
+      return this.showClusterMetrics || this.showVmMetrics || (this.hasGpuDevices && (this.showGpuMetrics || this.showVmMetrics));
     },
 
     pods() {
@@ -673,6 +742,12 @@ export default {
           :reserved="storageAllocated"
           :reserved-title="t('harvester.dashboard.hardwareResourceGauge.allocated')"
         />
+        <HardwareResourceGauge
+          v-if="hasGpuDevices"
+          name="GPU"
+          :reserved="gpuGauge"
+          :reserved-title="t('harvester.dashboard.hardwareResourceGauge.allocated')"
+        />
       </div>
     </template>
 
@@ -705,6 +780,21 @@ export default {
           <DashboardMetrics
             v-if="props.active"
             :detail-url="VM_DASHBOARD_METRICS_URL"
+            graph-height="825px"
+            :has-summary-and-detail="false"
+          />
+        </template>
+      </Tab>
+      <Tab
+        v-if="hasGpuDevices && (showGpuMetrics || showVmMetrics)"
+        name="gpu-metric"
+        :label="t('harvester.dashboard.sections.gpuMetrics.label', null, 'GPU 측정항목')"
+        :weight="97"
+      >
+        <template #default="props">
+          <DashboardMetrics
+            v-if="props.active"
+            :detail-url="GPU_DASHBOARD_METRICS_URL"
             graph-height="825px"
             :has-summary-and-detail="false"
           />

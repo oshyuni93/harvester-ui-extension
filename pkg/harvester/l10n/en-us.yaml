@@ -476,6 +476,8 @@ harvester:
         label: Events
       vmMetrics:
         label: Virtual Machine Metrics
+      gpuMetrics:
+        label: GPU Metrics
 
     version: Version
   host:
@@ -845,6 +847,7 @@ harvester:
         keypairs: SSH Keys
         cloudConfig: Cloud Configuration
         metrics: Virtual Machine Metrics
+        gpuMetrics: Virtual Machine GPU Metrics
       details:
         title:
           vmDetails: Virtual Machine Details

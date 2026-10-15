@@ -40,4 +40,15 @@ RUN cd /usr/share/harvester/harvester/img && \
     for f in favicon.*.png; do [ "$f" != "favicon.png" ] && cp -f favicon.png "$f"; done && \
     for f in harvester.*.png; do cp -f favicon.png "$f"; done
 
+# ==============================================================================
+# GPU 모니터링 매니페스트 및 자동 적용 스크립트 설정 (Step 2 반영)
+# ==============================================================================
+RUN mkdir -p /var/lib/harvester/manifests
+COPY manifests/harvester-gpu-monitoring-stack.yaml /var/lib/harvester/manifests/harvester-gpu-monitoring-stack.yaml
+COPY custom-static/apply-gpu-monitoring.sh /usr/local/bin/apply-gpu-monitoring.sh
+RUN chmod +x /usr/local/bin/apply-gpu-monitoring.sh && \
+    if [ -f /usr/bin/entrypoint.sh ]; then \
+        sed -i '2i /usr/local/bin/apply-gpu-monitoring.sh' /usr/bin/entrypoint.sh; \
+    fi
+
 ENV RANCHER_ENV="harvester"

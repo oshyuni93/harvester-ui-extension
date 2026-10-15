@@ -476,6 +476,8 @@ harvester:
         label: 이벤트
       vmMetrics:
         label: 가상 머신 측정항목
+      gpuMetrics:
+        label: GPU 측정항목
 
     version: 버전
   host:
@@ -845,6 +847,7 @@ harvester:
         keypairs: SSH 키
         cloudConfig: 클라우드 구성
         metrics: 가상 머신 측정항목
+        gpuMetrics: 가상 머신 GPU 측정항목
       details:
         title:
           vmDetails: 가상 머신 세부정보

@@ -29,6 +29,8 @@ const VM_METRICS_DETAIL_URL = '/api/v1/namespaces/cattle-monitoring-system/servi
 
 const VM_MIGRATION_DETAIL_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/harvester-vm-migration-details-1/harvester-vm-migration-details?orgId=1';
 
+const VM_GPU_METRICS_DETAIL_URL = '/api/v1/namespaces/cattle-monitoring-system/services/http:rancher-monitoring-grafana:80/proxy/d/harvester-vm-gpu-detail-1/vm-gpu-info-detail?orgId=1';
+
 export default {
   name: 'VMIDetailsPage',
 
@@ -66,7 +68,9 @@ export default {
       switchToCloud:          false,
       VM_METRICS_DETAIL_URL,
       VM_MIGRATION_DETAIL_URL,
+      VM_GPU_METRICS_DETAIL_URL,
       showVmMetrics:          false,
+      showVmGpuMetrics:       false,
     };
   },
 
@@ -96,6 +100,12 @@ export default {
       this,
       'showVmMetrics',
       'Determine vm metrics'
+    );
+    setPromiseResult(
+      allDashboardsExist(this.$store, this.currentCluster.id, [VM_GPU_METRICS_DETAIL_URL], 'harvester'),
+      this,
+      'showVmGpuMetrics',
+      'Determine vm gpu metrics'
     );
   },
 
@@ -192,6 +202,23 @@ export default {
         namespace: this.value.namespace,
         vm:        this.value.name
       };
+    },
+
+    hasGpuDevices() {
+      const hostDevices = this.value?.hostDevices || [];
+      const hasPciGpu = hostDevices.some((d) => {
+        const name = (d.deviceName || '').toLowerCase();
+
+        return name.includes('nvidia') || name.includes('gpu') || name.includes('ga100');
+      });
+
+      const hasVGpu = Object.keys(this.value?.provisionedVGpus || {}).length > 0;
+
+      return hasPciGpu || hasVGpu;
+    },
+
+    showGpuTab() {
+      return this.hasGpuDevices && (this.showVmGpuMetrics || this.showVmMetrics);
     },
 
     liveMigrationProgressEnabled() {
@@ -301,6 +328,23 @@ export default {
           <DashboardMetrics
             v-if="props.active"
             :detail-url="VM_METRICS_DETAIL_URL"
+            graph-height="550px"
+            :has-summary-and-detail="false"
+            :vars="graphVars"
+          />
+        </template>
+      </Tab>
+
+      <Tab
+        v-if="showGpuTab"
+        name="vm-gpu-metrics"
+        :label="t('harvester.virtualMachine.detail.tabs.gpuMetrics', null, '가상 머신 GPU 측정항목')"
+        :weight="2.45"
+      >
+        <template #default="props">
+          <DashboardMetrics
+            v-if="props.active"
+            :detail-url="VM_GPU_METRICS_DETAIL_URL"
             graph-height="550px"
             :has-summary-and-detail="false"
             :vars="graphVars"
